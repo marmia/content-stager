@@ -1,0 +1,54 @@
+* Topic Labeling（意図ラベル）仕様（MVP+）
+
+このドキュメントは、Topicに付与する意図ラベル（Intent Label）を、実装に繋がる形で定義する。
+MVPでは「ラベルを保存できる」ことを最小要件とし、匂わせ（Recall）への反映は後回しにできる。
+
+** 目的
+
+- ユーザーの関心単位（Topic）に対して、弱い主観メモを付与できるようにする。
+- 意図ラベルは状態遷移を直接引き起こさない。
+
+** データモデル
+
+- `topic_intent_labels`
+  - `topic_id` + `label` の組を一意とする（同じTopicに同じラベルを重複付与しない）
+
+** ラベルの性質（MVP）
+
+- 形式: 自由記述テキスト（短文）（assumed）
+- 1 Topicに複数ラベル: 許可する（`topic_id`ごとに複数行）（assumed）
+- 正規化: MVPではしない（大小文字/全半角/表記ゆれは許容）（assumed）
+
+** 操作（コマンド案）
+
+MVPでのコマンド提供は未確定だが、実装を見据えた契約案を置く。
+
+*** label_topics（案）
+
+- 目的: Topicにラベルを付ける
+- 入力（案）:
+  - `--topic <topic_id>`（必須）
+  - `--label <text>`（必須）
+  - `--db <path>`（任意）
+- 出力: 人間向けテキスト（成功/失敗）
+
+例:
+
+```bash
+label_topics --topic 4a0d... --label '気になる'
+```
+
+*** list_topics（案）
+
+- 目的: ラベル付与のためにTopicを列挙する（Scoped Revealの一形態）
+- 入力（案）:
+  - `--content <content_id>` または `--host <url_host>`
+  - `--db <path>`（任意）
+- 出力（例）:
+  - `topic_id | ordinal | text`
+
+** 将来拡張
+
+- 固定語彙（プリセット）の導入
+- ラベルの匂わせ反映（Shelf一覧で分布だけ表示）
+- ラベルによる再遭遇（Recall）の起点化（ただし状態遷移はしない）

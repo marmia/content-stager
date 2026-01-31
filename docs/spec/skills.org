@@ -1,0 +1,82 @@
+* Skills-Driven Implementation
+
+** 方針
+
+- 主機能の多くを Agent Skills で実装する。
+- UIはコーディングエージェント（Codex）で作る。OpenCode対応は後回し。
+- 価値評価・順位付けは禁止（concepts.org のガードレールに従う）。
+
+** MVPで前提にする既存Skills
+
+- 本文取得:
+  - agent-browser（CLI, MVP）
+  - web-reader-article（将来）
+
+** Skills設計ルール（MVP要求）
+
+- 冪等性: 同じ入力で複数回実行しても破壊しない（同一Contentの重複生成を避ける）
+- 決定性: 入力→出力の差分があっても、状態遷移はユーザー意図に閉じる
+- 失敗の可観測性: 失敗理由（要約）と再実行手段が残る
+- 副作用の明示: どのファイル/DBを変更するかを明記する
+
+** MVPで必要なSkills（候補）
+
+- ingest_url: URLを入力として受け取り、S1作成→本文取得→検出→Topic抽出→S2更新までを一括で行う（手動実行）
+  - providerはMVPでは `agent-browser` 固定（将来は切替）
+  - Agent Skillsから他のAgent Skillsは呼べないため、本文取得スクリプトは本Skillに内包する
+  - 本文が不完全で意味をなさない場合はTopicを作らずS1に留める
+  - 入力:
+    - 単一URL（CLI引数）
+    - 複数URL（1行1URLのファイル入力）
+  - 永続化:
+    - DBパス既定は `~/.local/share/content-stager/content-stager.sqlite3`
+    - `fetch_runs.page_title` を保存し、表示タイトルに利用する
+  - 画面出力（MVP）:
+    - stdoutは人間向けテキストのみ（decisions.org参照）
+    - 将来の一括処理に備え、1 URL = 1行で結果を出す
+      - 例: `OK | <display_title> | topics=5 | <url>`
+      - 例: `NG | <display_title> | reason=<summary> | <url>`
+    - 末尾に集計を追加してよい（例: `DONE ok=3 ng=1`）
+  - タイトル表示ルール（MVP）:
+    - 通常は `page_title`（取得時のタイトル）を表示する
+    - `page_title` が40文字を超える場合（例: X投稿など）は、`article_text` 先頭30文字付近から「区切り」までを表示する
+      - 区切り: 空白/改行、または句読点・記号（例: `. , ! ? : ; / - 、 。`）を優先する
+      - 30文字で区切りが見つからない場合は、60文字まで延長して探索し、見つからなければ30文字で切る
+
+** Topic抽出（MVP）
+
+- 実施主体:
+  - Topic抽出ロジックはコーディングエージェント（Codex）が実装する（decisions.org参照）。
+  - `ingest_url` の処理の一部として実行される想定。
+- 入力:
+  - `fetch_runs.article_text`（抽出済み本文テキスト）
+  - （任意）`fetch_runs.page_title`
+- 出力:
+  - `topics`（3〜7個目安）
+  - `topic_runs.status` は以下:
+    - `ok`: Topicが1件以上生成できた
+    - `skipped`: 本文が不完全で意味をなさず、Topic抽出を行わない判断をした
+    - `failed`: 実装エラー/外部依存エラー等で抽出に失敗した
+- 制約（ガードレール）:
+  - 重要度/価値/優先度の評価語を含めない（例: 「重要」「必読」「おすすめ」等）
+  - Topicは「結論」ではなく「論点の断片」（短い名詞句/短文）にする
+  - 同一Topicの重複を避ける（完全一致の除去）
+  - 翻訳はしない（元の言語のまま）
+- 実装方針（案）:
+  - まずはLLMに `article_text` を渡し、Topicsを構造化形式（例: JSON配列）で返させてパースする。
+  - LLMの出力揺れは許容するが、揺れが状態遷移を自動で引き起こさない設計（S3以上に上げない）を維持する。
+
+** Detect（Signals / Issues）（MVP）
+
+- 付与先:
+  - `contents.is_*`（最新判定として上書き、decisions.org参照）
+  - `topics.has_signal_*`（最新判定として上書き、decisions.org参照）
+- 意味:
+  - `has_signal_*` は候補フラグであり、状態遷移のトリガーにしない（詳細は `spec/signals-and-issues.org`）。
+- 検出仕様:
+  - MVPでは強シグナル候補の固定語彙は定義せず、LLMの指示（プロンプト）で候補判定する（decisions.org参照）。
+  - `contents.is_*` は `spec/signals-and-issues.org` のMVP判定（案）に従う。
+- build_shelves: Topicを束ねてShelfを形成/更新する（S2の匂わせに使う）
+- label_topics: Topicに意図ラベルを付与する（必要なら。decisions.org参照）
+
+※ 上記は「どこまでをSkillにするか」の境界が未確定なため、実装段階で分割/統合してよい（ただし契約は更新する）。

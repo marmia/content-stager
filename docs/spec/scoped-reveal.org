@@ -1,0 +1,42 @@
+* Scoped Reveal（限定可視）仕様（MVP+）
+
+このドキュメントは、S2（不可視）層の内容に対して、ユーザーの明示的意図に基づき一時的に可視化する仕組みを定義する。
+MVPでは「棚一覧（匂わせ）」までで止めてもよいが、意図ラベル付与やFocus Topic化の前段として必要になる。
+
+** 原則（concepts.org準拠）
+
+- Scoped Revealはユーザーの明示的意図でのみ起動する（常設ビューにしない）
+- S2の“全件一覧”を常時提示しない
+- Scoped Reveal自体は状態を変えない（S2→S3等の遷移は別操作）
+
+** MVP+ で提供したい最小の可視化
+
+- Shelf（host棚）を指定して、その棚に属するS2 Contentを「候補」として列挙できる
+- Contentを指定して、そのContentのTopic一覧を列挙できる
+
+** 操作（コマンド案）
+
+*** reveal_shelf（案）
+
+- 目的: 指定棚のS2 Contentを列挙する（本文は出さない）
+- 入力（案）:
+  - `--host <url_host>`（必須）
+  - `--limit <n>`（任意）
+  - `--db <path>`（任意）
+- 出力（例）:
+  - `content_id | display_title | updated_at | url`
+
+*** reveal_content（案）
+
+- 目的: 指定ContentのTopicを列挙する（ラベル付与の起点）
+- 入力（案）:
+  - `--content <content_id>`（必須）
+  - `--db <path>`（任意）
+- 出力（例）:
+  - `topic_id | ordinal | text | signals(deadline/dependency/irreversible/safety)`
+
+** 補足
+
+- `display_title` のルールは `spec/ingest_url.org` に従う（40文字超は本文先頭から短縮）。
+- Topicの強シグナル候補は `topics.has_signal_*` を表示してよい（ただし価値判断語は禁止）。
+

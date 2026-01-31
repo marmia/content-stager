@@ -1,0 +1,73 @@
+* CLI Contract（MVP）
+
+このドキュメントは、UI（将来のCodex UIを含む）が `ingest_url` を実行するための
+CLI契約（引数/終了コード/stdout/stderr）を定義する。
+
+** 対象コマンド
+
+- `ingest_url`
+  - URL取り込み〜Topic抽出〜保存までを一括で行う（詳細は `spec/ingest_url.org`）
+  - 対話式プロンプトは禁止（non-interactive）
+- `list_shelves`
+  - S2のShelf一覧（host棚）を表示する（詳細は `spec/commands.org` / `spec/shelves.org`）
+
+** 入力
+
+*** 単一URL
+
+```bash
+ingest_url 'https://example.com/article'
+```
+
+*** 複数URL（ファイル）
+
+- 形式: 1行1URL（空行と `#` で始まる行は無視してよい）
+
+```bash
+ingest_url --file urls.txt
+```
+
+** オプション（MVP）
+
+- `--file <path>`: 複数URL入力
+- `--db <path>`: SQLite DBパス
+- `--max-title 40`: タイトル短縮の閾値（MVP既定: 40）
+
+** DBパス（既定）
+
+- `~/.local/share/content-stager/content-stager.sqlite3`
+- ディレクトリ `~/.local/share/content-stager/` が存在しない場合は自動作成する
+
+** stdout（人間向けテキスト）
+
+- 原則: 1 URL = 1行
+- 成功:
+  - `OK | <display_title> | topics=<n> | <url>`
+- 失敗:
+  - `NG | <display_title> | reason=<summary> | <url>`
+- 任意で末尾に集計:
+  - `DONE ok=<n> ng=<n>`
+
+** stderr（ログ）
+
+- 進行ログ/デバッグログはstderrに出してよい（stdoutの1行/URLを崩さない）
+
+** 終了コード
+
+- `0`: 全URLが `OK`
+- `1`: 1つ以上 `NG`（部分失敗）
+- `2`: 使い方エラー（引数不足/`--file`とURLの併用など）
+- `127`: 必須コマンド不足（例: `agent-browser` / `jq`）
+
+** list_shelves（抜粋）
+
+```bash
+list_shelves --db ~/.local/share/content-stager/content-stager.sqlite3
+```
+
+- stdoutは人間向けテキスト（1 shelf = 1行）
+
+** 表示タイトル（display_title）
+
+- ルールは `spec/ingest_url.org` および `spec/skills.org` に従う
+  - `page_title` が空/40文字超なら `article_text` 先頭側から短縮表示

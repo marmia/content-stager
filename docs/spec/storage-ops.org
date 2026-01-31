@@ -1,0 +1,37 @@
+* Storage Ops（SQLite運用）仕様（MVP）
+
+このドキュメントは、SQLite DBの作成/初期化/バックアップ/移行の運用指針を定義する。
+
+** DBパス
+
+- 既定: `~/.local/share/content-stager/content-stager.sqlite3`
+- `~/.local/share/content-stager/` が無い場合は自動作成する（decisions.org参照）
+
+** 初期化
+
+- DBファイルが存在しない場合:
+  - 作成し、`spec/data-model.org` のDDLを適用する
+- 既存DBがある場合:
+  - DDLの自動再適用ではなく、マイグレーションで更新する
+
+** マイグレーション（MVP方針）
+
+- MVPでは、まずは手動マイグレーション（SQLファイルの順次適用）で運用する（assumed）。
+- 推奨:
+  - `schema_migrations` テーブルを用意し、適用済みIDを記録する（実装計画で確定）。
+
+** バックアップ（MVP方針）
+
+- 最低限:
+  - DBファイルのコピー（アプリ停止中）
+- 推奨:
+  - `sqlite3` の `.backup` を利用（実装計画で確定）
+- 目的:
+  - 破損時の復旧
+  - 将来のスキーマ変更に備える
+
+** article_text（容量）について
+
+- MVPでは全文を保存する（decisions.org参照）
+- サイズ上限/圧縮/保持期間は未確定（open-questions.org参照）
+

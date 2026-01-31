@@ -1,0 +1,78 @@
+* Shelves（棚）仕様（MVP）
+
+このドキュメントは、S2（不可視）層の「存在の匂わせ」を実現するための Shelf を、
+実装に繋がる形で定義する。
+
+** 目的
+
+- S2のContent本文を一覧表示せずに、「最近こういう系がいくつかある」を観測できるようにする。
+- 棚は「価値」ではなく「扱い方/観測単位」であり、ランキングやスコアリングはしない。
+
+** ガードレール
+
+- Shelf一覧で本文（article_text）や原文の全件一覧を出さない。
+- Shelfの順序は「重要度」ではなく、決定的な並び（例: 最終更新時刻降順→同率はキー昇順）にする。
+- Shelf名に評価語（重要/必読/おすすめ等）を入れない。
+
+** MVPのShelf定義（案）
+
+MVPでは、棚の動的クラスタリング（Topicベース）は後回しにし、まずは決定的で実装容易な「ホスト（ドメイン）棚」を採用する。
+これは `concepts.org` の「関連Topicを束ねる」という理想より粗いが、匂わせ層の最小実装として妥当。
+
+*** Shelf Type: host（ドメイン棚）
+
+- Shelfキー: `url_host`（例: `sqlite.org`, `x.com`）
+- 含まれるContent: `contents.url_host == <key>` かつ `contents.state == 'S2'`
+- 表示名: 通常は `key`（必要なら将来、手動エイリアスを追加）
+
+** 必要データ（SQLite）
+
+- `contents.url_host`（URLから抽出したホスト名、小文字）
+  - `ingest_url` 実行時に保存する（推奨）
+  - 保存しない場合は、表示時にURLから毎回抽出してもよい（ただし実装は複雑化する）
+
+** Shelf一覧（観測窓）の最小出力（案）
+
+Shelf一覧は「棚ごとの集約情報」のみを出す。
+
+- 必須:
+  - `shelf_key`（host）
+  - `count`（S2の件数）
+  - `last_updated_at`（その棚に属するS2 Contentの最新 `updated_at`）
+- 任意:
+  - Topic意図ラベルの分布（将来）
+  - 再遭遇（Recall）指標（将来）
+
+例（テキスト）:
+
+```text
+SHELVES (S2 only)
+sqlite.org | count=12 | updated=2026-01-31T12:34:56Z
+x.com      | count= 3 | updated=2026-01-30T08:01:02Z
+```
+
+** 実装メモ（クエリ例）
+
+#+begin_src sql
+SELECT
+  url_host AS shelf_key,
+  COUNT(*) AS count,
+  MAX(updated_at) AS last_updated_at
+FROM contents
+WHERE state = 'S2'
+GROUP BY url_host
+ORDER BY last_updated_at DESC, shelf_key ASC;
+#+end_src
+
+** 将来拡張（Topic棚）
+
+将来的に `Topic` ベースで棚を形成する場合は、以下を検討する。
+
+- 形成方式（例）:
+  - embedding + clustering
+  - LLMによるラベリング + ルールベース集約
+  - TF-IDF + cosine similarity（決定性を担保しやすい）
+- 注意:
+  - グルーピング結果が揺れても「状態遷移」を引き起こさない（S3以上に上げない）
+  - 形成の結果は“観測”用途に留め、価値判断に見せない
+

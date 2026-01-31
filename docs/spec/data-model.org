@@ -1,0 +1,156 @@
+* Data Model（SQLite）
+
+本ドキュメントは、SQLite上でS1/S2を含む状態モデルをどう表現するかの具体案を定義する。
+現時点では未確定要素が多いため、まずはMVPに必要な最小要件から固める。
+
+** 基本方針（案）
+
+- S1とS2は「別の保存先」ではなく、同一Contentレコードを `state` で表す（S1→S2は更新）。
+- 同一URLの再取り込みは別Contentとして追加する（decisions.org参照）。
+- 取得/抽出の試行は、Content本体とは分けて「実行ログ（attempt/run）」として保持する（失敗の可観測性と再実行のため）。
+- 抽出した本文テキスト（article_text）はスナップショットとして保存する（decisions.org参照）。
+
+** エンティティ（案）
+
+- Content
+  - Capture（入力）を1単位として表す
+  - `state`（S1/S2/...）を持つ
+- FetchRun
+  - URL→本文取得の1回の試行
+  - provider（agent-browser等）、成功/失敗、エラー要約、本文ハッシュ等を持つ
+- Topic
+  - Contentから抽出されたTopic（3〜7目安）
+  - 抽出不能の場合は0件になり得る（その場合はS1に留める）
+- Shelf / ShelfTopic（またはShelfTopicLink）
+  - Topicを束ねた論理集合（S2の匂わせ表示のため）
+
+** MVP v0 スキーマ案（DDL）
+
+目的は「実装の初期形を迷わず作れること」なので、まずは以下の最小DDLを仮置きする。
+将来的に、差分保存・正規化・全文検索などに合わせて拡張する。
+
+#+begin_src sql
+-- SQLite pragmas（例）
+PRAGMA foreign_keys = ON;
+
+-- 状態は TEXT として保持し、アプリ側で検証する（MVP）。
+-- 例: 'S1' | 'S2' | 'S3' | 'S4' | 'S6' | 'S7'
+
+CREATE TABLE IF NOT EXISTS contents (
+  id TEXT PRIMARY KEY,                    -- UUID（アプリ生成）
+  url TEXT NOT NULL,
+  url_host TEXT,                          -- 例: sqlite.org（小文字）
+  canonical_url TEXT,                     -- 未確定: 正規化するならここに格納
+  state TEXT NOT NULL,                    -- 'S1' など
+  captured_at TEXT NOT NULL,              -- ISO-8601
+  updated_at TEXT NOT NULL,               -- ISO-8601
+
+  -- 手動処理の現状把握
+  last_fetch_run_id TEXT,                 -- FK（任意）
+  last_topic_run_id TEXT,                 -- FK（任意）
+
+  -- 形式破綻/重複など（MVPは boolean 相当でよい）
+  -- `is_*` は「最新の判定結果」として扱い、再実行で上書きされる（decisions.org参照）。
+  is_full_duplicate INTEGER NOT NULL DEFAULT 0,
+  is_context_missing INTEGER NOT NULL DEFAULT 0,
+  is_dead_link INTEGER NOT NULL DEFAULT 0,
+
+  -- 失敗追跡（最新の要約）
+  last_error TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_contents_state_captured_at
+  ON contents(state, captured_at);
+
+CREATE INDEX IF NOT EXISTS idx_contents_url_captured_at
+  ON contents(url, captured_at);
+
+CREATE TABLE IF NOT EXISTS fetch_runs (
+  id TEXT PRIMARY KEY,                    -- UUID
+  content_id TEXT NOT NULL,
+  provider TEXT NOT NULL,                 -- 'agent-browser' 等
+  status TEXT NOT NULL,                   -- 'ok' | 'failed'
+  started_at TEXT NOT NULL,
+  finished_at TEXT,
+  error_summary TEXT,
+
+  -- 表示用（一覧/ログ）
+  page_title TEXT,
+
+  -- 本文スナップショット（MVP: TEXTで保持）
+  article_text TEXT,
+  article_sha256 TEXT,                    -- TEXTのハッシュ（任意だが推奨）
+
+  warnings_json TEXT,                     -- JSON文字列（任意）
+
+  FOREIGN KEY(content_id) REFERENCES contents(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_fetch_runs_content_started_at
+  ON fetch_runs(content_id, started_at);
+
+CREATE TABLE IF NOT EXISTS topic_runs (
+  id TEXT PRIMARY KEY,                    -- UUID
+  content_id TEXT NOT NULL,
+  source_fetch_run_id TEXT,               -- topic生成の入力元（任意）
+  status TEXT NOT NULL,                   -- 'ok' | 'skipped' | 'failed'
+  started_at TEXT NOT NULL,
+  finished_at TEXT,
+  error_summary TEXT,
+
+  -- 入力の同一性確認用（任意）
+  article_sha256_used TEXT,
+
+  FOREIGN KEY(content_id) REFERENCES contents(id) ON DELETE CASCADE,
+  FOREIGN KEY(source_fetch_run_id) REFERENCES fetch_runs(id) ON DELETE SET NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_topic_runs_content_started_at
+  ON topic_runs(content_id, started_at);
+
+CREATE TABLE IF NOT EXISTS topics (
+  id TEXT PRIMARY KEY,                    -- UUID
+  content_id TEXT NOT NULL,
+  topic_run_id TEXT NOT NULL,
+  ordinal INTEGER NOT NULL,               -- 0..N-1
+  text TEXT NOT NULL,
+
+  -- 強シグナル候補（Topic単位、decisions.org参照）
+  has_signal_deadline INTEGER NOT NULL DEFAULT 0,
+  has_signal_dependency INTEGER NOT NULL DEFAULT 0,
+  has_signal_irreversible INTEGER NOT NULL DEFAULT 0,
+  has_signal_safety INTEGER NOT NULL DEFAULT 0,
+
+  FOREIGN KEY(content_id) REFERENCES contents(id) ON DELETE CASCADE,
+  FOREIGN KEY(topic_run_id) REFERENCES topic_runs(id) ON DELETE CASCADE
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_topics_run_ordinal
+  ON topics(topic_run_id, ordinal);
+
+-- 意図ラベルは Topic に付与する（decisions.org参照）
+CREATE TABLE IF NOT EXISTS topic_intent_labels (
+  topic_id TEXT NOT NULL,
+  label TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+
+  FOREIGN KEY(topic_id) REFERENCES topics(id) ON DELETE CASCADE,
+  PRIMARY KEY(topic_id, label)
+);
+#+end_src
+
+** 状態（S1/S2）の実装イメージ（MVP）
+
+- S1:
+  - `contents.state = 'S1'`
+  - fetch_runs / topic_runs は 0件でもよい（未処理）
+- S2:
+  - `contents.state = 'S2'`
+  - 少なくとも1回の `topic_runs.status = 'ok'` と、対応する `topics` が存在する
+  - `article_text` は `fetch_runs` に保存され、`contents.last_fetch_run_id` で最新参照できる
+
+** 未決（このファイルの範囲で残す）
+
+- URL正規化（canonical_url）のルール
+- article_text の圧縮/上限/保持期間
+- 差分保存（Diff）の導入可否と方式

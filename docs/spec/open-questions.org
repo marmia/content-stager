@@ -1,0 +1,56 @@
+* Open Questions
+
+MVP実装に入る前に、確定が必要な論点。
+
+** ストレージ
+
+- SQLite採用は決定済み（decisions.org参照）
+- データの暗号化要否（ローカル前提でも）
+- バックアップ/移行の方針
+- 本文（article_text）は永続化する（decisions.org参照）
+  - サイズ上限/圧縮/保持期間/削除の扱い
+
+** 実行モデル
+
+- 手動実行は決定済み（decisions.org参照）
+- 将来、自動実行（cron/queue）を導入するか
+
+** 失敗時の状態
+
+- リトライ回数/間隔、エラーの保持期間
+
+** 同一URLの扱い（差分/集約）
+
+- 同一URLの複数Contentをグルーピングするか（canonical URL / 正規化）
+- 差分（Diff）を取って「差分だけ保存」するか、常に全文スナップショットを保存するか
+- 差分を取る場合の基準（本文ハッシュ、タイトル、セクション単位など）
+
+** Signals / Issues
+
+- `has_signal_*` はTopicの候補フラグとして扱うが、「成立」（ユーザー文脈との一致/承認）をどこでどう扱うか
+- Issue/Signalの判定根拠（reason）を保存するか（保存するなら形式: TEXT/JSON）
+- 「空ではないが本文として無効」な取得結果（例: ローディング画面、Cloudflare待機、ログイン誘導のみ）はMVPでは扱わない（再取得で運用）
+
+** 意図ラベル（Topic）
+
+- MVPのデフォルト（assumed）:
+  - 自由記述
+  - 1 Topicに複数ラベル可（topic-labeling.org参照）
+- 固定語彙（プリセット）を導入するか
+- ラベルの入力タイミング（Scoped Reveal中のみ等）と、想起/匂わせへの反映方法
+
+** 表示（タイトル短縮）
+
+- 閾値（文字数）は40文字に決定済み（decisions.org参照）
+- 「30文字」の数え方（Unicode code point / grapheme cluster など）
+
+** UIの形
+
+- MVPはCLI（`ingest_url`）を前提にする（cli.org参照）
+- S2の「匂わせ」の具体表現（棚一覧の最小情報）
+
+** Shelves / Recall（匂わせ）
+
+- MVPではhost棚（url_host）で開始する（shelves.org）。Topic棚を導入するタイミング
+- Shelfの表示順（時刻降順のタイブレークなど）をどう統一するか
+- Recall（定期提示）を導入するか（週次など）。導入するなら頻度と表現

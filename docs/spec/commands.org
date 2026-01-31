@@ -1,0 +1,57 @@
+* Commands（MVP）
+
+このドキュメントは、MVPで用意するコマンド（操作面）を定義する。
+MVPではCLIをUIの中心とし、対話式プロンプトは使用しない。
+
+** コマンド一覧（MVP）
+
+- `ingest_url`
+  - URL取り込み〜保存まで（詳細は `spec/ingest_url.org` / `spec/cli.org`）
+- `list_shelves`
+  - S2のShelf（host棚）一覧を表示する（本ドキュメント / `spec/cli.org`）
+
+** コマンド一覧（MVP+ / 将来）
+
+- `reveal_shelf` / `reveal_content`
+  - Scoped Reveal（限定可視）（`spec/scoped-reveal.org`）
+- `label_topics`
+  - Topic意図ラベル付与（`spec/topic-labeling.org`）
+
+** list_shelves
+
+*** 目的
+
+- S2（不可視）に滞留するContentを直接一覧にせず、Shelfとして「存在だけ」を観測する。
+
+*** 入力
+
+- なし
+
+*** オプション（MVP）
+
+- `--db <path>`: SQLite DBパス（省略時は既定）
+
+*** 出力（stdout, 人間向けテキスト）
+
+- ヘッダ行 + 1 shelf = 1行
+- 並び順:
+  - `last_updated_at` 降順
+  - タイブレークは `shelf_key` 昇順（決定的）
+
+例:
+
+```text
+SHELVES (S2 only)
+sqlite.org | count=12 | updated=2026-01-31T12:34:56Z
+x.com      | count= 3 | updated=2026-01-30T08:01:02Z
+```
+
+*** 終了コード
+
+- `0`: 成功
+- `1`: 実行エラー（DBオープン失敗等）
+- `2`: 使い方エラー
+
+*** 実装メモ
+
+- Shelfの定義は `spec/shelves.org`（MVPはhost棚＝`contents.url_host`）。

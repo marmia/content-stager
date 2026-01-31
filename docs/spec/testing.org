@@ -1,0 +1,94 @@
+* Testing（MVP）
+
+このドキュメントは、MVPにおける `ingest_url` 周辺のテスト観点と受け入れ条件を定義する。
+目的は「壊れないこと」と「ガードレール（評価しない/一覧しない）が守られていること」の確認。
+
+** 対象
+
+- `ingest_url`（CLI契約: `spec/cli.org`）
+- `list_shelves`（CLI契約: `spec/cli.org` / `spec/commands.org`）
+- 本文取得（agent-browser）とトリミング（`skills/ingest-url/scripts/*.sh`）
+- SQLite永続化（`spec/data-model.org` のDDL）
+
+** 前提
+
+- 入力はURLのみ（ドメイン制限なし）
+- 同一URLは別Contentとして追加される
+- 本文（article_text）は保存される
+- Topic抽出はコーディングエージェント（Codex）が実装し、`ingest_url`内で実行される
+
+** 受け入れ条件（最小）
+
+- stdoutが「1 URL = 1行」を維持する（人間向けテキスト）。
+- 1つでも `NG` がある場合、終了コードは `1`（部分失敗）になる。
+- 必須コマンド不足時は `127` で落ちる（例: `agent-browser` / `jq`）。
+- `page_title` が40文字超のとき、表示タイトルは本文先頭側から短縮表示になる。
+- AI/LLMの出力が揺れても、状態遷移が勝手に上に進まない（S3以上に自動昇格しない）。
+- `list_shelves` が決定的な順序で棚一覧を出す（`updated`降順→`shelf_key`昇順）。
+
+** テスト観点
+
+*** CLI/引数
+
+- 単一URL引数で動く
+- `--file` で 1行1URL を読み、空行や `#...` 行を無視できる（実装する場合）
+- 使い方エラー時は終了コード `2`
+- stdoutとstderrの役割分離（進行ログはstderr）
+
+*** 依存/環境
+
+- `agent-browser` が無い → `127`
+- `jq` が無い → `127`
+- DBディレクトリ `~/.local/share/content-stager/` が無い → 自動作成される
+
+*** 本文取得
+
+- 取得成功（ok）
+  - `fetch_runs.page_title` と `fetch_runs.article_text` が保存される
+- 取得失敗（failed）
+  - `fetch_runs.status='failed'` と `error_summary` が残る
+  - `contents.state` はS1のまま
+
+*** Topic抽出
+
+- 正常（ok）
+  - Topicが1件以上作られる
+  - `contents.state='S2'` になる
+- スキップ（skipped）
+  - 本文が空 → Topicは作られない
+  - `contents.state` はS1のまま
+- 失敗（failed）
+  - 実装エラー/外部依存エラー → `topic_runs.error_summary` が残る
+  - `contents.state` はS1のまま（再実行可能）
+
+*** ガードレール
+
+- Topicに評価語（重要/必読/おすすめ等）を入れない
+- 本文の全件一覧表示を作らない（少なくともMVPではCLI出力に本文を出さない）
+- 強シグナル検出は「フラグ付与のみ」で、状態遷移のトリガーにしない
+
+** スモークテスト手順（手動）
+
+以下は例であり、URLは適宜差し替えてよい。
+
+1. 単一URL
+
+```bash
+ingest_url 'https://www.sqlite.org/lang.html'
+```
+
+2. 複数URL（ファイル）
+
+```bash
+cat > /tmp/urls.txt <<'EOF'
+https://www.sqlite.org/lang.html
+https://en.wikipedia.org/wiki/SQLite
+EOF
+ingest_url --file /tmp/urls.txt
+```
+
+3. 期待確認（目視）
+
+- stdoutが「1 URL = 1行」で出ている
+- DONE集計が（実装していれば）整合している
+- タイトルが長い場合に短縮される

@@ -1,0 +1,88 @@
+* ingest_url（Skill仕様）
+
+本ドキュメントは `ingest_url` のI/O契約を定義する。
+MVPの前提（URLのみ、手動実行、SQLite永続化、stdoutは人間向けテキスト）に従う。
+
+** 目的
+
+- 1つ以上のURLを取り込み、本文取得→検出→Topic抽出→保存までを一括実行する。
+- 結果はSQLiteに保存し、stdoutに要約を出す。
+
+** 入力
+
+*** 単一URL
+
+- CLI引数で1つ渡す。
+
+例:
+
+```bash
+ingest_url 'https://example.com/article'
+```
+
+*** 複数URL
+
+- 1行1URLのファイルを渡す。
+
+例:
+
+```bash
+ingest_url --file urls.txt
+```
+
+** オプション（案）
+
+- `--db <path>`: SQLite DBパス（省略時は既定）
+- `--provider agent-browser`: 本文取得プロバイダ（MVPは固定）
+- `--max-title <n>`: タイトル短縮閾値（MVP既定: 40）
+
+** 既定値
+
+- DBパス: `~/.local/share/content-stager/content-stager.sqlite3`
+- provider: `agent-browser`
+- タイトル短縮閾値: 40文字
+
+** 永続化（SQLite）
+
+- `contents` / `fetch_runs` / `topic_runs` / `topics` を更新する（詳細は `docs/spec/data-model.org`）。
+- 同一URLの再取得は別Contentとして追加する（decisions.org）。
+- `~/.local/share/content-stager/` が存在しない場合は自動作成する。
+- URLのホスト名（例: `sqlite.org`）を `contents.url_host` として保存する（Shelf用、`spec/shelves.org`）。
+
+** 処理フロー（MVP）
+
+1. Content作成（S1）
+2. Fetch（agent-browser）
+   - `fetch_runs.page_title` と `fetch_runs.article_text` を保存
+3. Detect Issues（フラグ付与のみ、状態遷移トリガーにしない）
+4. Extract Topics（3〜7目安）
+   - 本文が不完全で意味をなさない場合はTopicを作らず終了しS1に留める
+5. Transition（Topic等の最小構造が得られたらS2へ）
+
+** stdout（人間向け、1 URL = 1行）
+
+フォーマット案:
+
+- 成功:
+  - `OK | <display_title> | topics=<n> | <url>`
+- 失敗:
+  - `NG | <display_title> | reason=<summary> | <url>`
+
+末尾に集計を追加してよい:
+
+- `DONE ok=<n> ng=<n>`
+
+** display_title（表示タイトル）
+
+1. 原則は `page_title` を使用する
+2. ただし以下の場合は短縮表示に切り替える
+   - `page_title` が空
+   - `page_title` が40文字を超える
+3. 短縮表示は `article_text` の先頭30文字付近から「区切り」までを表示する
+   - 区切り: 空白/改行、または句読点・記号（例: `. , ! ? : ; / - 、 。`）を優先
+   - 30文字で区切りが見つからない場合は60文字まで延長して探索し、見つからなければ30文字で切る
+
+** 実装メモ（MVP）
+
+- Skillから他Skillは呼べないため、本文取得は `agent-browser-article` の実装を `ingest_url` に内包して行う。
+- `skills/ingest-url/scripts/get-article-text.sh` は本文をstdoutに出しつつ、環境変数 `INGEST_URL_PAGE_TITLE_FILE` でタイトルも取得できる。

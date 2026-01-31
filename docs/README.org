@@ -1,0 +1,25 @@
+* content-stager Docs
+
+このリポジトリのゴールは「実装に繋がるドキュメント類」を整備し、
+Codex（将来的に OpenCode）と Agent Skills を中心に MVP を組み立てること。
+
+** 入口（読む順）
+
+1. [[file:spec/concepts.org][spec/concepts.org]]（設計思想・用語・状態モデルの原型）
+2. [[file:spec/decisions.org][spec/decisions.org]]（確定事項のログ）
+3. [[file:spec/mvp.org][spec/mvp.org]]（MVPでやること／やらないこと）
+4. [[file:spec/flow.org][spec/flow.org]]（URL投入→S1→S2の処理フロー）
+5. [[file:spec/content-fetch.org][spec/content-fetch.org]]（URL→本文取得の契約）
+6. [[file:spec/data-model.org][spec/data-model.org]]（SQLiteのデータモデル/DDL）
+7. [[file:spec/skills.org][spec/skills.org]]（Skills駆動実装の方針・I/O契約）
+8. [[file:spec/open-questions.org][spec/open-questions.org]]（未決事項）
+9. [[file:spec/ingest_url.org][spec/ingest_url.org]]（ingest_urlの詳細仕様）
+10. [[file:spec/cli.org][spec/cli.org]]（UI/CLI契約）
+11. [[file:spec/testing.org][spec/testing.org]]（テスト指針）
+12. [[file:spec/shelves.org][spec/shelves.org]]（Shelf仕様）
+13. [[file:spec/recall.org][spec/recall.org]]（Recall仕様）
+14. [[file:spec/signals-and-issues.org][spec/signals-and-issues.org]]（強シグナル/Issue定義）
+15. [[file:spec/commands.org][spec/commands.org]]（コマンド一覧）
+16. [[file:spec/topic-labeling.org][spec/topic-labeling.org]]（Topic意図ラベル）
+17. [[file:spec/scoped-reveal.org][spec/scoped-reveal.org]]（限定可視）
+18. [[file:spec/storage-ops.org][spec/storage-ops.org]]（SQLite運用）
