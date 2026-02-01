@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-02-01 Sun 17:42 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Masahiro Ishida" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgbad0870">1. Data Model（SQLite）</a>
+<ul>
+<li><a href="#orgf582979">1.1. 基本方針（案）</a></li>
+<li><a href="#orgca7a50b">1.2. エンティティ（案）</a></li>
+<li><a href="#orga97cdcb">1.3. MVP v0 スキーマ案（DDL）</a></li>
+<li><a href="#org0c7d756">1.4. 状態（S1/S2）の実装イメージ（MVP）</a></li>
+<li><a href="#org4e7021e">1.5. 未決（このファイルの範囲で残す）</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbad0870" class="outline-2">
+<h2 id="orgbad0870"><span class="section-number-2">1.</span> Data Model（SQLite）</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本ドキュメントは、SQLite上でS1/S2を含む状態モデルをどう表現するかの具体案を定義する。現時点では未確定要素が多いため、まずはMVPに必要な最小要件から固める。
+</p>
+</div>
+<div id="outline-container-orgf582979" class="outline-3">
+<h3 id="orgf582979"><span class="section-number-3">1.1.</span> 基本方針（案）</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>S1とS2は「別の保存先」ではなく、同一Contentレコードを `state` で表す（S1→S2は更新）。</li>
+<li>同一URLの再取り込みは別Contentとして追加する（decisions.org参照）。</li>
+<li>取得/抽出の試行は、Content本体とは分けて「実行ログ（attempt/run）」として保持する（失敗の可観測性と再実行のため）。</li>
+<li>抽出した本文テキスト（article<sub>text</sub>）はスナップショットとして保存する（decisions.org参照）。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgca7a50b" class="outline-3">
+<h3 id="orgca7a50b"><span class="section-number-3">1.2.</span> エンティティ（案）</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Content
+<ul class="org-ul">
+<li>Capture（入力）を1単位として表す</li>
+<li>`state`（S1/S2/&#x2026;）を持つ</li>
+</ul></li>
+<li>FetchRun
+<ul class="org-ul">
+<li>URL→本文取得の1回の試行</li>
+<li>provider（agent-browser等）、成功/失敗、エラー要約、本文ハッシュ等を持つ</li>
+</ul></li>
+<li>Topic
+<ul class="org-ul">
+<li>Contentから抽出されたTopic（3〜7目安）</li>
+<li>抽出不能の場合は0件になり得る（その場合はS1に留める）</li>
+</ul></li>
+<li>Shelf / ShelfTopic（またはShelfTopicLink）
+<ul class="org-ul">
+<li>Topicを束ねた論理集合（S2の匂わせ表示のため）</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga97cdcb" class="outline-3">
+<h3 id="orga97cdcb"><span class="section-number-3">1.3.</span> MVP v0 スキーマ案（DDL）</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+目的は「実装の初期形を迷わず作れること」なので、まずは以下の最小DDLを仮置きする。将来的に、差分保存・正規化・全文検索などに合わせて拡張する。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><span style="color: #747474;">-- </span><span style="color: #747474;">SQLite pragmas&#65288;&#20363;&#65289;
+</span>PRAGMA foreign_keys = <span style="color: #80A0C2;">ON</span>;
+
+<span style="color: #747474;">-- </span><span style="color: #747474;">&#29366;&#24907;&#12399; TEXT &#12392;&#12375;&#12390;&#20445;&#25345;&#12375;&#12289;&#12450;&#12503;&#12522;&#20596;&#12391;&#26908;&#35388;&#12377;&#12427;&#65288;MVP&#65289;&#12290;
+</span><span style="color: #747474;">-- </span><span style="color: #747474;">&#20363;: 'S1' | 'S2' | 'S3' | 'S4' | 'S6' | 'S7'
+</span>
+<span style="color: #80A0C2;">CREATE</span> <span style="color: #80A0C2;">TABLE</span> IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> <span style="color: #8EBCBB;">contents</span> (
+  id TEXT <span style="color: #80A0C2;">PRIMARY</span> <span style="color: #80A0C2;">KEY</span>,                    <span style="color: #747474;">-- </span><span style="color: #747474;">UUID&#65288;&#12450;&#12503;&#12522;&#29983;&#25104;&#65289;
+</span>  url TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+  url_host TEXT,                          <span style="color: #747474;">-- </span><span style="color: #747474;">&#20363;: sqlite.org&#65288;&#23567;&#25991;&#23383;&#65289;
+</span>  canonical_url TEXT,                     <span style="color: #747474;">-- </span><span style="color: #747474;">&#26410;&#30906;&#23450;: &#27491;&#35215;&#21270;&#12377;&#12427;&#12394;&#12425;&#12371;&#12371;&#12395;&#26684;&#32013;
+</span>  <span style="color: #80A0C2;">state</span> TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,                    <span style="color: #747474;">-- </span><span style="color: #747474;">'S1' &#12394;&#12393;
+</span>  captured_at TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,              <span style="color: #747474;">-- </span><span style="color: #747474;">ISO-8601
+</span>  updated_at TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,               <span style="color: #747474;">-- </span><span style="color: #747474;">ISO-8601
+</span>
+  <span style="color: #747474;">-- </span><span style="color: #747474;">&#25163;&#21205;&#20966;&#29702;&#12398;&#29694;&#29366;&#25226;&#25569;
+</span>  last_fetch_run_id TEXT,                 <span style="color: #747474;">-- </span><span style="color: #747474;">FK&#65288;&#20219;&#24847;&#65289;
+</span>  last_topic_run_id TEXT,                 <span style="color: #747474;">-- </span><span style="color: #747474;">FK&#65288;&#20219;&#24847;&#65289;
+</span>
+  <span style="color: #747474;">-- </span><span style="color: #747474;">&#24418;&#24335;&#30772;&#32187;/&#37325;&#35079;&#12394;&#12393;&#65288;MVP&#12399; boolean &#30456;&#24403;&#12391;&#12424;&#12356;&#65289;
+</span>  <span style="color: #747474;">-- </span><span style="color: #747474;">`is_*` &#12399;&#12300;&#26368;&#26032;&#12398;&#21028;&#23450;&#32080;&#26524;&#12301;&#12392;&#12375;&#12390;&#25201;&#12356;&#12289;&#20877;&#23455;&#34892;&#12391;&#19978;&#26360;&#12365;&#12373;&#12428;&#12427;&#65288;decisions.org&#21442;&#29031;&#65289;&#12290;
+</span>  is_full_duplicate <span style="color: #ECCC87;">INTEGER</span> <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span> <span style="color: #80A0C2;">DEFAULT</span> 0,
+  is_context_missing <span style="color: #ECCC87;">INTEGER</span> <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span> <span style="color: #80A0C2;">DEFAULT</span> 0,
+  is_dead_link <span style="color: #ECCC87;">INTEGER</span> <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span> <span style="color: #80A0C2;">DEFAULT</span> 0,
+
+  <span style="color: #747474;">-- </span><span style="color: #747474;">&#22833;&#25943;&#36861;&#36321;&#65288;&#26368;&#26032;&#12398;&#35201;&#32004;&#65289;
+</span>  last_error TEXT
+);
+
+<span style="color: #80A0C2;">CREATE</span> INDEX IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> idx_contents_state_captured_at
+  <span style="color: #80A0C2;">ON</span> contents(<span style="color: #80A0C2;">state</span>, captured_at);
+
+<span style="color: #80A0C2;">CREATE</span> INDEX IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> idx_contents_url_captured_at
+  <span style="color: #80A0C2;">ON</span> contents(url, captured_at);
+
+<span style="color: #80A0C2;">CREATE</span> <span style="color: #80A0C2;">TABLE</span> IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> <span style="color: #8EBCBB;">fetch_runs</span> (
+  id TEXT <span style="color: #80A0C2;">PRIMARY</span> <span style="color: #80A0C2;">KEY</span>,                    <span style="color: #747474;">-- </span><span style="color: #747474;">UUID
+</span>  content_id TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+  provider TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,                 <span style="color: #747474;">-- </span><span style="color: #747474;">'agent-browser' &#31561;
+</span>  status TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,                   <span style="color: #747474;">-- </span><span style="color: #747474;">'ok' | 'failed'
+</span>  started_at TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+  finished_at TEXT,
+  error_summary TEXT,
+
+  <span style="color: #747474;">-- </span><span style="color: #747474;">&#34920;&#31034;&#29992;&#65288;&#19968;&#35239;/&#12525;&#12464;&#65289;
+</span>  page_title TEXT,
+
+  <span style="color: #747474;">-- </span><span style="color: #747474;">&#26412;&#25991;&#12473;&#12490;&#12483;&#12503;&#12471;&#12519;&#12483;&#12488;&#65288;MVP: TEXT&#12391;&#20445;&#25345;&#65289;
+</span>  article_text TEXT,
+  article_sha256 TEXT,                    <span style="color: #747474;">-- </span><span style="color: #747474;">TEXT&#12398;&#12495;&#12483;&#12471;&#12517;&#65288;&#20219;&#24847;&#12384;&#12364;&#25512;&#22888;&#65289;
+</span>
+  warnings_json TEXT,                     <span style="color: #747474;">-- </span><span style="color: #747474;">JSON&#25991;&#23383;&#21015;&#65288;&#20219;&#24847;&#65289;
+</span>
+  <span style="color: #80A0C2;">FOREIGN</span> <span style="color: #80A0C2;">KEY</span>(content_id) <span style="color: #80A0C2;">REFERENCES</span> contents(id) <span style="color: #80A0C2;">ON</span> <span style="color: #80A0C2;">DELETE</span> <span style="color: #80A0C2;">CASCADE</span>
+);
+
+<span style="color: #80A0C2;">CREATE</span> INDEX IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> idx_fetch_runs_content_started_at
+  <span style="color: #80A0C2;">ON</span> fetch_runs(content_id, started_at);
+
+<span style="color: #80A0C2;">CREATE</span> <span style="color: #80A0C2;">TABLE</span> IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> <span style="color: #8EBCBB;">topic_runs</span> (
+  id TEXT <span style="color: #80A0C2;">PRIMARY</span> <span style="color: #80A0C2;">KEY</span>,                    <span style="color: #747474;">-- </span><span style="color: #747474;">UUID
+</span>  content_id TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+  source_fetch_run_id TEXT,               <span style="color: #747474;">-- </span><span style="color: #747474;">topic&#29983;&#25104;&#12398;&#20837;&#21147;&#20803;&#65288;&#20219;&#24847;&#65289;
+</span>  status TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,                   <span style="color: #747474;">-- </span><span style="color: #747474;">'ok' | 'skipped' | 'failed'
+</span>  started_at TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+  finished_at TEXT,
+  error_summary TEXT,
+
+  <span style="color: #747474;">-- </span><span style="color: #747474;">&#20837;&#21147;&#12398;&#21516;&#19968;&#24615;&#30906;&#35469;&#29992;&#65288;&#20219;&#24847;&#65289;
+</span>  article_sha256_used TEXT,
+
+  <span style="color: #80A0C2;">FOREIGN</span> <span style="color: #80A0C2;">KEY</span>(content_id) <span style="color: #80A0C2;">REFERENCES</span> contents(id) <span style="color: #80A0C2;">ON</span> <span style="color: #80A0C2;">DELETE</span> <span style="color: #80A0C2;">CASCADE</span>,
+  <span style="color: #80A0C2;">FOREIGN</span> <span style="color: #80A0C2;">KEY</span>(source_fetch_run_id) <span style="color: #80A0C2;">REFERENCES</span> fetch_runs(id) <span style="color: #80A0C2;">ON</span> <span style="color: #80A0C2;">DELETE</span> <span style="color: #80A0C2;">SET</span> <span style="color: #80A0C2;">NULL</span>
+);
+
+<span style="color: #80A0C2;">CREATE</span> INDEX IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> idx_topic_runs_content_started_at
+  <span style="color: #80A0C2;">ON</span> topic_runs(content_id, started_at);
+
+<span style="color: #80A0C2;">CREATE</span> <span style="color: #80A0C2;">TABLE</span> IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> <span style="color: #8EBCBB;">topics</span> (
+  id TEXT <span style="color: #80A0C2;">PRIMARY</span> <span style="color: #80A0C2;">KEY</span>,                    <span style="color: #747474;">-- </span><span style="color: #747474;">UUID
+</span>  content_id TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+  topic_run_id TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+  ordinal <span style="color: #ECCC87;">INTEGER</span> <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,               <span style="color: #747474;">-- </span><span style="color: #747474;">0..N-1
+</span>  text TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+
+  <span style="color: #747474;">-- </span><span style="color: #747474;">&#24375;&#12471;&#12464;&#12490;&#12523;&#20505;&#35036;&#65288;Topic&#21336;&#20301;&#12289;decisions.org&#21442;&#29031;&#65289;
+</span>  has_signal_deadline <span style="color: #ECCC87;">INTEGER</span> <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span> <span style="color: #80A0C2;">DEFAULT</span> 0,
+  has_signal_dependency <span style="color: #ECCC87;">INTEGER</span> <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span> <span style="color: #80A0C2;">DEFAULT</span> 0,
+  has_signal_irreversible <span style="color: #ECCC87;">INTEGER</span> <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span> <span style="color: #80A0C2;">DEFAULT</span> 0,
+  has_signal_safety <span style="color: #ECCC87;">INTEGER</span> <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span> <span style="color: #80A0C2;">DEFAULT</span> 0,
+
+  <span style="color: #80A0C2;">FOREIGN</span> <span style="color: #80A0C2;">KEY</span>(content_id) <span style="color: #80A0C2;">REFERENCES</span> contents(id) <span style="color: #80A0C2;">ON</span> <span style="color: #80A0C2;">DELETE</span> <span style="color: #80A0C2;">CASCADE</span>,
+  <span style="color: #80A0C2;">FOREIGN</span> <span style="color: #80A0C2;">KEY</span>(topic_run_id) <span style="color: #80A0C2;">REFERENCES</span> topic_runs(id) <span style="color: #80A0C2;">ON</span> <span style="color: #80A0C2;">DELETE</span> <span style="color: #80A0C2;">CASCADE</span>
+);
+
+<span style="color: #80A0C2;">CREATE</span> <span style="color: #80A0C2;">UNIQUE</span> INDEX IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> idx_topics_run_ordinal
+  <span style="color: #80A0C2;">ON</span> topics(topic_run_id, ordinal);
+
+<span style="color: #747474;">-- </span><span style="color: #747474;">&#24847;&#22259;&#12521;&#12505;&#12523;&#12399; Topic &#12395;&#20184;&#19982;&#12377;&#12427;&#65288;decisions.org&#21442;&#29031;&#65289;
+</span><span style="color: #80A0C2;">CREATE</span> <span style="color: #80A0C2;">TABLE</span> IF <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">EXISTS</span> <span style="color: #8EBCBB;">topic_intent_labels</span> (
+  topic_id TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+  label TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+  created_at TEXT <span style="color: #80A0C2;">NOT</span> <span style="color: #80A0C2;">NULL</span>,
+
+  <span style="color: #80A0C2;">FOREIGN</span> <span style="color: #80A0C2;">KEY</span>(topic_id) <span style="color: #80A0C2;">REFERENCES</span> topics(id) <span style="color: #80A0C2;">ON</span> <span style="color: #80A0C2;">DELETE</span> <span style="color: #80A0C2;">CASCADE</span>,
+  <span style="color: #80A0C2;">PRIMARY</span> <span style="color: #80A0C2;">KEY</span>(topic_id, label)
+);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0c7d756" class="outline-3">
+<h3 id="org0c7d756"><span class="section-number-3">1.4.</span> 状態（S1/S2）の実装イメージ（MVP）</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>S1:
+<ul class="org-ul">
+<li>`contents.state = &rsquo;S1&rsquo;`</li>
+<li>fetch<sub>runs</sub> / topic<sub>runs</sub> は 0件でもよい（未処理）</li>
+</ul></li>
+<li>S2:
+<ul class="org-ul">
+<li>`contents.state = &rsquo;S2&rsquo;`</li>
+<li>少なくとも1回の `topic<sub>runs.status</sub> = &rsquo;ok&rsquo;` と、対応する `topics` が存在する</li>
+<li>`article<sub>text</sub>` は `fetch<sub>runs</sub>` に保存され、`contents.last<sub>fetch</sub><sub>run</sub><sub>id</sub>` で最新参照できる</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4e7021e" class="outline-3">
+<h3 id="org4e7021e"><span class="section-number-3">1.5.</span> 未決（このファイルの範囲で残す）</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>URL正規化（canonical<sub>url</sub>）のルール</li>
+<li>article<sub>text</sub> の圧縮/上限/保持期間</li>
+<li>差分保存（Diff）の導入可否と方式</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Masahiro Ishida</p>
+<p class="date">Created: 2026-02-01 Sun 17:42</p>
+</div>
+</body>
+</html>
