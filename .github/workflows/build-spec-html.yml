@@ -1,0 +1,47 @@
+name: Build docs/spec HTML
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - docs/spec/**/*.org
+      - scripts/build-spec-html.sh
+      - scripts/org-export.el
+      - .github/workflows/build-spec-html.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Emacs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y emacs-nox
+
+      - name: Export Org to HTML
+        run: bash scripts/build-spec-html.sh
+
+      - name: Commit and push (if changed)
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add docs/spec/html
+          git commit -m "docs(spec): regenerate HTML"
+          git push
