@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:45 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,41 +198,43 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orga323fed">1. Signals &amp; Issues（MVP）</a>
+<li><a href="#org000000d">1. Signals &amp; Issues（MVP）</a>
 <ul>
-<li><a href="#org6d4871f">1.1. 用語</a></li>
-<li><a href="#orga4bce56">1.2. 強シグナル（has<sub>signal</sub><sub>*</sub>）</a>
+<li><a href="#org0000000">1.1. 用語</a></li>
+<li><a href="#org0000007">1.2. 強シグナル（has_signal_*）</a>
 <ul>
-<li><a href="#orgda37855">1.2.1. 共通原則（MVP）</a></li>
-<li><a href="#org856c772">1.2.2. 検出仕様（MVP）</a></li>
-<li><a href="#org72f2ca8">1.2.3. 期限（has<sub>signal</sub><sub>deadline</sub>）</a></li>
-<li><a href="#orgf1bfc47">1.2.4. 依存（has<sub>signal</sub><sub>dependency</sub>）</a></li>
-<li><a href="#org0af08f0">1.2.5. 不可逆（has<sub>signal</sub><sub>irreversible</sub>）</a></li>
-<li><a href="#orga8ba1ca">1.2.6. 安全（has<sub>signal</sub><sub>safety</sub>）</a></li>
+<li><a href="#org0000001">1.2.1. 共通原則（MVP）</a></li>
+<li><a href="#org0000002">1.2.2. 検出仕様（MVP）</a></li>
+<li><a href="#org0000003">1.2.3. 期限（has_signal_deadline）</a></li>
+<li><a href="#org0000004">1.2.4. 依存（has_signal_dependency）</a></li>
+<li><a href="#org0000005">1.2.5. 不可逆（has_signal_irreversible）</a></li>
+<li><a href="#org0000006">1.2.6. 安全（has_signal_safety）</a></li>
 </ul>
 </li>
-<li><a href="#org04cd697">1.3. Issue（is<sub>*</sub>）</a>
+<li><a href="#org000000b">1.3. Issue（is_*）</a>
 <ul>
-<li><a href="#orgd646420">1.3.1. 完全重複（is<sub>full</sub><sub>duplicate</sub>）</a></li>
-<li><a href="#org8fd0df4">1.3.2. 文脈欠落（is<sub>context</sub><sub>missing</sub>）</a></li>
-<li><a href="#org3fd0a62">1.3.3. リンク切れ（is<sub>dead</sub><sub>link</sub>）</a></li>
+<li><a href="#org0000008">1.3.1. 完全重複（is_full_duplicate）</a></li>
+<li><a href="#org0000009">1.3.2. 文脈欠落（is_context_missing）</a></li>
+<li><a href="#org000000a">1.3.3. リンク切れ（is_dead_link）</a></li>
 </ul>
 </li>
-<li><a href="#org8291f65">1.4. 実装上の保存方針（MVP）</a></li>
+<li><a href="#org000000c">1.4. 実装上の保存方針（MVP）</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orga323fed" class="outline-2">
-<h2 id="orga323fed"><span class="section-number-2">1.</span> Signals &amp; Issues（MVP）</h2>
+<div id="outline-container-org000000d" class="outline-2">
+<h2 id="org000000d"><span class="section-number-2">1.</span> Signals &amp; Issues（MVP）</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-このドキュメントは、`topics.has<sub>signal</sub><sub>*</sub>` / `contents.is<sub>*</sub>` の意味と付与方針を定義する。重要: ここでの検出は「価値判断」ではなく「注意が必要かもしれない兆候の抽出」であり、状態遷移のトリガーにしない。
+このドキュメントは、`topics.has_signal_*` / `contents.is_*` の意味と付与方針を定義する。
+重要: ここでの検出は「価値判断」ではなく「注意が必要かもしれない兆候の抽出」であり、状態遷移のトリガーにしない。
 </p>
 </div>
-<div id="outline-container-org6d4871f" class="outline-3">
-<h3 id="org6d4871f"><span class="section-number-3">1.1.</span> 用語</h3>
+
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 用語</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>Signal（強シグナル）:
@@ -249,26 +249,28 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orga4bce56" class="outline-3">
-<h3 id="orga4bce56"><span class="section-number-3">1.2.</span> 強シグナル（has<sub>signal</sub><sub>*</sub>）</h3>
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">1.2.</span> 強シグナル（has_signal_*）</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-orgda37855" class="outline-4">
-<h4 id="orgda37855"><span class="section-number-4">1.2.1.</span> 共通原則（MVP）</h4>
+<div id="outline-container-org0000001" class="outline-4">
+<h4 id="org0000001"><span class="section-number-4">1.2.1.</span> 共通原則（MVP）</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <ul class="org-ul">
-<li>`topics.has<sub>signal</sub><sub>*</sub>` は <b><b>候補フラグ</b></b> として扱う。
+<li>`topics.has_signal_*` は <b><b>候補フラグ</b></b> として扱う。
 <ul class="org-ul">
-<li>`has<sub>signal</sub><sub>*</sub> = 1` は「強シグナルが確定」ではない（特に依存/不可逆/安全）。</li>
+<li>`has_signal_* = 1` は「強シグナルが確定」ではない（特に依存/不可逆/安全）。</li>
 </ul></li>
 <li>MVPでは「成立」（ユーザー承認/文脈一致）は扱わない（decisions.org参照）。</li>
-<li>`has<sub>signal</sub><sub>*</sub>` は S2→S5（Task）を自動で引き起こさない。</li>
+<li>`has_signal_*` は S2→S5（Task）を自動で引き起こさない。</li>
 <li>期限以外の強シグナルは、コンテンツ単体では確定しにくく、ユーザー文脈との一致で“成立”する（work/memo.orgの整理に基づく）。</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org856c772" class="outline-4">
-<h4 id="org856c772"><span class="section-number-4">1.2.2.</span> 検出仕様（MVP）</h4>
+
+<div id="outline-container-org0000002" class="outline-4">
+<h4 id="org0000002"><span class="section-number-4">1.2.2.</span> 検出仕様（MVP）</h4>
 <div class="outline-text-4" id="text-1-2-2">
 <ul class="org-ul">
 <li>強シグナル候補の検出は、MVPでは「固定語彙リスト」を定義せず、LLMの指示（プロンプト）で候補判定する（decisions.org参照）。</li>
@@ -276,8 +278,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org72f2ca8" class="outline-4">
-<h4 id="org72f2ca8"><span class="section-number-4">1.2.3.</span> 期限（has<sub>signal</sub><sub>deadline</sub>）</h4>
+
+<div id="outline-container-org0000003" class="outline-4">
+<h4 id="org0000003"><span class="section-number-4">1.2.3.</span> 期限（has_signal_deadline）</h4>
 <div class="outline-text-4" id="text-1-2-3">
 <ul class="org-ul">
 <li>意味: 明示された日付/締切/終了条件が含まれる兆候。</li>
@@ -289,8 +292,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf1bfc47" class="outline-4">
-<h4 id="orgf1bfc47"><span class="section-number-4">1.2.4.</span> 依存（has<sub>signal</sub><sub>dependency</sub>）</h4>
+
+<div id="outline-container-org0000004" class="outline-4">
+<h4 id="org0000004"><span class="section-number-4">1.2.4.</span> 依存（has_signal_dependency）</h4>
 <div class="outline-text-4" id="text-1-2-4">
 <ul class="org-ul">
 <li>意味: 前提条件・順序・ブロッカー構造が含まれる兆候。</li>
@@ -302,8 +306,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org0af08f0" class="outline-4">
-<h4 id="org0af08f0"><span class="section-number-4">1.2.5.</span> 不可逆（has<sub>signal</sub><sub>irreversible</sub>）</h4>
+
+<div id="outline-container-org0000005" class="outline-4">
+<h4 id="org0000005"><span class="section-number-4">1.2.5.</span> 不可逆（has_signal_irreversible）</h4>
 <div class="outline-text-4" id="text-1-2-5">
 <ul class="org-ul">
 <li>意味: 時間経過で「同じ条件で判断できなくなる」兆候。
@@ -318,8 +323,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orga8ba1ca" class="outline-4">
-<h4 id="orga8ba1ca"><span class="section-number-4">1.2.6.</span> 安全（has<sub>signal</sub><sub>safety</sub>）</h4>
+
+<div id="outline-container-org0000006" class="outline-4">
+<h4 id="org0000006"><span class="section-number-4">1.2.6.</span> 安全（has_signal_safety）</h4>
 <div class="outline-text-4" id="text-1-2-6">
 <ul class="org-ul">
 <li>意味: セキュリティ/安全性/法務的にリスクがあり得る兆候。</li>
@@ -332,20 +338,21 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org04cd697" class="outline-3">
-<h3 id="org04cd697"><span class="section-number-3">1.3.</span> Issue（is<sub>*</sub>）</h3>
+
+<div id="outline-container-org000000b" class="outline-3">
+<h3 id="org000000b"><span class="section-number-3">1.3.</span> Issue（is_*）</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
-<div id="outline-container-orgd646420" class="outline-4">
-<h4 id="orgd646420"><span class="section-number-4">1.3.1.</span> 完全重複（is<sub>full</sub><sub>duplicate</sub>）</h4>
+<div id="outline-container-org0000008" class="outline-4">
+<h4 id="org0000008"><span class="section-number-4">1.3.1.</span> 完全重複（is_full_duplicate）</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <ul class="org-ul">
 <li>意味: 過去に取り込んだ同一URLのContentと「本文が同一」である可能性が高い（=同じスナップショット）。</li>
 <li>MVP判定（案）:
 <ul class="org-ul">
-<li>`fetch<sub>runs.status</sub>=&rsquo;ok&rsquo;` で `article<sub>sha256</sub>` が得られていること</li>
-<li>同一URLの過去Contentに対して、同じ `article<sub>sha256</sub>` を持つ `fetch<sub>runs</sub>` が存在すること</li>
-<li>上記を満たす場合に `contents.is<sub>full</sub><sub>duplicate</sub>=1` とする</li>
+<li>`fetch_runs.status='ok'` で `article_sha256` が得られていること</li>
+<li>同一URLの過去Contentに対して、同じ `article_sha256` を持つ `fetch_runs` が存在すること</li>
+<li>上記を満たす場合に `contents.is_full_duplicate=1` とする</li>
 </ul></li>
 <li>補足:
 <ul class="org-ul">
@@ -355,14 +362,15 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org8fd0df4" class="outline-4">
-<h4 id="org8fd0df4"><span class="section-number-4">1.3.2.</span> 文脈欠落（is<sub>context</sub><sub>missing</sub>）</h4>
+
+<div id="outline-container-org0000009" class="outline-4">
+<h4 id="org0000009"><span class="section-number-4">1.3.2.</span> 文脈欠落（is_context_missing）</h4>
 <div class="outline-text-4" id="text-1-3-2">
 <ul class="org-ul">
 <li>意味: 本文が空であり、Topic抽出以前に扱えない状態。</li>
 <li>MVP判定:
 <ul class="org-ul">
-<li>`fetch<sub>runs.status</sub>=&rsquo;ok&rsquo;` かつ `article<sub>text</sub>` が空（トリミング後も空）の場合に `contents.is<sub>context</sub><sub>missing</sub>=1` とする</li>
+<li>`fetch_runs.status='ok'` かつ `article_text` が空（トリミング後も空）の場合に `contents.is_context_missing=1` とする</li>
 </ul></li>
 <li>備考:
 <ul class="org-ul">
@@ -372,15 +380,16 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org3fd0a62" class="outline-4">
-<h4 id="org3fd0a62"><span class="section-number-4">1.3.3.</span> リンク切れ（is<sub>dead</sub><sub>link</sub>）</h4>
+
+<div id="outline-container-org000000a" class="outline-4">
+<h4 id="org000000a"><span class="section-number-4">1.3.3.</span> リンク切れ（is_dead_link）</h4>
 <div class="outline-text-4" id="text-1-3-3">
 <ul class="org-ul">
 <li>意味: 取得時点でアクセス不能/本文取得不能等の兆候（dead link “候補”）。</li>
 <li>MVP判定（案）:
 <ul class="org-ul">
-<li>`fetch<sub>runs.status</sub>=&rsquo;failed&rsquo;` の場合は `contents.is<sub>dead</sub><sub>link</sub>=1` としてよい（ただし一時障害の可能性は残る）</li>
-<li>追加でHTTPステータスが取得できる場合は、`&gt;=400` を根拠として `is<sub>dead</sub><sub>link</sub>=1` にしてよい</li>
+<li>`fetch_runs.status='failed'` の場合は `contents.is_dead_link=1` としてよい（ただし一時障害の可能性は残る）</li>
+<li>追加でHTTPステータスが取得できる場合は、`&gt;=400` を根拠として `is_dead_link=1` にしてよい</li>
 </ul></li>
 <li>注意:
 <ul class="org-ul">
@@ -391,28 +400,25 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org8291f65" class="outline-3">
-<h3 id="org8291f65"><span class="section-number-3">1.4.</span> 実装上の保存方針（MVP）</h3>
+
+<div id="outline-container-org000000c" class="outline-3">
+<h3 id="org000000c"><span class="section-number-3">1.4.</span> 実装上の保存方針（MVP）</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
-<li>`contents.is<sub>*</sub>` は `contents` に保持し、再実行で上書きされる（decisions.org参照）。</li>
-<li>`topics.has<sub>signal</sub><sub>*</sub>` は `topics` に保持し、再実行で上書きされる（decisions.org参照）。</li>
+<li>`contents.is_*` は `contents` に保持し、再実行で上書きされる（decisions.org参照）。</li>
+<li>`topics.has_signal_*` は `topics` に保持し、再実行で上書きされる（decisions.org参照）。</li>
 <li>理由:
 <ul class="org-ul">
 <li>MVPでは「履歴」より「最新状態の把握」を優先する。</li>
 </ul></li>
 <li>将来:
 <ul class="org-ul">
-<li>判定の履歴が必要になったら `detect<sub>runs</sub>` のような履歴テーブルを追加する。</li>
+<li>判定の履歴が必要になったら `detect_runs` のような履歴テーブルを追加する。</li>
 </ul></li>
 </ul>
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:45</p>
 </div>
 </body>
 </html>

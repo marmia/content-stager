@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 18:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,42 +198,43 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbdadd7d">1. Decisions</a>
+<li><a href="#org0000014">1. Decisions</a>
 <ul>
-<li><a href="#orgca7d33c">1.1. 2026-01-31: MVPの入力はURLのみ</a></li>
-<li><a href="#org16939fe">1.2. 2026-01-31: 本文取得は既存Skillの実装（agent-browser）を流用</a></li>
-<li><a href="#org8dfb072">1.3. 2026-01-31: S1→S2更新は手動実行</a></li>
-<li><a href="#orgb54b8fd">1.4. 2026-01-31: ストレージはSQLite</a></li>
-<li><a href="#org430fcf0">1.5. 2026-01-31: 本文の「不完全さ」はTopic抽出可否で吸収</a></li>
-<li><a href="#orgbb270d4">1.6. 2026-01-31: 同一URLの再取得は「別Content」として追加する</a></li>
-<li><a href="#org474c676">1.7. 2026-01-31: 抽出した本文テキスト（article<sub>text</sub>）を保存する</a></li>
-<li><a href="#org1a63023">1.8. 2026-01-31: Skill名は ingest<sub>url</sub></a></li>
-<li><a href="#orge3762ec">1.9. 2026-01-31: MVPのUIはCLI（ingest<sub>url</sub>）</a></li>
-<li><a href="#orge05f852">1.10. 2026-01-31: MVPで list<sub>shelves</sub> を用意する</a></li>
-<li><a href="#org259fee0">1.11. 2026-01-31: MVPのSkill出力は人間向けテキストのみ</a></li>
-<li><a href="#orgd36e23c">1.12. 2026-01-31: タイトル短縮の閾値は40文字</a></li>
-<li><a href="#orgc639a9f">1.13. 2026-01-31: `contents` に `is<sub>*</sub>` を保持する</a></li>
-<li><a href="#orge09c525">1.14. 2026-01-31: `topics` に `has<sub>signal</sub><sub>*</sub>` を保持する（方針変更）</a></li>
-<li><a href="#org6d66c38">1.15. 2026-01-31: MVPでは強シグナルの「成立」を扱わない</a></li>
-<li><a href="#org2981dd8">1.16. 2026-01-31: 強シグナル検出の語彙リストはMVPで定義しない</a></li>
-<li><a href="#orgdb9a4d1">1.17. 2026-01-31: 複数URLの入力はファイルで渡す</a></li>
-<li><a href="#orgef14ebc">1.18. 2026-01-31: Topic抽出はコーディングエージェントが実施</a></li>
-<li><a href="#org9b49dd8">1.19. 2026-01-31: Agent Skillsは他のAgent Skillsを直接呼び出せない</a></li>
-<li><a href="#org44ce3a5">1.20. 2026-01-31: 意図ラベルはTopicに付与する</a></li>
+<li><a href="#org0000000">1.1. 2026-01-31: MVPの入力はURLのみ</a></li>
+<li><a href="#org0000001">1.2. 2026-01-31: 本文取得は既存Skillの実装（agent-browser）を流用</a></li>
+<li><a href="#org0000002">1.3. 2026-01-31: S1→S2更新は手動実行</a></li>
+<li><a href="#org0000003">1.4. 2026-01-31: ストレージはSQLite</a></li>
+<li><a href="#org0000004">1.5. 2026-01-31: 本文の「不完全さ」はTopic抽出可否で吸収</a></li>
+<li><a href="#org0000005">1.6. 2026-01-31: 同一URLの再取得は「別Content」として追加する</a></li>
+<li><a href="#org0000006">1.7. 2026-01-31: 抽出した本文テキスト（article_text）を保存する</a></li>
+<li><a href="#org0000007">1.8. 2026-01-31: Skill名は ingest_url</a></li>
+<li><a href="#org0000008">1.9. 2026-01-31: MVPのUIはCLI（ingest_url）</a></li>
+<li><a href="#org0000009">1.10. 2026-01-31: MVPで list_shelves を用意する</a></li>
+<li><a href="#org000000a">1.11. 2026-01-31: MVPのSkill出力は人間向けテキストのみ</a></li>
+<li><a href="#org000000b">1.12. 2026-01-31: タイトル短縮の閾値は40文字</a></li>
+<li><a href="#org000000c">1.13. 2026-01-31: `contents` に `is_*` を保持する</a></li>
+<li><a href="#org000000d">1.14. 2026-01-31: `topics` に `has_signal_*` を保持する（方針変更）</a></li>
+<li><a href="#org000000e">1.15. 2026-01-31: MVPでは強シグナルの「成立」を扱わない</a></li>
+<li><a href="#org000000f">1.16. 2026-01-31: 強シグナル検出の語彙リストはMVPで定義しない</a></li>
+<li><a href="#org0000010">1.17. 2026-01-31: 複数URLの入力はファイルで渡す</a></li>
+<li><a href="#org0000011">1.18. 2026-01-31: Topic抽出はコーディングエージェントが実施</a></li>
+<li><a href="#org0000012">1.19. 2026-01-31: Agent Skillsは他のAgent Skillsを直接呼び出せない</a></li>
+<li><a href="#org0000013">1.20. 2026-01-31: 意図ラベルはTopicに付与する</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbdadd7d" class="outline-2">
-<h2 id="orgbdadd7d"><span class="section-number-2">1.</span> Decisions</h2>
+<div id="outline-container-org0000014" class="outline-2">
+<h2 id="org0000014"><span class="section-number-2">1.</span> Decisions</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 決定事項（ADR簡易ログ）。日付はローカル時間基準。
 </p>
 </div>
-<div id="outline-container-orgca7d33c" class="outline-3">
-<h3 id="orgca7d33c"><span class="section-number-3">1.1.</span> 2026-01-31: MVPの入力はURLのみ</h3>
+
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 2026-01-31: MVPの入力はURLのみ</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>入力対象: リンク（URL）だけ</li>
@@ -243,8 +242,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org16939fe" class="outline-3">
-<h3 id="org16939fe"><span class="section-number-3">1.2.</span> 2026-01-31: 本文取得は既存Skillの実装（agent-browser）を流用</h3>
+
+<div id="outline-container-org0000001" class="outline-3">
+<h3 id="org0000001"><span class="section-number-3">1.2.</span> 2026-01-31: 本文取得は既存Skillの実装（agent-browser）を流用</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>既存Skills:
@@ -257,8 +257,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org8dfb072" class="outline-3">
-<h3 id="org8dfb072"><span class="section-number-3">1.3.</span> 2026-01-31: S1→S2更新は手動実行</h3>
+
+<div id="outline-container-org0000002" class="outline-3">
+<h3 id="org0000002"><span class="section-number-3">1.3.</span> 2026-01-31: S1→S2更新は手動実行</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>本文取得/構造化は、ユーザーが実行したタイミングで随時行う</li>
@@ -266,8 +267,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb54b8fd" class="outline-3">
-<h3 id="orgb54b8fd"><span class="section-number-3">1.4.</span> 2026-01-31: ストレージはSQLite</h3>
+
+<div id="outline-container-org0000003" class="outline-3">
+<h3 id="org0000003"><span class="section-number-3">1.4.</span> 2026-01-31: ストレージはSQLite</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li>MVPの永続化ストレージはSQLiteを採用する</li>
@@ -276,8 +278,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org430fcf0" class="outline-3">
-<h3 id="org430fcf0"><span class="section-number-3">1.5.</span> 2026-01-31: 本文の「不完全さ」はTopic抽出可否で吸収</h3>
+
+<div id="outline-container-org0000004" class="outline-3">
+<h3 id="org0000004"><span class="section-number-3">1.5.</span> 2026-01-31: 本文の「不完全さ」はTopic抽出可否で吸収</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>fetch段階で partial のような強い分類を前提にしない</li>
@@ -286,8 +289,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbb270d4" class="outline-3">
-<h3 id="orgbb270d4"><span class="section-number-3">1.6.</span> 2026-01-31: 同一URLの再取得は「別Content」として追加する</h3>
+
+<div id="outline-container-org0000005" class="outline-3">
+<h3 id="org0000005"><span class="section-number-3">1.6.</span> 2026-01-31: 同一URLの再取得は「別Content」として追加する</h3>
 <div class="outline-text-3" id="text-1-6">
 <ul class="org-ul">
 <li>運用上、同じURLを再度取り込みたいケース（例: 製品Changelog）があり得る</li>
@@ -296,8 +300,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org474c676" class="outline-3">
-<h3 id="org474c676"><span class="section-number-3">1.7.</span> 2026-01-31: 抽出した本文テキスト（article<sub>text</sub>）を保存する</h3>
+
+<div id="outline-container-org0000006" class="outline-3">
+<h3 id="org0000006"><span class="section-number-3">1.7.</span> 2026-01-31: 抽出した本文テキスト（article_text）を保存する</h3>
 <div class="outline-text-3" id="text-1-7">
 <ul class="org-ul">
 <li>MVPでは、URLから抽出した本文テキストのスナップショットを永続化する</li>
@@ -310,33 +315,37 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org1a63023" class="outline-3">
-<h3 id="org1a63023"><span class="section-number-3">1.8.</span> 2026-01-31: Skill名は ingest<sub>url</sub></h3>
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">1.8.</span> 2026-01-31: Skill名は ingest_url</h3>
 <div class="outline-text-3" id="text-1-8">
 <ul class="org-ul">
-<li>URL取り込み〜Topic抽出〜保存までを一括で行う手動Skillは `ingest<sub>url</sub>` とする</li>
+<li>URL取り込み〜Topic抽出〜保存までを一括で行う手動Skillは `ingest_url` とする</li>
 <li>実行形態はCLI（対話式プロンプトなし）とする</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge3762ec" class="outline-3">
-<h3 id="orge3762ec"><span class="section-number-3">1.9.</span> 2026-01-31: MVPのUIはCLI（ingest<sub>url</sub>）</h3>
+
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008"><span class="section-number-3">1.9.</span> 2026-01-31: MVPのUIはCLI（ingest_url）</h3>
 <div class="outline-text-3" id="text-1-9">
 <ul class="org-ul">
-<li>MVPはまず `ingest<sub>url</sub>` をUI/操作面の中心として整備する</li>
+<li>MVPはまず `ingest_url` をUI/操作面の中心として整備する</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge05f852" class="outline-3">
-<h3 id="orge05f852"><span class="section-number-3">1.10.</span> 2026-01-31: MVPで list<sub>shelves</sub> を用意する</h3>
+
+<div id="outline-container-org0000009" class="outline-3">
+<h3 id="org0000009"><span class="section-number-3">1.10.</span> 2026-01-31: MVPで list_shelves を用意する</h3>
 <div class="outline-text-3" id="text-1-10">
 <ul class="org-ul">
-<li>S2の観測窓として `list<sub>shelves</sub>` を用意する（host棚、本文は一覧しない）</li>
+<li>S2の観測窓として `list_shelves` を用意する（host棚、本文は一覧しない）</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org259fee0" class="outline-3">
-<h3 id="org259fee0"><span class="section-number-3">1.11.</span> 2026-01-31: MVPのSkill出力は人間向けテキストのみ</h3>
+
+<div id="outline-container-org000000a" class="outline-3">
+<h3 id="org000000a"><span class="section-number-3">1.11.</span> 2026-01-31: MVPのSkill出力は人間向けテキストのみ</h3>
 <div class="outline-text-3" id="text-1-11">
 <ul class="org-ul">
 <li>MVP段階では、Skillの標準出力は人間が読む前提のテキストとする</li>
@@ -346,19 +355,21 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd36e23c" class="outline-3">
-<h3 id="orgd36e23c"><span class="section-number-3">1.12.</span> 2026-01-31: タイトル短縮の閾値は40文字</h3>
+
+<div id="outline-container-org000000b" class="outline-3">
+<h3 id="org000000b"><span class="section-number-3">1.12.</span> 2026-01-31: タイトル短縮の閾値は40文字</h3>
 <div class="outline-text-3" id="text-1-12">
 <ul class="org-ul">
-<li>`page<sub>title</sub>` が40文字を超える場合は「長すぎる」とみなし短縮表示する</li>
+<li>`page_title` が40文字を超える場合は「長すぎる」とみなし短縮表示する</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc639a9f" class="outline-3">
-<h3 id="orgc639a9f"><span class="section-number-3">1.13.</span> 2026-01-31: `contents` に `is<sub>*</sub>` を保持する</h3>
+
+<div id="outline-container-org000000c" class="outline-3">
+<h3 id="org000000c"><span class="section-number-3">1.13.</span> 2026-01-31: `contents` に `is_*` を保持する</h3>
 <div class="outline-text-3" id="text-1-13">
 <ul class="org-ul">
-<li>Issue判定（`is<sub>*</sub>`）は `contents` テーブルに保持する（最新状態として扱う）</li>
+<li>Issue判定（`is_*`）は `contents` テーブルに保持する（最新状態として扱う）</li>
 <li><p>
 理由:
 </p>
@@ -366,16 +377,17 @@
 <li>Content単位の「扱いづらさ」（重複/文脈欠落/リンク切れ）を入口で把握できると運用が楽なため</li>
 </ul>
 <ul class="org-ul">
-<li>MVPでは `is<sub>context</sub><sub>missing</sub>` は「空のみ」を true とし、「空ではないが無効」は扱わない（signals-and-issues.org参照）</li>
+<li>MVPでは `is_context_missing` は「空のみ」を true とし、「空ではないが無効」は扱わない（signals-and-issues.org参照）</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge09c525" class="outline-3">
-<h3 id="orge09c525"><span class="section-number-3">1.14.</span> 2026-01-31: `topics` に `has<sub>signal</sub><sub>*</sub>` を保持する（方針変更）</h3>
+
+<div id="outline-container-org000000d" class="outline-3">
+<h3 id="org000000d"><span class="section-number-3">1.14.</span> 2026-01-31: `topics` に `has_signal_*` を保持する（方針変更）</h3>
 <div class="outline-text-3" id="text-1-14">
 <ul class="org-ul">
-<li>強シグナル候補（`has<sub>signal</sub><sub>*</sub>`）は `topics` テーブルに保持する</li>
+<li>強シグナル候補（`has_signal_*`）は `topics` テーブルに保持する</li>
 <li>理由:
 <ul class="org-ul">
 <li>ユーザーの関心単位はContent全体ではなくTopicであることが多いため</li>
@@ -387,11 +399,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org6d66c38" class="outline-3">
-<h3 id="org6d66c38"><span class="section-number-3">1.15.</span> 2026-01-31: MVPでは強シグナルの「成立」を扱わない</h3>
+
+<div id="outline-container-org000000e" class="outline-3">
+<h3 id="org000000e"><span class="section-number-3">1.15.</span> 2026-01-31: MVPでは強シグナルの「成立」を扱わない</h3>
 <div class="outline-text-3" id="text-1-15">
 <ul class="org-ul">
-<li>MVPでは `has<sub>signal</sub><sub>*</sub>` は候補フラグとして保存するだけに留める</li>
+<li>MVPでは `has_signal_*` は候補フラグとして保存するだけに留める</li>
 <li>ユーザー承認/文脈一致による「成立」やTask化はMVPの対象外とする</li>
 </ul>
 
@@ -399,12 +412,14 @@
 補足:
 </p>
 <ul class="org-ul">
-<li>ここで「扱わない」とは「成立/Task化をしない」という意味であり、候補フラグ（`topics.has<sub>signal</sub><sub>*</sub>`）の検出・保存はMVPから行う。</li>
+<li>ここで「扱わない」とは「成立/Task化をしない」という意味であり、
+候補フラグ（`topics.has_signal_*`）の検出・保存はMVPから行う。</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org2981dd8" class="outline-3">
-<h3 id="org2981dd8"><span class="section-number-3">1.16.</span> 2026-01-31: 強シグナル検出の語彙リストはMVPで定義しない</h3>
+
+<div id="outline-container-org000000f" class="outline-3">
+<h3 id="org000000f"><span class="section-number-3">1.16.</span> 2026-01-31: 強シグナル検出の語彙リストはMVPで定義しない</h3>
 <div class="outline-text-3" id="text-1-16">
 <ul class="org-ul">
 <li>MVPでは、強シグナル検出のための固定語彙（seed vocabulary）をドキュメントとして整備しない</li>
@@ -412,16 +427,18 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgdb9a4d1" class="outline-3">
-<h3 id="orgdb9a4d1"><span class="section-number-3">1.17.</span> 2026-01-31: 複数URLの入力はファイルで渡す</h3>
+
+<div id="outline-container-org0000010" class="outline-3">
+<h3 id="org0000010"><span class="section-number-3">1.17.</span> 2026-01-31: 複数URLの入力はファイルで渡す</h3>
 <div class="outline-text-3" id="text-1-17">
 <ul class="org-ul">
 <li>複数URLを一括処理する場合は、1行1URLのファイルを渡す</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgef14ebc" class="outline-3">
-<h3 id="orgef14ebc"><span class="section-number-3">1.18.</span> 2026-01-31: Topic抽出はコーディングエージェントが実施</h3>
+
+<div id="outline-container-org0000011" class="outline-3">
+<h3 id="org0000011"><span class="section-number-3">1.18.</span> 2026-01-31: Topic抽出はコーディングエージェントが実施</h3>
 <div class="outline-text-3" id="text-1-18">
 <ul class="org-ul">
 <li>Topic抽出は、MVPではコーディングエージェント（Codex）が実施する想定とする</li>
@@ -429,16 +446,19 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org9b49dd8" class="outline-3">
-<h3 id="org9b49dd8"><span class="section-number-3">1.19.</span> 2026-01-31: Agent Skillsは他のAgent Skillsを直接呼び出せない</h3>
+
+<div id="outline-container-org0000012" class="outline-3">
+<h3 id="org0000012"><span class="section-number-3">1.19.</span> 2026-01-31: Agent Skillsは他のAgent Skillsを直接呼び出せない</h3>
 <div class="outline-text-3" id="text-1-19">
 <ul class="org-ul">
-<li>そのため、本文取得は `agent-browser-article` Skill を呼び出すのではなく、同等のスクリプトを `ingest<sub>url</sub>` に内包して実行する</li>
+<li>そのため、本文取得は `agent-browser-article` Skill を呼び出すのではなく、
+同等のスクリプトを `ingest_url` に内包して実行する</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org44ce3a5" class="outline-3">
-<h3 id="org44ce3a5"><span class="section-number-3">1.20.</span> 2026-01-31: 意図ラベルはTopicに付与する</h3>
+
+<div id="outline-container-org0000013" class="outline-3">
+<h3 id="org0000013"><span class="section-number-3">1.20.</span> 2026-01-31: 意図ラベルはTopicに付与する</h3>
 <div class="outline-text-3" id="text-1-20">
 <ul class="org-ul">
 <li>意図ラベルはContent全体ではなく、Topicに対して付与する</li>
@@ -454,10 +474,6 @@
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 18:17</p>
 </div>
 </body>
 </html>

@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,18 +198,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org06280d7">1. Commands（MVP）</a>
+<li><a href="#org0000009">1. Commands（MVP）</a>
 <ul>
-<li><a href="#org7ee2374">1.1. コマンド一覧（MVP）</a></li>
-<li><a href="#org7e9264f">1.2. コマンド一覧（MVP+ / 将来）</a></li>
-<li><a href="#orgbf7bfa2">1.3. list<sub>shelves</sub></a>
+<li><a href="#org0000000">1.1. コマンド一覧（MVP）</a></li>
+<li><a href="#org0000001">1.2. コマンド一覧（MVP+ / 将来）</a></li>
+<li><a href="#org0000008">1.3. list_shelves</a>
 <ul>
-<li><a href="#orgac01148">1.3.1. 目的</a></li>
-<li><a href="#org00daaa8">1.3.2. 入力</a></li>
-<li><a href="#org0e24462">1.3.3. オプション（MVP）</a></li>
-<li><a href="#org276d3c1">1.3.4. 出力（stdout, 人間向けテキスト）</a></li>
-<li><a href="#orgdbe7a15">1.3.5. 終了コード</a></li>
-<li><a href="#orgd5212ff">1.3.6. 実装メモ</a></li>
+<li><a href="#org0000002">1.3.1. 目的</a></li>
+<li><a href="#org0000003">1.3.2. 入力</a></li>
+<li><a href="#org0000004">1.3.3. オプション（MVP）</a></li>
+<li><a href="#org0000005">1.3.4. 出力（stdout, 人間向けテキスト）</a></li>
+<li><a href="#org0000006">1.3.5. 終了コード</a></li>
+<li><a href="#org0000007">1.3.6. 実装メモ</a></li>
 </ul>
 </li>
 </ul>
@@ -219,81 +217,87 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org06280d7" class="outline-2">
-<h2 id="org06280d7"><span class="section-number-2">1.</span> Commands（MVP）</h2>
+<div id="outline-container-org0000009" class="outline-2">
+<h2 id="org0000009"><span class="section-number-2">1.</span> Commands（MVP）</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 このドキュメントは、MVPで用意するコマンド（操作面）を定義する。
 MVPではCLIをUIの中心とし、対話式プロンプトは使用しない。
 </p>
 </div>
-<div id="outline-container-org7ee2374" class="outline-3">
-<h3 id="org7ee2374"><span class="section-number-3">1.1.</span> コマンド一覧（MVP）</h3>
+
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> コマンド一覧（MVP）</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
-<li>`ingest<sub>url</sub>`
+<li>`ingest_url`
 <ul class="org-ul">
-<li>URL取り込み〜保存まで（詳細は `spec/ingest<sub>url.org</sub>` / `spec/cli.org`）</li>
+<li>URL取り込み〜保存まで（詳細は `spec/ingest_url.org` / `spec/cli.org`）</li>
 </ul></li>
-<li>`list<sub>shelves</sub>`
+<li>`list_shelves`
 <ul class="org-ul">
 <li>S2のShelf（host棚）一覧を表示する（本ドキュメント / `spec/cli.org`）</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org7e9264f" class="outline-3">
-<h3 id="org7e9264f"><span class="section-number-3">1.2.</span> コマンド一覧（MVP+ / 将来）</h3>
+
+<div id="outline-container-org0000001" class="outline-3">
+<h3 id="org0000001"><span class="section-number-3">1.2.</span> コマンド一覧（MVP+ / 将来）</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
-<li>`reveal<sub>shelf</sub>` / `reveal<sub>content</sub>`
+<li>`reveal_shelf` / `reveal_content`
 <ul class="org-ul">
 <li>Scoped Reveal（限定可視）（`spec/scoped-reveal.org`）</li>
 </ul></li>
-<li>`label<sub>topics</sub>`
+<li>`label_topics`
 <ul class="org-ul">
 <li>Topic意図ラベル付与（`spec/topic-labeling.org`）</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbf7bfa2" class="outline-3">
-<h3 id="orgbf7bfa2"><span class="section-number-3">1.3.</span> list<sub>shelves</sub></h3>
+
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008"><span class="section-number-3">1.3.</span> list_shelves</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
-<div id="outline-container-orgac01148" class="outline-4">
-<h4 id="orgac01148"><span class="section-number-4">1.3.1.</span> 目的</h4>
+<div id="outline-container-org0000002" class="outline-4">
+<h4 id="org0000002"><span class="section-number-4">1.3.1.</span> 目的</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <ul class="org-ul">
 <li>S2（不可視）に滞留するContentを直接一覧にせず、Shelfとして「存在だけ」を観測する。</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org00daaa8" class="outline-4">
-<h4 id="org00daaa8"><span class="section-number-4">1.3.2.</span> 入力</h4>
+
+<div id="outline-container-org0000003" class="outline-4">
+<h4 id="org0000003"><span class="section-number-4">1.3.2.</span> 入力</h4>
 <div class="outline-text-4" id="text-1-3-2">
 <ul class="org-ul">
 <li>なし</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org0e24462" class="outline-4">
-<h4 id="org0e24462"><span class="section-number-4">1.3.3.</span> オプション（MVP）</h4>
+
+<div id="outline-container-org0000004" class="outline-4">
+<h4 id="org0000004"><span class="section-number-4">1.3.3.</span> オプション（MVP）</h4>
 <div class="outline-text-4" id="text-1-3-3">
 <ul class="org-ul">
 <li>`&#x2013;db &lt;path&gt;`: SQLite DBパス（省略時は既定）</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org276d3c1" class="outline-4">
-<h4 id="org276d3c1"><span class="section-number-4">1.3.4.</span> 出力（stdout, 人間向けテキスト）</h4>
+
+<div id="outline-container-org0000005" class="outline-4">
+<h4 id="org0000005"><span class="section-number-4">1.3.4.</span> 出力（stdout, 人間向けテキスト）</h4>
 <div class="outline-text-4" id="text-1-3-4">
 <ul class="org-ul">
 <li>ヘッダ行 + 1 shelf = 1行</li>
 <li>並び順:
 <ul class="org-ul">
-<li>`last<sub>updated</sub><sub>at</sub>` 降順</li>
-<li>タイブレークは `shelf<sub>key</sub>` 昇順（決定的）</li>
+<li>`last_updated_at` 降順</li>
+<li>タイブレークは `shelf_key` 昇順（決定的）</li>
 </ul></li>
 </ul>
 
@@ -310,8 +314,9 @@ x.com      | count= 3 | updated=2026-01-30T08:01:02Z
 </p>
 </div>
 </div>
-<div id="outline-container-orgdbe7a15" class="outline-4">
-<h4 id="orgdbe7a15"><span class="section-number-4">1.3.5.</span> 終了コード</h4>
+
+<div id="outline-container-org0000006" class="outline-4">
+<h4 id="org0000006"><span class="section-number-4">1.3.5.</span> 終了コード</h4>
 <div class="outline-text-4" id="text-1-3-5">
 <ul class="org-ul">
 <li>`0`: 成功</li>
@@ -320,20 +325,17 @@ x.com      | count= 3 | updated=2026-01-30T08:01:02Z
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd5212ff" class="outline-4">
-<h4 id="orgd5212ff"><span class="section-number-4">1.3.6.</span> 実装メモ</h4>
+
+<div id="outline-container-org0000007" class="outline-4">
+<h4 id="org0000007"><span class="section-number-4">1.3.6.</span> 実装メモ</h4>
 <div class="outline-text-4" id="text-1-3-6">
 <ul class="org-ul">
-<li>Shelfの定義は `spec/shelves.org`（MVPはhost棚＝`contents.url<sub>host</sub>`）。</li>
+<li>Shelfの定義は `spec/shelves.org`（MVPはhost棚＝`contents.url_host`）。</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:42</p>
 </div>
 </body>
 </html>

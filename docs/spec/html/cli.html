@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,67 +198,70 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3c674f9">1. CLI Contract（MVP）</a>
+<li><a href="#org000000b">1. CLI Contract（MVP）</a>
 <ul>
-<li><a href="#orgdfdd504">1.1. 対象コマンド</a></li>
-<li><a href="#orgc33e1af">1.2. 入力</a>
+<li><a href="#org0000000">1.1. 対象コマンド</a></li>
+<li><a href="#org0000003">1.2. 入力</a>
 <ul>
-<li><a href="#org1df8c16">1.2.1. 単一URL</a></li>
-<li><a href="#org54a8cac">1.2.2. 複数URL（ファイル）</a></li>
+<li><a href="#org0000001">1.2.1. 単一URL</a></li>
+<li><a href="#org0000002">1.2.2. 複数URL（ファイル）</a></li>
 </ul>
 </li>
-<li><a href="#org12cb0e7">1.3. オプション（MVP）</a></li>
-<li><a href="#org29ae4df">1.4. DBパス（既定）</a></li>
-<li><a href="#orgb16dff0">1.5. stdout（人間向けテキスト）</a></li>
-<li><a href="#org10a90dc">1.6. stderr（ログ）</a></li>
-<li><a href="#org59326da">1.7. 終了コード</a></li>
-<li><a href="#org167527c">1.8. list<sub>shelves</sub>（抜粋）</a></li>
-<li><a href="#org1a10063">1.9. 表示タイトル（display<sub>title</sub>）</a></li>
+<li><a href="#org0000004">1.3. オプション（MVP）</a></li>
+<li><a href="#org0000005">1.4. DBパス（既定）</a></li>
+<li><a href="#org0000006">1.5. stdout（人間向けテキスト）</a></li>
+<li><a href="#org0000007">1.6. stderr（ログ）</a></li>
+<li><a href="#org0000008">1.7. 終了コード</a></li>
+<li><a href="#org0000009">1.8. list_shelves（抜粋）</a></li>
+<li><a href="#org000000a">1.9. 表示タイトル（display_title）</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org3c674f9" class="outline-2">
-<h2 id="org3c674f9"><span class="section-number-2">1.</span> CLI Contract（MVP）</h2>
+<div id="outline-container-org000000b" class="outline-2">
+<h2 id="org000000b"><span class="section-number-2">1.</span> CLI Contract（MVP）</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-このドキュメントは、UI（将来のCodex UIを含む）が `ingest<sub>url</sub>` を実行するための
+このドキュメントは、UI（将来のCodex UIを含む）が `ingest_url` を実行するための
 CLI契約（引数/終了コード/stdout/stderr）を定義する。
 </p>
 </div>
-<div id="outline-container-orgdfdd504" class="outline-3">
-<h3 id="orgdfdd504"><span class="section-number-3">1.1.</span> 対象コマンド</h3>
+
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 対象コマンド</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
-<li>`ingest<sub>url</sub>`
+<li>`ingest_url`
 <ul class="org-ul">
-<li>URL取り込み〜Topic抽出〜保存までを一括で行う（詳細は `spec/ingest<sub>url.org</sub>`）</li>
+<li>URL取り込み〜Topic抽出〜保存までを一括で行う（詳細は `spec/ingest_url.org`）</li>
 <li>対話式プロンプトは禁止（non-interactive）</li>
 </ul></li>
-<li>`list<sub>shelves</sub>`
+<li>`list_shelves`
 <ul class="org-ul">
 <li>S2のShelf一覧（host棚）を表示する（詳細は `spec/commands.org` / `spec/shelves.org`）</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc33e1af" class="outline-3">
-<h3 id="orgc33e1af"><span class="section-number-3">1.2.</span> 入力</h3>
+
+<div id="outline-container-org0000003" class="outline-3">
+<h3 id="org0000003"><span class="section-number-3">1.2.</span> 入力</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-org1df8c16" class="outline-4">
-<h4 id="org1df8c16"><span class="section-number-4">1.2.1.</span> 単一URL</h4>
+<div id="outline-container-org0000001" class="outline-4">
+<h4 id="org0000001"><span class="section-number-4">1.2.1.</span> 単一URL</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <p>
 ```bash
-ingest<sub>url</sub> &rsquo;https://example.com/article&rsquo;
+ingest_url 'https://example.com/article'
 ```
 </p>
 </div>
 </div>
-<div id="outline-container-org54a8cac" class="outline-4">
-<h4 id="org54a8cac"><span class="section-number-4">1.2.2.</span> 複数URL（ファイル）</h4>
+
+<div id="outline-container-org0000002" class="outline-4">
+<h4 id="org0000002"><span class="section-number-4">1.2.2.</span> 複数URL（ファイル）</h4>
 <div class="outline-text-4" id="text-1-2-2">
 <ul class="org-ul">
 <li>形式: 1行1URL（空行と `#` で始まる行は無視してよい）</li>
@@ -268,14 +269,15 @@ ingest<sub>url</sub> &rsquo;https://example.com/article&rsquo;
 
 <p>
 ```bash
-ingest<sub>url</sub> &#x2013;file urls.txt
+ingest_url &#x2013;file urls.txt
 ```
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org12cb0e7" class="outline-3">
-<h3 id="org12cb0e7"><span class="section-number-3">1.3.</span> オプション（MVP）</h3>
+
+<div id="outline-container-org0000004" class="outline-3">
+<h3 id="org0000004"><span class="section-number-3">1.3.</span> オプション（MVP）</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>`&#x2013;file &lt;path&gt;`: 複数URL入力</li>
@@ -284,8 +286,9 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 </ul>
 </div>
 </div>
-<div id="outline-container-org29ae4df" class="outline-3">
-<h3 id="org29ae4df"><span class="section-number-3">1.4.</span> DBパス（既定）</h3>
+
+<div id="outline-container-org0000005" class="outline-3">
+<h3 id="org0000005"><span class="section-number-3">1.4.</span> DBパス（既定）</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li>`~/.local/share/content-stager/content-stager.sqlite3`</li>
@@ -293,18 +296,19 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb16dff0" class="outline-3">
-<h3 id="orgb16dff0"><span class="section-number-3">1.5.</span> stdout（人間向けテキスト）</h3>
+
+<div id="outline-container-org0000006" class="outline-3">
+<h3 id="org0000006"><span class="section-number-3">1.5.</span> stdout（人間向けテキスト）</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>原則: 1 URL = 1行</li>
 <li>成功:
 <ul class="org-ul">
-<li>`OK | &lt;display<sub>title</sub>&gt; | topics=&lt;n&gt; | &lt;url&gt;`</li>
+<li>`OK | &lt;display_title&gt; | topics=&lt;n&gt; | &lt;url&gt;`</li>
 </ul></li>
 <li>失敗:
 <ul class="org-ul">
-<li>`NG | &lt;display<sub>title</sub>&gt; | reason=&lt;summary&gt; | &lt;url&gt;`</li>
+<li>`NG | &lt;display_title&gt; | reason=&lt;summary&gt; | &lt;url&gt;`</li>
 </ul></li>
 <li>任意で末尾に集計:
 <ul class="org-ul">
@@ -313,16 +317,18 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 </ul>
 </div>
 </div>
-<div id="outline-container-org10a90dc" class="outline-3">
-<h3 id="org10a90dc"><span class="section-number-3">1.6.</span> stderr（ログ）</h3>
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">1.6.</span> stderr（ログ）</h3>
 <div class="outline-text-3" id="text-1-6">
 <ul class="org-ul">
 <li>進行ログ/デバッグログはstderrに出してよい（stdoutの1行/URLを崩さない）</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org59326da" class="outline-3">
-<h3 id="org59326da"><span class="section-number-3">1.7.</span> 終了コード</h3>
+
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008"><span class="section-number-3">1.7.</span> 終了コード</h3>
 <div class="outline-text-3" id="text-1-7">
 <ul class="org-ul">
 <li>`0`: 全URLが `OK`</li>
@@ -332,12 +338,13 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 </ul>
 </div>
 </div>
-<div id="outline-container-org167527c" class="outline-3">
-<h3 id="org167527c"><span class="section-number-3">1.8.</span> list<sub>shelves</sub>（抜粋）</h3>
+
+<div id="outline-container-org0000009" class="outline-3">
+<h3 id="org0000009"><span class="section-number-3">1.8.</span> list_shelves（抜粋）</h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
 ```bash
-list<sub>shelves</sub> &#x2013;db ~/.local/share/content-stager/content-stager.sqlite3
+list_shelves &#x2013;db ~/.local/share/content-stager/content-stager.sqlite3
 ```
 </p>
 
@@ -346,22 +353,19 @@ list<sub>shelves</sub> &#x2013;db ~/.local/share/content-stager/content-stager.s
 </ul>
 </div>
 </div>
-<div id="outline-container-org1a10063" class="outline-3">
-<h3 id="org1a10063"><span class="section-number-3">1.9.</span> 表示タイトル（display<sub>title</sub>）</h3>
+
+<div id="outline-container-org000000a" class="outline-3">
+<h3 id="org000000a"><span class="section-number-3">1.9.</span> 表示タイトル（display_title）</h3>
 <div class="outline-text-3" id="text-1-9">
 <ul class="org-ul">
-<li>ルールは `spec/ingest<sub>url.org</sub>` および `spec/skills.org` に従う
+<li>ルールは `spec/ingest_url.org` および `spec/skills.org` に従う
 <ul class="org-ul">
-<li>`page<sub>title</sub>` が空/40文字超なら `article<sub>text</sub>` 先頭側から短縮表示</li>
+<li>`page_title` が空/40文字超なら `article_text` 先頭側から短縮表示</li>
 </ul></li>
 </ul>
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:42</p>
 </div>
 </body>
 </html>

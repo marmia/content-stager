@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:44 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,37 +198,38 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org612db98">1. ingest<sub>url</sub>（Skill仕様）</a>
+<li><a href="#org000000b">1. ingest_url（Skill仕様）</a>
 <ul>
-<li><a href="#org3b4d795">1.1. 目的</a></li>
-<li><a href="#orgec4b112">1.2. 入力</a>
+<li><a href="#org0000000">1.1. 目的</a></li>
+<li><a href="#org0000003">1.2. 入力</a>
 <ul>
-<li><a href="#orgd922b47">1.2.1. 単一URL</a></li>
-<li><a href="#org3d59273">1.2.2. 複数URL</a></li>
+<li><a href="#org0000001">1.2.1. 単一URL</a></li>
+<li><a href="#org0000002">1.2.2. 複数URL</a></li>
 </ul>
 </li>
-<li><a href="#orgb2b3df2">1.3. オプション（案）</a></li>
-<li><a href="#org57e7efa">1.4. 既定値</a></li>
-<li><a href="#orga70873c">1.5. 永続化（SQLite）</a></li>
-<li><a href="#org239d41a">1.6. 処理フロー（MVP）</a></li>
-<li><a href="#org723ab59">1.7. stdout（人間向け、1 URL = 1行）</a></li>
-<li><a href="#org921c416">1.8. display<sub>title</sub>（表示タイトル）</a></li>
-<li><a href="#org5333b17">1.9. 実装メモ（MVP）</a></li>
+<li><a href="#org0000004">1.3. オプション（案）</a></li>
+<li><a href="#org0000005">1.4. 既定値</a></li>
+<li><a href="#org0000006">1.5. 永続化（SQLite）</a></li>
+<li><a href="#org0000007">1.6. 処理フロー（MVP）</a></li>
+<li><a href="#org0000008">1.7. stdout（人間向け、1 URL = 1行）</a></li>
+<li><a href="#org0000009">1.8. display_title（表示タイトル）</a></li>
+<li><a href="#org000000a">1.9. 実装メモ（MVP）</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org612db98" class="outline-2">
-<h2 id="org612db98"><span class="section-number-2">1.</span> ingest<sub>url</sub>（Skill仕様）</h2>
+<div id="outline-container-org000000b" class="outline-2">
+<h2 id="org000000b"><span class="section-number-2">1.</span> ingest_url（Skill仕様）</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-本ドキュメントは `ingest<sub>url</sub>` のI/O契約を定義する。
+本ドキュメントは `ingest_url` のI/O契約を定義する。
 MVPの前提（URLのみ、手動実行、SQLite永続化、stdoutは人間向けテキスト）に従う。
 </p>
 </div>
-<div id="outline-container-org3b4d795" class="outline-3">
-<h3 id="org3b4d795"><span class="section-number-3">1.1.</span> 目的</h3>
+
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 目的</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>1つ以上のURLを取り込み、本文取得→検出→Topic抽出→保存までを一括実行する。</li>
@@ -238,12 +237,13 @@ MVPの前提（URLのみ、手動実行、SQLite永続化、stdoutは人間向�
 </ul>
 </div>
 </div>
-<div id="outline-container-orgec4b112" class="outline-3">
-<h3 id="orgec4b112"><span class="section-number-3">1.2.</span> 入力</h3>
+
+<div id="outline-container-org0000003" class="outline-3">
+<h3 id="org0000003"><span class="section-number-3">1.2.</span> 入力</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-orgd922b47" class="outline-4">
-<h4 id="orgd922b47"><span class="section-number-4">1.2.1.</span> 単一URL</h4>
+<div id="outline-container-org0000001" class="outline-4">
+<h4 id="org0000001"><span class="section-number-4">1.2.1.</span> 単一URL</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <ul class="org-ul">
 <li>CLI引数で1つ渡す。</li>
@@ -255,13 +255,14 @@ MVPの前提（URLのみ、手動実行、SQLite永続化、stdoutは人間向�
 
 <p>
 ```bash
-ingest<sub>url</sub> &rsquo;https://example.com/article&rsquo;
+ingest_url 'https://example.com/article'
 ```
 </p>
 </div>
 </div>
-<div id="outline-container-org3d59273" class="outline-4">
-<h4 id="org3d59273"><span class="section-number-4">1.2.2.</span> 複数URL</h4>
+
+<div id="outline-container-org0000002" class="outline-4">
+<h4 id="org0000002"><span class="section-number-4">1.2.2.</span> 複数URL</h4>
 <div class="outline-text-4" id="text-1-2-2">
 <ul class="org-ul">
 <li>1行1URLのファイルを渡す。</li>
@@ -273,14 +274,15 @@ ingest<sub>url</sub> &rsquo;https://example.com/article&rsquo;
 
 <p>
 ```bash
-ingest<sub>url</sub> &#x2013;file urls.txt
+ingest_url &#x2013;file urls.txt
 ```
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb2b3df2" class="outline-3">
-<h3 id="orgb2b3df2"><span class="section-number-3">1.3.</span> オプション（案）</h3>
+
+<div id="outline-container-org0000004" class="outline-3">
+<h3 id="org0000004"><span class="section-number-3">1.3.</span> オプション（案）</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>`&#x2013;db &lt;path&gt;`: SQLite DBパス（省略時は既定）</li>
@@ -289,8 +291,9 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 </ul>
 </div>
 </div>
-<div id="outline-container-org57e7efa" class="outline-3">
-<h3 id="org57e7efa"><span class="section-number-3">1.4.</span> 既定値</h3>
+
+<div id="outline-container-org0000005" class="outline-3">
+<h3 id="org0000005"><span class="section-number-3">1.4.</span> 既定値</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li>DBパス: `~/.local/share/content-stager/content-stager.sqlite3`</li>
@@ -299,25 +302,27 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 </ul>
 </div>
 </div>
-<div id="outline-container-orga70873c" class="outline-3">
-<h3 id="orga70873c"><span class="section-number-3">1.5.</span> 永続化（SQLite）</h3>
+
+<div id="outline-container-org0000006" class="outline-3">
+<h3 id="org0000006"><span class="section-number-3">1.5.</span> 永続化（SQLite）</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
-<li>`contents` / `fetch<sub>runs</sub>` / `topic<sub>runs</sub>` / `topics` を更新する（詳細は `docs/spec/data-model.org`）。</li>
+<li>`contents` / `fetch_runs` / `topic_runs` / `topics` を更新する（詳細は `docs/spec/data-model.org`）。</li>
 <li>同一URLの再取得は別Contentとして追加する（decisions.org）。</li>
 <li>`~/.local/share/content-stager/` が存在しない場合は自動作成する。</li>
-<li>URLのホスト名（例: `sqlite.org`）を `contents.url<sub>host</sub>` として保存する（Shelf用、`spec/shelves.org`）。</li>
+<li>URLのホスト名（例: `sqlite.org`）を `contents.url_host` として保存する（Shelf用、`spec/shelves.org`）。</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org239d41a" class="outline-3">
-<h3 id="org239d41a"><span class="section-number-3">1.6.</span> 処理フロー（MVP）</h3>
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">1.6.</span> 処理フロー（MVP）</h3>
 <div class="outline-text-3" id="text-1-6">
 <ol class="org-ol">
 <li>Content作成（S1）</li>
 <li>Fetch（agent-browser）
 <ul class="org-ul">
-<li>`fetch<sub>runs.page</sub><sub>title</sub>` と `fetch<sub>runs.article</sub><sub>text</sub>` を保存</li>
+<li>`fetch_runs.page_title` と `fetch_runs.article_text` を保存</li>
 </ul></li>
 <li>Detect Issues（フラグ付与のみ、状態遷移トリガーにしない）</li>
 <li>Extract Topics（3〜7目安）
@@ -328,8 +333,9 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 </ol>
 </div>
 </div>
-<div id="outline-container-org723ab59" class="outline-3">
-<h3 id="org723ab59"><span class="section-number-3">1.7.</span> stdout（人間向け、1 URL = 1行）</h3>
+
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008"><span class="section-number-3">1.7.</span> stdout（人間向け、1 URL = 1行）</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 フォーマット案:
@@ -338,11 +344,11 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 <ul class="org-ul">
 <li>成功:
 <ul class="org-ul">
-<li>`OK | &lt;display<sub>title</sub>&gt; | topics=&lt;n&gt; | &lt;url&gt;`</li>
+<li>`OK | &lt;display_title&gt; | topics=&lt;n&gt; | &lt;url&gt;`</li>
 </ul></li>
 <li>失敗:
 <ul class="org-ul">
-<li>`NG | &lt;display<sub>title</sub>&gt; | reason=&lt;summary&gt; | &lt;url&gt;`</li>
+<li>`NG | &lt;display_title&gt; | reason=&lt;summary&gt; | &lt;url&gt;`</li>
 </ul></li>
 </ul>
 
@@ -355,17 +361,18 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 </ul>
 </div>
 </div>
-<div id="outline-container-org921c416" class="outline-3">
-<h3 id="org921c416"><span class="section-number-3">1.8.</span> display<sub>title</sub>（表示タイトル）</h3>
+
+<div id="outline-container-org0000009" class="outline-3">
+<h3 id="org0000009"><span class="section-number-3">1.8.</span> display_title（表示タイトル）</h3>
 <div class="outline-text-3" id="text-1-8">
 <ol class="org-ol">
-<li>原則は `page<sub>title</sub>` を使用する</li>
+<li>原則は `page_title` を使用する</li>
 <li>ただし以下の場合は短縮表示に切り替える
 <ul class="org-ul">
-<li>`page<sub>title</sub>` が空</li>
-<li>`page<sub>title</sub>` が40文字を超える</li>
+<li>`page_title` が空</li>
+<li>`page_title` が40文字を超える</li>
 </ul></li>
-<li>短縮表示は `article<sub>text</sub>` の先頭30文字付近から「区切り」までを表示する
+<li>短縮表示は `article_text` の先頭30文字付近から「区切り」までを表示する
 <ul class="org-ul">
 <li>区切り: 空白/改行、または句読点・記号（例: `. , ! ? : ; / - 、 。`）を優先</li>
 <li>30文字で区切りが見つからない場合は60文字まで延長して探索し、見つからなければ30文字で切る</li>
@@ -373,20 +380,17 @@ ingest<sub>url</sub> &#x2013;file urls.txt
 </ol>
 </div>
 </div>
-<div id="outline-container-org5333b17" class="outline-3">
-<h3 id="org5333b17"><span class="section-number-3">1.9.</span> 実装メモ（MVP）</h3>
+
+<div id="outline-container-org000000a" class="outline-3">
+<h3 id="org000000a"><span class="section-number-3">1.9.</span> 実装メモ（MVP）</h3>
 <div class="outline-text-3" id="text-1-9">
 <ul class="org-ul">
-<li>Skillから他Skillは呼べないため、本文取得は `agent-browser-article` の実装を `ingest<sub>url</sub>` に内包して行う。</li>
-<li>`skills/ingest-url/scripts/get-article-text.sh` は本文をstdoutに出しつつ、環境変数 `INGEST<sub>URL</sub><sub>PAGE</sub><sub>TITLE</sub><sub>FILE</sub>` でタイトルも取得できる。</li>
+<li>Skillから他Skillは呼べないため、本文取得は `agent-browser-article` の実装を `ingest_url` に内包して行う。</li>
+<li>`skills/ingest-url/scripts/get-article-text.sh` は本文をstdoutに出しつつ、環境変数 `INGEST_URL_PAGE_TITLE_FILE` でタイトルも取得できる。</li>
 </ul>
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:44</p>
 </div>
 </body>
 </html>

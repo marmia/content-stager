@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,28 +198,29 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5887658">1. Recall（想起）仕様（MVP）</a>
+<li><a href="#org0000005">1. Recall（想起）仕様（MVP）</a>
 <ul>
-<li><a href="#org1314184">1.1. 原則（concepts.org準拠）</a></li>
-<li><a href="#orgce4d145">1.2. MVPのRecall定義</a></li>
-<li><a href="#orgfbea8d5">1.3. Recallトリガー（MVP）</a></li>
-<li><a href="#org9d3ede1">1.4. 「再遭遇カウント」の扱い</a></li>
-<li><a href="#org21f349c">1.5. 将来拡張（例）</a></li>
+<li><a href="#org0000000">1.1. 原則（concepts.org準拠）</a></li>
+<li><a href="#org0000001">1.2. MVPのRecall定義</a></li>
+<li><a href="#org0000002">1.3. Recallトリガー（MVP）</a></li>
+<li><a href="#org0000003">1.4. 「再遭遇カウント」の扱い</a></li>
+<li><a href="#org0000004">1.5. 将来拡張（例）</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org5887658" class="outline-2">
-<h2 id="org5887658"><span class="section-number-2">1.</span> Recall（想起）仕様（MVP）</h2>
+<div id="outline-container-org0000005" class="outline-2">
+<h2 id="org0000005"><span class="section-number-2">1.</span> Recall（想起）仕様（MVP）</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 このドキュメントは、S2（不可視）に滞留するContentの存在を「弱く思い出させる」ための仕組みを定義する。
 MVPでは「自動通知」よりも、まずは「観測窓（Shelf一覧）」としてのRecallを整備する。
 </p>
 </div>
-<div id="outline-container-org1314184" class="outline-3">
-<h3 id="org1314184"><span class="section-number-3">1.1.</span> 原則（concepts.org準拠）</h3>
+
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 原則（concepts.org準拠）</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>想起は行動要求を伴わない</li>
@@ -230,8 +229,9 @@ MVPでは「自動通知」よりも、まずは「観測窓（Shelf一覧）」
 </ul>
 </div>
 </div>
-<div id="outline-container-orgce4d145" class="outline-3">
-<h3 id="orgce4d145"><span class="section-number-3">1.2.</span> MVPのRecall定義</h3>
+
+<div id="outline-container-org0000001" class="outline-3">
+<h3 id="org0000001"><span class="section-number-3">1.2.</span> MVPのRecall定義</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 MVPでは、Recallを「ユーザーが任意タイミングで見る集約ビュー」として実装する。
@@ -249,13 +249,14 @@ MVPでは、Recallを「ユーザーが任意タイミングで見る集約ビ�
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfbea8d5" class="outline-3">
-<h3 id="orgfbea8d5"><span class="section-number-3">1.3.</span> Recallトリガー（MVP）</h3>
+
+<div id="outline-container-org0000002" class="outline-3">
+<h3 id="org0000002"><span class="section-number-3">1.3.</span> Recallトリガー（MVP）</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>手動（ユーザーが見る）:
 <ul class="org-ul">
-<li>`list<sub>shelves</sub>` 相当の表示を開く（コマンド名は実装側で決める）</li>
+<li>`list_shelves` 相当の表示を開く（コマンド名は実装側で決める）</li>
 </ul></li>
 </ul>
 
@@ -264,8 +265,9 @@ MVPでは、Recallを「ユーザーが任意タイミングで見る集約ビ�
 </p>
 </div>
 </div>
-<div id="outline-container-org9d3ede1" class="outline-3">
-<h3 id="org9d3ede1"><span class="section-number-3">1.4.</span> 「再遭遇カウント」の扱い</h3>
+
+<div id="outline-container-org0000003" class="outline-3">
+<h3 id="org0000003"><span class="section-number-3">1.4.</span> 「再遭遇カウント」の扱い</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 `concepts.org` では再遭遇カウントを想定しているが、MVPでは以下とする。
@@ -278,14 +280,15 @@ MVPでは、Recallを「ユーザーが任意タイミングで見る集約ビ�
 </ul></li>
 <li>将来的に必要になったら、以下を追加する
 <ul class="org-ul">
-<li>`recall<sub>events</sub>` テーブル（content<sub>id</sub>/shelf<sub>key</sub>/at等）</li>
-<li>`contents.recall<sub>count</sub>` / `contents.last<sub>recalled</sub><sub>at</sub>` 等</li>
+<li>`recall_events` テーブル（content_id/shelf_key/at等）</li>
+<li>`contents.recall_count` / `contents.last_recalled_at` 等</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org21f349c" class="outline-3">
-<h3 id="org21f349c"><span class="section-number-3">1.5.</span> 将来拡張（例）</h3>
+
+<div id="outline-container-org0000004" class="outline-3">
+<h3 id="org0000004"><span class="section-number-3">1.5.</span> 将来拡張（例）</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>Topic意図ラベルの反射:
@@ -304,10 +307,6 @@ MVPでは、Recallを「ユーザーが任意タイミングで見る集約ビ�
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:43</p>
 </div>
 </body>
 </html>

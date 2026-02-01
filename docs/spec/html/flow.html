@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,32 +198,34 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc7c8a1e">1. URL投入 → S1 → S2 の処理フロー（MVP）</a>
+<li><a href="#org0000007">1. URL投入 → S1 → S2 の処理フロー（MVP）</a>
 <ul>
-<li><a href="#org5d814d2">1.1. 先に結論</a></li>
-<li><a href="#org8f08f01">1.2. なぜS1/S2を分けるのか（MVP観点）</a></li>
-<li><a href="#org801c29f">1.3. ユーザー操作と処理の対応（MVP）</a>
+<li><a href="#org0000000">1.1. 先に結論</a></li>
+<li><a href="#org0000001">1.2. なぜS1/S2を分けるのか（MVP観点）</a></li>
+<li><a href="#org0000005">1.3. ユーザー操作と処理の対応（MVP）</a>
 <ul>
-<li><a href="#org3102258">1.3.1. 操作1: URLを投入してS2まで処理する（手動・1 Skill）</a></li>
-<li><a href="#orgf62ceaf">1.3.2. 操作2: （任意）Topicに意図ラベルを付ける</a></li>
-<li><a href="#org3e3ffa6">1.3.3. 操作3: （任意）棚の匂わせを見る（S2の観測窓）</a></li>
+<li><a href="#org0000002">1.3.1. 操作1: URLを投入してS2まで処理する（手動・1 Skill）</a></li>
+<li><a href="#org0000003">1.3.2. 操作2: （任意）Topicに意図ラベルを付ける</a></li>
+<li><a href="#org0000004">1.3.3. 操作3: （任意）棚の匂わせを見る（S2の観測窓）</a></li>
 </ul>
 </li>
-<li><a href="#org3c86c94">1.4. 補足: 「自動的にS2まで進むのでは？」について</a></li>
+<li><a href="#org0000006">1.4. 補足: 「自動的にS2まで進むのでは？」について</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc7c8a1e" class="outline-2">
-<h2 id="orgc7c8a1e"><span class="section-number-2">1.</span> URL投入 → S1 → S2 の処理フロー（MVP）</h2>
+<div id="outline-container-org0000007" class="outline-2">
+<h2 id="org0000007"><span class="section-number-2">1.</span> URL投入 → S1 → S2 の処理フロー（MVP）</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-このドキュメントは、S1/S2を「なぜ分けるのか」「どの段階でTopic分割が走るのか」を、手動実行（ユーザー起動）前提で具体化する。
+このドキュメントは、S1/S2を「なぜ分けるのか」「どの段階でTopic分割が走るのか」を、
+手動実行（ユーザー起動）前提で具体化する。
 </p>
 </div>
-<div id="outline-container-org5d814d2" class="outline-3">
-<h3 id="org5d814d2"><span class="section-number-3">1.1.</span> 先に結論</h3>
+
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 先に結論</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>Topic分割は「本文取得が成功した後」に実施する。</li>
@@ -237,8 +237,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org8f08f01" class="outline-3">
-<h3 id="org8f08f01"><span class="section-number-3">1.2.</span> なぜS1/S2を分けるのか（MVP観点）</h3>
+
+<div id="outline-container-org0000001" class="outline-3">
+<h3 id="org0000001"><span class="section-number-3">1.2.</span> なぜS1/S2を分けるのか（MVP観点）</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>失敗の吸収:
@@ -257,21 +258,22 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org801c29f" class="outline-3">
-<h3 id="org801c29f"><span class="section-number-3">1.3.</span> ユーザー操作と処理の対応（MVP）</h3>
+
+<div id="outline-container-org0000005" class="outline-3">
+<h3 id="org0000005"><span class="section-number-3">1.3.</span> ユーザー操作と処理の対応（MVP）</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
-<div id="outline-container-org3102258" class="outline-4">
-<h4 id="org3102258"><span class="section-number-4">1.3.1.</span> 操作1: URLを投入してS2まで処理する（手動・1 Skill）</h4>
+<div id="outline-container-org0000002" class="outline-4">
+<h4 id="org0000002"><span class="section-number-4">1.3.1.</span> 操作1: URLを投入してS2まで処理する（手動・1 Skill）</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <ul class="org-ul">
 <li>入力: `url`</li>
 <li>複数URLの場合: 1行1URLのファイル入力</li>
 <li>UIインタラクション: なし（保存確認/エラー表示はあり得る）</li>
-<li>想定Skill: `ingest<sub>url</sub>`</li>
+<li>想定Skill: `ingest_url`</li>
 <li>処理（概念上のステップ分解）:
 <ul class="org-ul">
-<li>Step 0: `Content` を作成し `state=&rsquo;S1&rsquo;` で保存する</li>
+<li>Step 0: `Content` を作成し `state='S1'` で保存する</li>
 </ul></li>
 
 <li>Step A: 本文取得（Fetch）
@@ -279,8 +281,8 @@
 <li>provider: MVPでは `agent-browser` 固定</li>
 <li>成果物:
 <ul class="org-ul">
-<li>`fetch<sub>runs</sub>` に `article<sub>text</sub>`（スナップショット）とハッシュ等を保存</li>
-<li>失敗時は `error<sub>summary</sub>` を保存し、`Content` はS1に留める</li>
+<li>`fetch_runs` に `article_text`（スナップショット）とハッシュ等を保存</li>
+<li>失敗時は `error_summary` を保存し、`Content` はS1に留める</li>
 </ul></li>
 </ul></li>
 
@@ -291,38 +293,41 @@
 <li>いずれも「状態遷移のトリガーにしない」（concepts.orgの拘束）</li>
 <li>補足:
 <ul class="org-ul">
-<li>本文が「意味をなすかどうか」の判定（短すぎる/断片のみ等）はここで行い、不可の場合はTopic抽出をスキップしてS1に留める</li>
+<li>本文が「意味をなすかどうか」の判定（短すぎる/断片のみ等）はここで行い、
+不可の場合はTopic抽出をスキップしてS1に留める</li>
 </ul></li>
 </ul></li>
 
 <li>Step C: Topic分割（Extract Topics）
 <ul class="org-ul">
-<li>前提: Fetchが成功し `article<sub>text</sub>` が得られている</li>
+<li>前提: Fetchが成功し `article_text` が得られている</li>
 <li>成果物:
 <ul class="org-ul">
-<li>`topic<sub>runs</sub>` と `topics` を作る</li>
+<li>`topic_runs` と `topics` を作る</li>
 </ul></li>
 </ul></li>
 
 <li>Step D: 状態更新（Transition）
 <ul class="org-ul">
-<li>Topic等の最小構造が得られたら `state=&rsquo;S2&rsquo;` に更新する</li>
-<li>それ以外（Fetch失敗/Topic抽出スキップ等）は `state=&rsquo;S1&rsquo;` のまま</li>
+<li>Topic等の最小構造が得られたら `state='S2'` に更新する</li>
+<li>それ以外（Fetch失敗/Topic抽出スキップ等）は `state='S1'` のまま</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf62ceaf" class="outline-4">
-<h4 id="orgf62ceaf"><span class="section-number-4">1.3.2.</span> 操作2: （任意）Topicに意図ラベルを付ける</h4>
+
+<div id="outline-container-org0000003" class="outline-4">
+<h4 id="org0000003"><span class="section-number-4">1.3.2.</span> 操作2: （任意）Topicに意図ラベルを付ける</h4>
 <div class="outline-text-4" id="text-1-3-2">
 <ul class="org-ul">
 <li>decisions.orgの通り、意図ラベルはTopicに付与する</li>
-<li>付与は別Skill（例: `label<sub>topics</sub>`）で行う想定（UIの作り込みはMVPでは必須にしない）</li>
+<li>付与は別Skill（例: `label_topics`）で行う想定（UIの作り込みはMVPでは必須にしない）</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org3e3ffa6" class="outline-4">
-<h4 id="org3e3ffa6"><span class="section-number-4">1.3.3.</span> 操作3: （任意）棚の匂わせを見る（S2の観測窓）</h4>
+
+<div id="outline-container-org0000004" class="outline-4">
+<h4 id="org0000004"><span class="section-number-4">1.3.3.</span> 操作3: （任意）棚の匂わせを見る（S2の観測窓）</h4>
 <div class="outline-text-4" id="text-1-3-3">
 <ul class="org-ul">
 <li>S2のContentを直接一覧で見ない</li>
@@ -331,11 +336,13 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org3c86c94" class="outline-3">
-<h3 id="org3c86c94"><span class="section-number-3">1.4.</span> 補足: 「自動的にS2まで進むのでは？」について</h3>
+
+<div id="outline-container-org0000006" class="outline-3">
+<h3 id="org0000006"><span class="section-number-3">1.4.</span> 補足: 「自動的にS2まで進むのでは？」について</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
-運用として「URLを入れた直後に処理（1 Skill）を実行する」なら、結果として同じセッションでS2まで進む。それでもS1は、以下の理由で残す価値がある。
+運用として「URLを入れた直後に処理（1 Skill）を実行する」なら、結果として同じセッションでS2まで進む。
+それでもS1は、以下の理由で残す価値がある。
 </p>
 
 <ul class="org-ul">
@@ -346,10 +353,6 @@
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:43</p>
 </div>
 </body>
 </html>

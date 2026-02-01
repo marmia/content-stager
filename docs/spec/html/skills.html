@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,25 +198,25 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org326c06a">1. Skills-Driven Implementation</a>
+<li><a href="#org0000006">1. Skills-Driven Implementation</a>
 <ul>
-<li><a href="#org2d00811">1.1. 方針</a></li>
-<li><a href="#org7e0bd45">1.2. MVPで前提にする既存Skills</a></li>
-<li><a href="#orgc4782f8">1.3. Skills設計ルール（MVP要求）</a></li>
-<li><a href="#org38560fc">1.4. MVPで必要なSkills（候補）</a></li>
-<li><a href="#org11562be">1.5. Topic抽出（MVP）</a></li>
-<li><a href="#org3ba9600">1.6. Detect（Signals / Issues）（MVP）</a></li>
+<li><a href="#org0000000">1.1. 方針</a></li>
+<li><a href="#org0000001">1.2. MVPで前提にする既存Skills</a></li>
+<li><a href="#org0000002">1.3. Skills設計ルール（MVP要求）</a></li>
+<li><a href="#org0000003">1.4. MVPで必要なSkills（候補）</a></li>
+<li><a href="#org0000004">1.5. Topic抽出（MVP）</a></li>
+<li><a href="#org0000005">1.6. Detect（Signals / Issues）（MVP）</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org326c06a" class="outline-2">
-<h2 id="org326c06a"><span class="section-number-2">1.</span> Skills-Driven Implementation</h2>
+<div id="outline-container-org0000006" class="outline-2">
+<h2 id="org0000006"><span class="section-number-2">1.</span> Skills-Driven Implementation</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org2d00811" class="outline-3">
-<h3 id="org2d00811"><span class="section-number-3">1.1.</span> 方針</h3>
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 方針</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>主機能の多くを Agent Skills で実装する。</li>
@@ -227,8 +225,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org7e0bd45" class="outline-3">
-<h3 id="org7e0bd45"><span class="section-number-3">1.2.</span> MVPで前提にする既存Skills</h3>
+
+<div id="outline-container-org0000001" class="outline-3">
+<h3 id="org0000001"><span class="section-number-3">1.2.</span> MVPで前提にする既存Skills</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>本文取得:
@@ -239,8 +238,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc4782f8" class="outline-3">
-<h3 id="orgc4782f8"><span class="section-number-3">1.3.</span> Skills設計ルール（MVP要求）</h3>
+
+<div id="outline-container-org0000002" class="outline-3">
+<h3 id="org0000002"><span class="section-number-3">1.3.</span> Skills設計ルール（MVP要求）</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>冪等性: 同じ入力で複数回実行しても破壊しない（同一Contentの重複生成を避ける）</li>
@@ -250,11 +250,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org38560fc" class="outline-3">
-<h3 id="org38560fc"><span class="section-number-3">1.4.</span> MVPで必要なSkills（候補）</h3>
+
+<div id="outline-container-org0000003" class="outline-3">
+<h3 id="org0000003"><span class="section-number-3">1.4.</span> MVPで必要なSkills（候補）</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
-<li>ingest<sub>url</sub>: URLを入力として受け取り、S1作成→本文取得→検出→Topic抽出→S2更新までを一括で行う（手動実行）
+<li>ingest_url: URLを入力として受け取り、S1作成→本文取得→検出→Topic抽出→S2更新までを一括で行う（手動実行）
 <ul class="org-ul">
 <li>providerはMVPでは `agent-browser` 固定（将来は切替）</li>
 <li>Agent Skillsから他のAgent Skillsは呼べないため、本文取得スクリプトは本Skillに内包する</li>
@@ -267,22 +268,22 @@
 <li>永続化:
 <ul class="org-ul">
 <li>DBパス既定は `~/.local/share/content-stager/content-stager.sqlite3`</li>
-<li>`fetch<sub>runs.page</sub><sub>title</sub>` を保存し、表示タイトルに利用する</li>
+<li>`fetch_runs.page_title` を保存し、表示タイトルに利用する</li>
 </ul></li>
 <li>画面出力（MVP）:
 <ul class="org-ul">
 <li>stdoutは人間向けテキストのみ（decisions.org参照）</li>
 <li>将来の一括処理に備え、1 URL = 1行で結果を出す
 <ul class="org-ul">
-<li>例: `OK | &lt;display<sub>title</sub>&gt; | topics=5 | &lt;url&gt;`</li>
-<li>例: `NG | &lt;display<sub>title</sub>&gt; | reason=&lt;summary&gt; | &lt;url&gt;`</li>
+<li>例: `OK | &lt;display_title&gt; | topics=5 | &lt;url&gt;`</li>
+<li>例: `NG | &lt;display_title&gt; | reason=&lt;summary&gt; | &lt;url&gt;`</li>
 </ul></li>
 <li>末尾に集計を追加してよい（例: `DONE ok=3 ng=1`）</li>
 </ul></li>
 <li>タイトル表示ルール（MVP）:
 <ul class="org-ul">
-<li>通常は `page<sub>title</sub>`（取得時のタイトル）を表示する</li>
-<li>`page<sub>title</sub>` が40文字を超える場合（例: X投稿など）は、`article<sub>text</sub>` 先頭30文字付近から「区切り」までを表示する
+<li>通常は `page_title`（取得時のタイトル）を表示する</li>
+<li>`page_title` が40文字を超える場合（例: X投稿など）は、`article_text` 先頭30文字付近から「区切り」までを表示する
 <ul class="org-ul">
 <li>区切り: 空白/改行、または句読点・記号（例: `. , ! ? : ; / - 、 。`）を優先する</li>
 <li>30文字で区切りが見つからない場合は、60文字まで延長して探索し、見つからなければ30文字で切る</li>
@@ -292,24 +293,25 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org11562be" class="outline-3">
-<h3 id="org11562be"><span class="section-number-3">1.5.</span> Topic抽出（MVP）</h3>
+
+<div id="outline-container-org0000004" class="outline-3">
+<h3 id="org0000004"><span class="section-number-3">1.5.</span> Topic抽出（MVP）</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>実施主体:
 <ul class="org-ul">
 <li>Topic抽出ロジックはコーディングエージェント（Codex）が実装する（decisions.org参照）。</li>
-<li>`ingest<sub>url</sub>` の処理の一部として実行される想定。</li>
+<li>`ingest_url` の処理の一部として実行される想定。</li>
 </ul></li>
 <li>入力:
 <ul class="org-ul">
-<li>`fetch<sub>runs.article</sub><sub>text</sub>`（抽出済み本文テキスト）</li>
-<li>（任意）`fetch<sub>runs.page</sub><sub>title</sub>`</li>
+<li>`fetch_runs.article_text`（抽出済み本文テキスト）</li>
+<li>（任意）`fetch_runs.page_title`</li>
 </ul></li>
 <li>出力:
 <ul class="org-ul">
 <li>`topics`（3〜7個目安）</li>
-<li>`topic<sub>runs.status</sub>` は以下:
+<li>`topic_runs.status` は以下:
 <ul class="org-ul">
 <li>`ok`: Topicが1件以上生成できた</li>
 <li>`skipped`: 本文が不完全で意味をなさず、Topic抽出を行わない判断をした</li>
@@ -325,32 +327,33 @@
 </ul></li>
 <li>実装方針（案）:
 <ul class="org-ul">
-<li>まずはLLMに `article<sub>text</sub>` を渡し、Topicsを構造化形式（例: JSON配列）で返させてパースする。</li>
+<li>まずはLLMに `article_text` を渡し、Topicsを構造化形式（例: JSON配列）で返させてパースする。</li>
 <li>LLMの出力揺れは許容するが、揺れが状態遷移を自動で引き起こさない設計（S3以上に上げない）を維持する。</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org3ba9600" class="outline-3">
-<h3 id="org3ba9600"><span class="section-number-3">1.6.</span> Detect（Signals / Issues）（MVP）</h3>
+
+<div id="outline-container-org0000005" class="outline-3">
+<h3 id="org0000005"><span class="section-number-3">1.6.</span> Detect（Signals / Issues）（MVP）</h3>
 <div class="outline-text-3" id="text-1-6">
 <ul class="org-ul">
 <li>付与先:
 <ul class="org-ul">
-<li>`contents.is<sub>*</sub>`（最新判定として上書き、decisions.org参照）</li>
-<li>`topics.has<sub>signal</sub><sub>*</sub>`（最新判定として上書き、decisions.org参照）</li>
+<li>`contents.is_*`（最新判定として上書き、decisions.org参照）</li>
+<li>`topics.has_signal_*`（最新判定として上書き、decisions.org参照）</li>
 </ul></li>
 <li>意味:
 <ul class="org-ul">
-<li>`has<sub>signal</sub><sub>*</sub>` は候補フラグであり、状態遷移のトリガーにしない（詳細は `spec/signals-and-issues.org`）。</li>
+<li>`has_signal_*` は候補フラグであり、状態遷移のトリガーにしない（詳細は `spec/signals-and-issues.org`）。</li>
 </ul></li>
 <li>検出仕様:
 <ul class="org-ul">
 <li>MVPでは強シグナル候補の固定語彙は定義せず、LLMの指示（プロンプト）で候補判定する（decisions.org参照）。</li>
-<li>`contents.is<sub>*</sub>` は `spec/signals-and-issues.org` のMVP判定（案）に従う。</li>
+<li>`contents.is_*` は `spec/signals-and-issues.org` のMVP判定（案）に従う。</li>
 </ul></li>
-<li>build<sub>shelves</sub>: Topicを束ねてShelfを形成/更新する（S2の匂わせに使う）</li>
-<li>label<sub>topics</sub>: Topicに意図ラベルを付与する（必要なら。decisions.org参照）</li>
+<li>build_shelves: Topicを束ねてShelfを形成/更新する（S2の匂わせに使う）</li>
+<li>label_topics: Topicに意図ラベルを付与する（必要なら。decisions.org参照）</li>
 </ul>
 
 <p>
@@ -359,10 +362,6 @@
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:43</p>
 </div>
 </body>
 </html>

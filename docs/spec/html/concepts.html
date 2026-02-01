@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:44 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,108 +198,108 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org903e6ef">1. 0. Document Contract</a>
+<li><a href="#org0000003">1. 0. Document Contract</a>
 <ul>
-<li><a href="#orgb4e8d57">1.1. 目的</a></li>
-<li><a href="#orgebf75b4">1.2. 対象</a></li>
-<li><a href="#org0cb3415">1.3. 非目的（明示的にやらないこと）</a></li>
+<li><a href="#org0000000">1.1. 目的</a></li>
+<li><a href="#org0000001">1.2. 対象</a></li>
+<li><a href="#org0000002">1.3. 非目的（明示的にやらないこと）</a></li>
 </ul>
 </li>
-<li><a href="#orga47a81c">2. 1. 背景と課題</a></li>
-<li><a href="#org676d8d2">3. 2. 設計思想（Principles）</a>
+<li><a href="#org0000004">2. 1. 背景と課題</a></li>
+<li><a href="#org000000c">3. 2. 設計思想（Principles）</a>
 <ul>
-<li><a href="#orgf38d083">3.1. 2.1 重要度で並べない／順位付けしない</a></li>
-<li><a href="#orga4298ea">3.2. 2.2 情報は「価値」ではなく「扱い方」で分ける</a></li>
-<li><a href="#org4fbd8c4">3.3. 2.3 人は入れるだけ、AI は減らすだけ</a></li>
-<li><a href="#org5a7c11e">3.4. 2.4 判断を急がないために「状態」を導入する</a></li>
-<li><a href="#orgd55e268">3.5. 2.5 完全不可視は忘却を招くため、存在だけを匂わせる</a></li>
-<li><a href="#org2c5143f">3.6. 2.6 ナレッジは「書く」だけでなく「選ぶ」ことで生まれる</a></li>
-<li><a href="#org3a3a4b4">3.7. 2.7 重複回避の責任を人からシステムへ移す</a></li>
+<li><a href="#org0000005">3.1. 2.1 重要度で並べない／順位付けしない</a></li>
+<li><a href="#org0000006">3.2. 2.2 情報は「価値」ではなく「扱い方」で分ける</a></li>
+<li><a href="#org0000007">3.3. 2.3 人は入れるだけ、AI は減らすだけ</a></li>
+<li><a href="#org0000008">3.4. 2.4 判断を急がないために「状態」を導入する</a></li>
+<li><a href="#org0000009">3.5. 2.5 完全不可視は忘却を招くため、存在だけを匂わせる</a></li>
+<li><a href="#org000000a">3.6. 2.6 ナレッジは「書く」だけでなく「選ぶ」ことで生まれる</a></li>
+<li><a href="#org000000b">3.7. 2.7 重複回避の責任を人からシステムへ移す</a></li>
 </ul>
 </li>
-<li><a href="#org3a86946">4. 3. 用語定義（Terminology）</a>
+<li><a href="#org000001c">4. 3. 用語定義（Terminology）</a>
 <ul>
-<li><a href="#org761b86e">4.1. Content</a></li>
-<li><a href="#org969fd32">4.2. Capture</a></li>
-<li><a href="#org688371e">4.3. State（状態）</a></li>
-<li><a href="#org9d35ac0">4.4. S1: 未確定（Inbox）</a></li>
-<li><a href="#orgf5a887f">4.5. S2: 意味づけ済み・非行動（不可視）</a></li>
-<li><a href="#orgc19b571">4.6. Topic</a></li>
-<li><a href="#org74ed228">4.7. Shelf（棚）</a></li>
-<li><a href="#orga0d9c5a">4.8. Focus Topic</a></li>
-<li><a href="#org2569677">4.9. Knowledge</a></li>
-<li><a href="#orgc67c233">4.10. Task</a></li>
-<li><a href="#org7c8aeca">4.11. 意図ラベル（Intent Label）</a></li>
-<li><a href="#orgee750a9">4.12. 想起（Recall）</a></li>
-<li><a href="#org84e5fab">4.13. 限定可視（Scoped Reveal）</a></li>
-<li><a href="#org2017db7">4.14. TTL（Time To Live）</a></li>
-<li><a href="#orgbc8d423">4.15. 消化（Digest）</a></li>
+<li><a href="#org000000d">4.1. Content</a></li>
+<li><a href="#org000000e">4.2. Capture</a></li>
+<li><a href="#org000000f">4.3. State（状態）</a></li>
+<li><a href="#org0000010">4.4. S1: 未確定（Inbox）</a></li>
+<li><a href="#org0000011">4.5. S2: 意味づけ済み・非行動（不可視）</a></li>
+<li><a href="#org0000012">4.6. Topic</a></li>
+<li><a href="#org0000013">4.7. Shelf（棚）</a></li>
+<li><a href="#org0000014">4.8. Focus Topic</a></li>
+<li><a href="#org0000015">4.9. Knowledge</a></li>
+<li><a href="#org0000016">4.10. Task</a></li>
+<li><a href="#org0000017">4.11. 意図ラベル（Intent Label）</a></li>
+<li><a href="#org0000018">4.12. 想起（Recall）</a></li>
+<li><a href="#org0000019">4.13. 限定可視（Scoped Reveal）</a></li>
+<li><a href="#org000001a">4.14. TTL（Time To Live）</a></li>
+<li><a href="#org000001b">4.15. 消化（Digest）</a></li>
 </ul>
 </li>
-<li><a href="#org62184bd">5. 4. 状態モデル（State Model）</a>
+<li><a href="#org0000030">5. 4. 状態モデル（State Model）</a>
 <ul>
-<li><a href="#orgd6f9d03">5.1. 4.1 状態一覧</a></li>
-<li><a href="#org77c008f">5.2. 4.2 各状態の性質</a>
+<li><a href="#org000001d">5.1. 4.1 状態一覧</a></li>
+<li><a href="#org0000024">5.2. 4.2 各状態の性質</a>
 <ul>
-<li><a href="#orgd9f95b8">5.2.1. S1: 未確定（Inbox）</a></li>
-<li><a href="#org8832876">5.2.2. S2: 意味づけ済み・非行動（不可視）</a></li>
-<li><a href="#orgbc65e86">5.2.3. S3: Focus Topic</a></li>
-<li><a href="#org6da17fb">5.2.4. S4: Knowledge</a></li>
-<li><a href="#org3117f77">5.2.5. S6: Drop</a></li>
-<li><a href="#org88e85ef">5.2.6. S7: Trash</a></li>
+<li><a href="#org000001e">5.2.1. S1: 未確定（Inbox）</a></li>
+<li><a href="#org000001f">5.2.2. S2: 意味づけ済み・非行動（不可視）</a></li>
+<li><a href="#org0000020">5.2.3. S3: Focus Topic</a></li>
+<li><a href="#org0000021">5.2.4. S4: Knowledge</a></li>
+<li><a href="#org0000022">5.2.5. S6: Drop</a></li>
+<li><a href="#org0000023">5.2.6. S7: Trash</a></li>
 </ul>
 </li>
-<li><a href="#org5087336">5.3. 4.3 状態遷移ルール（if 文レベル）</a>
+<li><a href="#org000002e">5.3. 4.3 状態遷移ルール（if 文レベル）</a>
 <ul>
-<li><a href="#org5ef5552">5.3.1. S0 → S1（Capture → 未確定）</a></li>
-<li><a href="#org1bfb005">5.3.2. S1 → S2（未確定 → 意味づけ済み）</a></li>
-<li><a href="#org75bcb17">5.3.3. S1 → S7（未確定 → Trash）</a></li>
-<li><a href="#org6ffd90e">5.3.4. S2 → S7（意味づけ済み → Trash）</a></li>
-<li><a href="#org603dd59">5.3.5. S2 → S3（意味づけ済み → Focus Topic）</a></li>
-<li><a href="#org65e8598">5.3.6. S2 → S5（意味づけ済み → Task）</a></li>
-<li><a href="#org4dbfaef">5.3.7. S3 → S4（Focus Topic → Knowledge）</a></li>
-<li><a href="#org6f3b48d">5.3.8. S3 → S6（Focus Topic → Drop）</a></li>
-<li><a href="#orgebdfc0c">5.3.9. S4 → S6（Knowledge → Drop）</a></li>
+<li><a href="#org0000025">5.3.1. S0 → S1（Capture → 未確定）</a></li>
+<li><a href="#org0000026">5.3.2. S1 → S2（未確定 → 意味づけ済み）</a></li>
+<li><a href="#org0000027">5.3.3. S1 → S7（未確定 → Trash）</a></li>
+<li><a href="#org0000028">5.3.4. S2 → S7（意味づけ済み → Trash）</a></li>
+<li><a href="#org0000029">5.3.5. S2 → S3（意味づけ済み → Focus Topic）</a></li>
+<li><a href="#org000002a">5.3.6. S2 → S5（意味づけ済み → Task）</a></li>
+<li><a href="#org000002b">5.3.7. S3 → S4（Focus Topic → Knowledge）</a></li>
+<li><a href="#org000002c">5.3.8. S3 → S6（Focus Topic → Drop）</a></li>
+<li><a href="#org000002d">5.3.9. S4 → S6（Knowledge → Drop）</a></li>
 </ul>
 </li>
-<li><a href="#org11ff92d">5.4. 4.4 重要な補足ルール</a></li>
+<li><a href="#org000002f">5.4. 4.4 重要な補足ルール</a></li>
 </ul>
 </li>
-<li><a href="#orgaf201c8">6. 5. 可視性設計（Visibility）</a>
+<li><a href="#org0000034">6. 5. 可視性設計（Visibility）</a>
 <ul>
-<li><a href="#orgf85f331">6.1. 5.1 可視性の原則</a></li>
-<li><a href="#org51850f1">6.2. 5.2 観測窓（Observation Window）</a></li>
-<li><a href="#org3c2abd6">6.3. 5.3 限定可視（Scoped Reveal）</a></li>
+<li><a href="#org0000031">6.1. 5.1 可視性の原則</a></li>
+<li><a href="#org0000032">6.2. 5.2 観測窓（Observation Window）</a></li>
+<li><a href="#org0000033">6.3. 5.3 限定可視（Scoped Reveal）</a></li>
 </ul>
 </li>
-<li><a href="#orgc2fb61f">7. 6. 想起トリガー（Recall）</a>
+<li><a href="#org0000038">7. 6. 想起トリガー（Recall）</a>
 <ul>
-<li><a href="#org2b73fa4">7.1. 6.1 想起の原則</a></li>
-<li><a href="#orge4f31f0">7.2. 6.2 想起トリガーの種類</a></li>
-<li><a href="#org146f2a8">7.3. 6.3 想起頻度</a></li>
+<li><a href="#org0000035">7.1. 6.1 想起の原則</a></li>
+<li><a href="#org0000036">7.2. 6.2 想起トリガーの種類</a></li>
+<li><a href="#org0000037">7.3. 6.3 想起頻度</a></li>
 </ul>
 </li>
-<li><a href="#org1203abd">8. 7. AI の責務と禁止事項</a>
+<li><a href="#org000003c">8. 7. AI の責務と禁止事項</a>
 <ul>
-<li><a href="#orgef7585e">8.1. 7.1 AI が行うこと</a></li>
-<li><a href="#orgc0993e6">8.2. 7.2 AI が行わないこと（禁止事項）</a></li>
-<li><a href="#org8660a83">8.3. 7.3 テスト条件（設計拘束）</a></li>
+<li><a href="#org0000039">8.1. 7.1 AI が行うこと</a></li>
+<li><a href="#org000003a">8.2. 7.2 AI が行わないこと（禁止事項）</a></li>
+<li><a href="#org000003b">8.3. 7.3 テスト条件（設計拘束）</a></li>
 </ul>
 </li>
-<li><a href="#orgd0d66f9">9. 8. MVP 運用フロー</a></li>
-<li><a href="#orge94cf39">10. 9. 「消化」の定義</a></li>
-<li><a href="#org17a9356">11. 10. データ最小要件</a></li>
-<li><a href="#org5d6fc1e">12. 11. ガードレール</a></li>
-<li><a href="#orgb693fa5">13. 12. 将来拡張の差し込み口</a></li>
+<li><a href="#org000003d">9. 8. MVP 運用フロー</a></li>
+<li><a href="#org000003e">10. 9. 「消化」の定義</a></li>
+<li><a href="#org000003f">11. 10. データ最小要件</a></li>
+<li><a href="#org0000040">12. 11. ガードレール</a></li>
+<li><a href="#org0000041">13. 12. 将来拡張の差し込み口</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org903e6ef" class="outline-2">
-<h2 id="org903e6ef"><span class="section-number-2">1.</span> 0. Document Contract</h2>
+<div id="outline-container-org0000003" class="outline-2">
+<h2 id="org0000003"><span class="section-number-2">1.</span> 0. Document Contract</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgb4e8d57" class="outline-3">
-<h3 id="orgb4e8d57"><span class="section-number-3">1.1.</span> 目的</h3>
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 目的</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 本ドキュメントは、
@@ -309,7 +307,10 @@
 
 <p>
 大量の未評価情報（主に AI / IT 領域）を対象に、
-<b><b>重要度や価値の判断を即座に行わず、判断を遅延させたまま安全に保持し、認知負荷と忘却リスクを同時に最小化する個人用コンテンツ・ステージングシステム（content-stager）</b></b>
+<b><b>重要度や価値の判断を即座に行わず、
+判断を遅延させたまま安全に保持し、
+認知負荷と忘却リスクを同時に最小化する
+個人用コンテンツ・ステージングシステム（content-stager）</b></b>
 の設計仕様を定義する。
 </p>
 
@@ -320,8 +321,9 @@
 </p>
 </div>
 </div>
-<div id="outline-container-orgebf75b4" class="outline-3">
-<h3 id="orgebf75b4"><span class="section-number-3">1.2.</span> 対象</h3>
+
+<div id="outline-container-org0000001" class="outline-3">
+<h3 id="org0000001"><span class="section-number-3">1.2.</span> 対象</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 本システムが扱う情報は以下を含む。
@@ -343,8 +345,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org0cb3415" class="outline-3">
-<h3 id="org0cb3415"><span class="section-number-3">1.3.</span> 非目的（明示的にやらないこと）</h3>
+
+<div id="outline-container-org0000002" class="outline-3">
+<h3 id="org0000002"><span class="section-number-3">1.3.</span> 非目的（明示的にやらないこと）</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 本システムは、以下を目的としない。
@@ -359,13 +362,15 @@
 </ul>
 
 <p>
-本システムは「判断を減らす」ための仕組みであり、「より良い判断を自動で行う」ための仕組みではない。
+本システムは「判断を減らす」ための仕組みであり、
+「より良い判断を自動で行う」ための仕組みではない。
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orga47a81c" class="outline-2">
-<h2 id="orga47a81c"><span class="section-number-2">2.</span> 1. 背景と課題</h2>
+
+<div id="outline-container-org0000004" class="outline-2">
+<h2 id="org0000004"><span class="section-number-2">2.</span> 1. 背景と課題</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 AI / IT 領域の情報は、以下の性質を持つ。
@@ -405,15 +410,17 @@ AI / IT 領域の情報は、以下の性質を持つ。
 </p>
 </div>
 </div>
-<div id="outline-container-org676d8d2" class="outline-2">
-<h2 id="org676d8d2"><span class="section-number-2">3.</span> 2. 設計思想（Principles）</h2>
+
+<div id="outline-container-org000000c" class="outline-2">
+<h2 id="org000000c"><span class="section-number-2">3.</span> 2. 設計思想（Principles）</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 本システムは、以下の原則に基づいて設計される。
 </p>
 </div>
-<div id="outline-container-orgf38d083" class="outline-3">
-<h3 id="orgf38d083"><span class="section-number-3">3.1.</span> 2.1 重要度で並べない／順位付けしない</h3>
+
+<div id="outline-container-org0000005" class="outline-3">
+<h3 id="org0000005"><span class="section-number-3">3.1.</span> 2.1 重要度で並べない／順位付けしない</h3>
 <div class="outline-text-3" id="text-3-1">
 <ul class="org-ul">
 <li>情報を重要度・価値・優先度で並べ替えない</li>
@@ -421,12 +428,15 @@ AI / IT 領域の情報は、以下の性質を持つ。
 </ul>
 
 <p>
-理由：入力時点では価値関数が未成熟であり、この段階での順位付けは誤った判断を固定化するためである。
+理由：
+入力時点では価値関数が未成熟であり、
+この段階での順位付けは誤った判断を固定化するためである。
 </p>
 </div>
 </div>
-<div id="outline-container-orga4298ea" class="outline-3">
-<h3 id="orga4298ea"><span class="section-number-3">3.2.</span> 2.2 情報は「価値」ではなく「扱い方」で分ける</h3>
+
+<div id="outline-container-org0000006" class="outline-3">
+<h3 id="org0000006"><span class="section-number-3">3.2.</span> 2.2 情報は「価値」ではなく「扱い方」で分ける</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 情報は次の問いによって分岐される。
@@ -444,8 +454,9 @@ AI / IT 領域の情報は、以下の性質を持つ。
 </p>
 </div>
 </div>
-<div id="outline-container-org4fbd8c4" class="outline-3">
-<h3 id="org4fbd8c4"><span class="section-number-3">3.3.</span> 2.3 人は入れるだけ、AI は減らすだけ</h3>
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">3.3.</span> 2.3 人は入れるだけ、AI は減らすだけ</h3>
 <div class="outline-text-3" id="text-3-3">
 <ul class="org-ul">
 <li>人の役割
@@ -467,8 +478,9 @@ AI は、価値を解釈しない。
 </p>
 </div>
 </div>
-<div id="outline-container-org5a7c11e" class="outline-3">
-<h3 id="org5a7c11e"><span class="section-number-3">3.4.</span> 2.4 判断を急がないために「状態」を導入する</h3>
+
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008"><span class="section-number-3">3.4.</span> 2.4 判断を急がないために「状態」を導入する</h3>
 <div class="outline-text-3" id="text-3-4">
 <ul class="org-ul">
 <li>情報は複数の状態を経由する</li>
@@ -481,8 +493,9 @@ AI は、価値を解釈しない。
 </p>
 </div>
 </div>
-<div id="outline-container-orgd55e268" class="outline-3">
-<h3 id="orgd55e268"><span class="section-number-3">3.5.</span> 2.5 完全不可視は忘却を招くため、存在だけを匂わせる</h3>
+
+<div id="outline-container-org0000009" class="outline-3">
+<h3 id="org0000009"><span class="section-number-3">3.5.</span> 2.5 完全不可視は忘却を招くため、存在だけを匂わせる</h3>
 <div class="outline-text-3" id="text-3-5">
 <ul class="org-ul">
 <li>内容は見せない</li>
@@ -490,7 +503,8 @@ AI は、価値を解釈しない。
 </ul>
 
 <p>
-本設計ではこれを「不可視＋匂わせ」と定義する。
+本設計ではこれを
+「不可視＋匂わせ」と定義する。
 </p>
 
 <p>
@@ -498,8 +512,9 @@ AI は、価値を解釈しない。
 </p>
 </div>
 </div>
-<div id="outline-container-org2c5143f" class="outline-3">
-<h3 id="org2c5143f"><span class="section-number-3">3.6.</span> 2.6 ナレッジは「書く」だけでなく「選ぶ」ことで生まれる</h3>
+
+<div id="outline-container-org000000a" class="outline-3">
+<h3 id="org000000a"><span class="section-number-3">3.6.</span> 2.6 ナレッジは「書く」だけでなく「選ぶ」ことで生まれる</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 知識は最初から完成している必要はない。
@@ -528,8 +543,9 @@ Topic → Focus Topic → Knowledge
 </p>
 </div>
 </div>
-<div id="outline-container-org3a3a4b4" class="outline-3">
-<h3 id="org3a3a4b4"><span class="section-number-3">3.7.</span> 2.7 重複回避の責任を人からシステムへ移す</h3>
+
+<div id="outline-container-org000000b" class="outline-3">
+<h3 id="org000000b"><span class="section-number-3">3.7.</span> 2.7 重複回避の責任を人からシステムへ移す</h3>
 <div class="outline-text-3" id="text-3-7">
 <ul class="org-ul">
 <li>人は重複を気にせず情報を投入してよい</li>
@@ -537,25 +553,30 @@ Topic → Focus Topic → Knowledge
 </ul>
 
 <p>
-これにより、入力時の心理コストを最小化し、「入れるかどうか」を判断する必要をなくす。
+これにより、入力時の心理コストを最小化し、
+「入れるかどうか」を判断する必要をなくす。
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org3a86946" class="outline-2">
-<h2 id="org3a86946"><span class="section-number-2">4.</span> 3. 用語定義（Terminology）</h2>
+
+<div id="outline-container-org000001c" class="outline-2">
+<h2 id="org000001c"><span class="section-number-2">4.</span> 3. 用語定義（Terminology）</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-本章では、content-stager において使用される主要な用語を定義する。
+本章では、content-stager において使用される
+主要な用語を定義する。
 </p>
 
 <p>
-本システムでは、用語の曖昧さが実装・運用・将来拡張時の誤解を生まないよう、
+本システムでは、用語の曖昧さが
+実装・運用・将来拡張時の誤解を生まないよう、
 <b><b>直感的意味よりも設計上の役割を優先して定義する。</b></b>
 </p>
 </div>
-<div id="outline-container-org761b86e" class="outline-3">
-<h3 id="org761b86e"><span class="section-number-3">4.1.</span> Content</h3>
+
+<div id="outline-container-org000000d" class="outline-3">
+<h3 id="org000000d"><span class="section-number-3">4.1.</span> Content</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 本システムに取り込まれる情報単位の総称。
@@ -568,11 +589,13 @@ Topic → Focus Topic → Knowledge
 </ul>
 </div>
 </div>
-<div id="outline-container-org969fd32" class="outline-3">
-<h3 id="org969fd32"><span class="section-number-3">4.2.</span> Capture</h3>
+
+<div id="outline-container-org000000e" class="outline-3">
+<h3 id="org000000e"><span class="section-number-3">4.2.</span> Capture</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
-ユーザーが Content をシステムに入力する行為、およびその直後の瞬間状態。
+ユーザーが Content をシステムに入力する行為、
+およびその直後の瞬間状態。
 </p>
 
 <ul class="org-ul">
@@ -581,8 +604,9 @@ Topic → Focus Topic → Knowledge
 </ul>
 </div>
 </div>
-<div id="outline-container-org688371e" class="outline-3">
-<h3 id="org688371e"><span class="section-number-3">4.3.</span> State（状態）</h3>
+
+<div id="outline-container-org000000f" class="outline-3">
+<h3 id="org000000f"><span class="section-number-3">4.3.</span> State（状態）</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 Content がシステム内で置かれている位置づけ。
@@ -595,8 +619,9 @@ Content がシステム内で置かれている位置づけ。
 </ul>
 </div>
 </div>
-<div id="outline-container-org9d35ac0" class="outline-3">
-<h3 id="org9d35ac0"><span class="section-number-3">4.4.</span> S1: 未確定（Inbox）</h3>
+
+<div id="outline-container-org0000010" class="outline-3">
+<h3 id="org0000010"><span class="section-number-3">4.4.</span> S1: 未確定（Inbox）</h3>
 <div class="outline-text-3" id="text-4-4">
 <ul class="org-ul">
 <li>判断・整理を一切行っていない状態</li>
@@ -605,8 +630,9 @@ Content がシステム内で置かれている位置づけ。
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf5a887f" class="outline-3">
-<h3 id="orgf5a887f"><span class="section-number-3">4.5.</span> S2: 意味づけ済み・非行動（不可視）</h3>
+
+<div id="outline-container-org0000011" class="outline-3">
+<h3 id="org0000011"><span class="section-number-3">4.5.</span> S2: 意味づけ済み・非行動（不可視）</h3>
 <div class="outline-text-3" id="text-4-5">
 <ul class="org-ul">
 <li>AI による最小限の構造化が行われた状態</li>
@@ -615,8 +641,9 @@ Content がシステム内で置かれている位置づけ。
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc19b571" class="outline-3">
-<h3 id="orgc19b571"><span class="section-number-3">4.6.</span> Topic</h3>
+
+<div id="outline-container-org0000012" class="outline-3">
+<h3 id="org0000012"><span class="section-number-3">4.6.</span> Topic</h3>
 <div class="outline-text-3" id="text-4-6">
 <p>
 AI が Content から抽出する短い論点断片。
@@ -629,8 +656,9 @@ AI が Content から抽出する短い論点断片。
 </ul>
 </div>
 </div>
-<div id="outline-container-org74ed228" class="outline-3">
-<h3 id="org74ed228"><span class="section-number-3">4.7.</span> Shelf（棚）</h3>
+
+<div id="outline-container-org0000013" class="outline-3">
+<h3 id="org0000013"><span class="section-number-3">4.7.</span> Shelf（棚）</h3>
 <div class="outline-text-3" id="text-4-7">
 <p>
 関連する Topic を束ねた論理的な集合。
@@ -643,11 +671,13 @@ AI が Content から抽出する短い論点断片。
 </ul>
 </div>
 </div>
-<div id="outline-container-orga0d9c5a" class="outline-3">
-<h3 id="orga0d9c5a"><span class="section-number-3">4.8.</span> Focus Topic</h3>
+
+<div id="outline-container-org0000014" class="outline-3">
+<h3 id="org0000014"><span class="section-number-3">4.8.</span> Focus Topic</h3>
 <div class="outline-text-3" id="text-4-8">
 <p>
-ユーザーが「重要」「判断に使う」「説明したい」と明示した Topic。
+ユーザーが「重要」「判断に使う」「説明したい」
+と明示した Topic。
 </p>
 
 <ul class="org-ul">
@@ -656,8 +686,9 @@ AI が Content から抽出する短い論点断片。
 </ul>
 </div>
 </div>
-<div id="outline-container-org2569677" class="outline-3">
-<h3 id="org2569677"><span class="section-number-3">4.9.</span> Knowledge</h3>
+
+<div id="outline-container-org0000015" class="outline-3">
+<h3 id="org0000015"><span class="section-number-3">4.9.</span> Knowledge</h3>
 <div class="outline-text-3" id="text-4-9">
 <p>
 判断・説明・再利用の責任を引き受けた情報。
@@ -669,8 +700,9 @@ AI が Content から抽出する短い論点断片。
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc67c233" class="outline-3">
-<h3 id="orgc67c233"><span class="section-number-3">4.10.</span> Task</h3>
+
+<div id="outline-container-org0000016" class="outline-3">
+<h3 id="org0000016"><span class="section-number-3">4.10.</span> Task</h3>
 <div class="outline-text-3" id="text-4-10">
 <p>
 行動として処理することが確定した情報。
@@ -682,11 +714,13 @@ AI が Content から抽出する短い論点断片。
 </ul>
 </div>
 </div>
-<div id="outline-container-org7c8aeca" class="outline-3">
-<h3 id="org7c8aeca"><span class="section-number-3">4.11.</span> 意図ラベル（Intent Label）</h3>
+
+<div id="outline-container-org0000017" class="outline-3">
+<h3 id="org0000017"><span class="section-number-3">4.11.</span> 意図ラベル（Intent Label）</h3>
 <div class="outline-text-3" id="text-4-11">
 <p>
-Topic に対してユーザーが付与する弱い主観的メモ。
+Topic に対してユーザーが付与する
+弱い主観的メモ。
 </p>
 
 <p>
@@ -702,11 +736,13 @@ Topic に対してユーザーが付与する弱い主観的メモ。
 </ul>
 </div>
 </div>
-<div id="outline-container-orgee750a9" class="outline-3">
-<h3 id="orgee750a9"><span class="section-number-3">4.12.</span> 想起（Recall）</h3>
+
+<div id="outline-container-org0000018" class="outline-3">
+<h3 id="org0000018"><span class="section-number-3">4.12.</span> 想起（Recall）</h3>
 <div class="outline-text-3" id="text-4-12">
 <p>
-不可視状態にある Content / Topic の存在を弱く思い出させる仕組み。
+不可視状態にある Content / Topic の存在を
+弱く思い出させる仕組み。
 </p>
 
 <ul class="org-ul">
@@ -716,11 +752,13 @@ Topic に対してユーザーが付与する弱い主観的メモ。
 </ul>
 </div>
 </div>
-<div id="outline-container-org84e5fab" class="outline-3">
-<h3 id="org84e5fab"><span class="section-number-3">4.13.</span> 限定可視（Scoped Reveal）</h3>
+
+<div id="outline-container-org0000019" class="outline-3">
+<h3 id="org0000019"><span class="section-number-3">4.13.</span> 限定可視（Scoped Reveal）</h3>
 <div class="outline-text-3" id="text-4-13">
 <p>
-ユーザーの明示的意図に基づき、状態 2 の内容を一時的に可視化すること。
+ユーザーの明示的意図に基づき、
+状態 2 の内容を一時的に可視化すること。
 </p>
 
 <ul class="org-ul">
@@ -729,8 +767,9 @@ Topic に対してユーザーが付与する弱い主観的メモ。
 </ul>
 </div>
 </div>
-<div id="outline-container-org2017db7" class="outline-3">
-<h3 id="org2017db7"><span class="section-number-3">4.14.</span> TTL（Time To Live）</h3>
+
+<div id="outline-container-org000001a" class="outline-3">
+<h3 id="org000001a"><span class="section-number-3">4.14.</span> TTL（Time To Live）</h3>
 <div class="outline-text-3" id="text-4-14">
 <p>
 Content が特定の状態に留まってよい最大時間。
@@ -738,12 +777,14 @@ Content が特定の状態に留まってよい最大時間。
 
 <ul class="org-ul">
 <li>価値判断の代替ではない</li>
-<li>判断が発生しなかった情報を自然に消滅させるための仕組み</li>
+<li>判断が発生しなかった情報を
+自然に消滅させるための仕組み</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbc8d423" class="outline-3">
-<h3 id="orgbc8d423"><span class="section-number-3">4.15.</span> 消化（Digest）</h3>
+
+<div id="outline-container-org000001b" class="outline-3">
+<h3 id="org000001b"><span class="section-number-3">4.15.</span> 消化（Digest）</h3>
 <div class="outline-text-3" id="text-4-15">
 <p>
 Content がシステム上の責務を終えること。
@@ -751,13 +792,15 @@ Content がシステム上の責務を終えること。
 
 <ul class="org-ul">
 <li>理解・完了を意味しない</li>
-<li>Task / Knowledge / Drop / Trash のいずれかに到達した状態を指す</li>
+<li>Task / Knowledge / Drop / Trash の
+いずれかに到達した状態を指す</li>
 </ul>
 </div>
 </div>
 </div>
-<div id="outline-container-org62184bd" class="outline-2">
-<h2 id="org62184bd"><span class="section-number-2">5.</span> 4. 状態モデル（State Model）</h2>
+
+<div id="outline-container-org0000030" class="outline-2">
+<h2 id="org0000030"><span class="section-number-2">5.</span> 4. 状態モデル（State Model）</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 本章では、content-stager における
@@ -766,11 +809,14 @@ Content がシステム上の責務を終えること。
 
 <p>
 本システムにおいて「判断」とは、
-**状態遷移を引き起こす行為**を指す。判断は常時発生してはならず、ユーザーの明示的意図がある場合にのみ発生する。
+**状態遷移を引き起こす行為**を指す。
+判断は常時発生してはならず、
+ユーザーの明示的意図がある場合にのみ発生する。
 </p>
 </div>
-<div id="outline-container-orgd6f9d03" class="outline-3">
-<h3 id="orgd6f9d03"><span class="section-number-3">5.1.</span> 4.1 状態一覧</h3>
+
+<div id="outline-container-org000001d" class="outline-3">
+<h3 id="org000001d"><span class="section-number-3">5.1.</span> 4.1 状態一覧</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 本システムは、以下の状態を持つ。
@@ -812,16 +858,18 @@ Content がシステム上の責務を終えること。
 </ul>
 
 <p>
-S5（Task）は、本システムの管理対象外であり、外部タスク管理システムへの出口として扱う。
+S5（Task）は、本システムの管理対象外であり、
+外部タスク管理システムへの出口として扱う。
 </p>
 </div>
 </div>
-<div id="outline-container-org77c008f" class="outline-3">
-<h3 id="org77c008f"><span class="section-number-3">5.2.</span> 4.2 各状態の性質</h3>
+
+<div id="outline-container-org0000024" class="outline-3">
+<h3 id="org0000024"><span class="section-number-3">5.2.</span> 4.2 各状態の性質</h3>
 <div class="outline-text-3" id="text-5-2">
 </div>
-<div id="outline-container-orgd9f95b8" class="outline-4">
-<h4 id="orgd9f95b8"><span class="section-number-4">5.2.1.</span> S1: 未確定（Inbox）</h4>
+<div id="outline-container-org000001e" class="outline-4">
+<h4 id="org000001e"><span class="section-number-4">5.2.1.</span> S1: 未確定（Inbox）</h4>
 <div class="outline-text-4" id="text-5-2-1">
 <ul class="org-ul">
 <li>目的:
@@ -845,8 +893,9 @@ S5（Task）は、本システムの管理対象外であり、外部タスク�
 </ul>
 </div>
 </div>
-<div id="outline-container-org8832876" class="outline-4">
-<h4 id="org8832876"><span class="section-number-4">5.2.2.</span> S2: 意味づけ済み・非行動（不可視）</h4>
+
+<div id="outline-container-org000001f" class="outline-4">
+<h4 id="org000001f"><span class="section-number-4">5.2.2.</span> S2: 意味づけ済み・非行動（不可視）</h4>
 <div class="outline-text-4" id="text-5-2-2">
 <ul class="org-ul">
 <li>目的:
@@ -873,8 +922,9 @@ S5（Task）は、本システムの管理対象外であり、外部タスク�
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbc65e86" class="outline-4">
-<h4 id="orgbc65e86"><span class="section-number-4">5.2.3.</span> S3: Focus Topic</h4>
+
+<div id="outline-container-org0000020" class="outline-4">
+<h4 id="org0000020"><span class="section-number-4">5.2.3.</span> S3: Focus Topic</h4>
 <div class="outline-text-4" id="text-5-2-3">
 <ul class="org-ul">
 <li>目的:
@@ -892,8 +942,9 @@ S5（Task）は、本システムの管理対象外であり、外部タスク�
 </ul>
 </div>
 </div>
-<div id="outline-container-org6da17fb" class="outline-4">
-<h4 id="org6da17fb"><span class="section-number-4">5.2.4.</span> S4: Knowledge</h4>
+
+<div id="outline-container-org0000021" class="outline-4">
+<h4 id="org0000021"><span class="section-number-4">5.2.4.</span> S4: Knowledge</h4>
 <div class="outline-text-4" id="text-5-2-4">
 <ul class="org-ul">
 <li>目的:
@@ -911,8 +962,9 @@ S5（Task）は、本システムの管理対象外であり、外部タスク�
 </ul>
 </div>
 </div>
-<div id="outline-container-org3117f77" class="outline-4">
-<h4 id="org3117f77"><span class="section-number-4">5.2.5.</span> S6: Drop</h4>
+
+<div id="outline-container-org0000022" class="outline-4">
+<h4 id="org0000022"><span class="section-number-4">5.2.5.</span> S6: Drop</h4>
 <div class="outline-text-4" id="text-5-2-5">
 <ul class="org-ul">
 <li>目的:
@@ -926,8 +978,9 @@ S5（Task）は、本システムの管理対象外であり、外部タスク�
 </ul>
 </div>
 </div>
-<div id="outline-container-org88e85ef" class="outline-4">
-<h4 id="org88e85ef"><span class="section-number-4">5.2.6.</span> S7: Trash</h4>
+
+<div id="outline-container-org0000023" class="outline-4">
+<h4 id="org0000023"><span class="section-number-4">5.2.6.</span> S7: Trash</h4>
 <div class="outline-text-4" id="text-5-2-6">
 <ul class="org-ul">
 <li>目的:
@@ -946,12 +999,13 @@ S5（Task）は、本システムの管理対象外であり、外部タスク�
 </div>
 </div>
 </div>
-<div id="outline-container-org5087336" class="outline-3">
-<h3 id="org5087336"><span class="section-number-3">5.3.</span> 4.3 状態遷移ルール（if 文レベル）</h3>
+
+<div id="outline-container-org000002e" class="outline-3">
+<h3 id="org000002e"><span class="section-number-3">5.3.</span> 4.3 状態遷移ルール（if 文レベル）</h3>
 <div class="outline-text-3" id="text-5-3">
 </div>
-<div id="outline-container-org5ef5552" class="outline-4">
-<h4 id="org5ef5552"><span class="section-number-4">5.3.1.</span> S0 → S1（Capture → 未確定）</h4>
+<div id="outline-container-org0000025" class="outline-4">
+<h4 id="org0000025"><span class="section-number-4">5.3.1.</span> S0 → S1（Capture → 未確定）</h4>
 <div class="outline-text-4" id="text-5-3-1">
 <p>
 IF:
@@ -977,8 +1031,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org1bfb005" class="outline-4">
-<h4 id="org1bfb005"><span class="section-number-4">5.3.2.</span> S1 → S2（未確定 → 意味づけ済み）</h4>
+
+<div id="outline-container-org0000026" class="outline-4">
+<h4 id="org0000026"><span class="section-number-4">5.3.2.</span> S1 → S2（未確定 → 意味づけ済み）</h4>
 <div class="outline-text-4" id="text-5-3-2">
 <p>
 IF:
@@ -1005,8 +1060,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org75bcb17" class="outline-4">
-<h4 id="org75bcb17"><span class="section-number-4">5.3.3.</span> S1 → S7（未確定 → Trash）</h4>
+
+<div id="outline-container-org0000027" class="outline-4">
+<h4 id="org0000027"><span class="section-number-4">5.3.3.</span> S1 → S7（未確定 → Trash）</h4>
 <div class="outline-text-4" id="text-5-3-3">
 <p>
 IF:
@@ -1025,8 +1081,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org6ffd90e" class="outline-4">
-<h4 id="org6ffd90e"><span class="section-number-4">5.3.4.</span> S2 → S7（意味づけ済み → Trash）</h4>
+
+<div id="outline-container-org0000028" class="outline-4">
+<h4 id="org0000028"><span class="section-number-4">5.3.4.</span> S2 → S7（意味づけ済み → Trash）</h4>
 <div class="outline-text-4" id="text-5-3-4">
 <p>
 IF:
@@ -1055,8 +1112,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org603dd59" class="outline-4">
-<h4 id="org603dd59"><span class="section-number-4">5.3.5.</span> S2 → S3（意味づけ済み → Focus Topic）</h4>
+
+<div id="outline-container-org0000029" class="outline-4">
+<h4 id="org0000029"><span class="section-number-4">5.3.5.</span> S2 → S3（意味づけ済み → Focus Topic）</h4>
 <div class="outline-text-4" id="text-5-3-5">
 <p>
 IF:
@@ -1074,7 +1132,8 @@ AND
 AND
 </p>
 <ul class="org-ul">
-<li>「重要」「判断に使う」「説明したい」のいずれかを明示した</li>
+<li>「重要」「判断に使う」「説明したい」
+のいずれかを明示した</li>
 </ul>
 
 <p>
@@ -1093,8 +1152,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org65e8598" class="outline-4">
-<h4 id="org65e8598"><span class="section-number-4">5.3.6.</span> S2 → S5（意味づけ済み → Task）</h4>
+
+<div id="outline-container-org000002a" class="outline-4">
+<h4 id="org000002a"><span class="section-number-4">5.3.6.</span> S2 → S5（意味づけ済み → Task）</h4>
 <div class="outline-text-4" id="text-5-3-6">
 <p>
 IF:
@@ -1124,8 +1184,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org4dbfaef" class="outline-4">
-<h4 id="org4dbfaef"><span class="section-number-4">5.3.7.</span> S3 → S4（Focus Topic → Knowledge）</h4>
+
+<div id="outline-container-org000002b" class="outline-4">
+<h4 id="org000002b"><span class="section-number-4">5.3.7.</span> S3 → S4（Focus Topic → Knowledge）</h4>
 <div class="outline-text-4" id="text-5-3-7">
 <p>
 IF:
@@ -1161,8 +1222,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org6f3b48d" class="outline-4">
-<h4 id="org6f3b48d"><span class="section-number-4">5.3.8.</span> S3 → S6（Focus Topic → Drop）</h4>
+
+<div id="outline-container-org000002c" class="outline-4">
+<h4 id="org000002c"><span class="section-number-4">5.3.8.</span> S3 → S6（Focus Topic → Drop）</h4>
 <div class="outline-text-4" id="text-5-3-8">
 <p>
 IF:
@@ -1179,8 +1241,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-orgebdfc0c" class="outline-4">
-<h4 id="orgebdfc0c"><span class="section-number-4">5.3.9.</span> S4 → S6（Knowledge → Drop）</h4>
+
+<div id="outline-container-org000002d" class="outline-4">
+<h4 id="org000002d"><span class="section-number-4">5.3.9.</span> S4 → S6（Knowledge → Drop）</h4>
 <div class="outline-text-4" id="text-5-3-9">
 <p>
 IF:
@@ -1204,8 +1267,9 @@ THEN:
 </div>
 </div>
 </div>
-<div id="outline-container-org11ff92d" class="outline-3">
-<h3 id="org11ff92d"><span class="section-number-3">5.4.</span> 4.4 重要な補足ルール</h3>
+
+<div id="outline-container-org000002f" class="outline-3">
+<h3 id="org000002f"><span class="section-number-3">5.4.</span> 4.4 重要な補足ルール</h3>
 <div class="outline-text-3" id="text-5-4">
 <ul class="org-ul">
 <li>想起トリガーは状態を変更しない</li>
@@ -1215,20 +1279,24 @@ THEN:
 </div>
 </div>
 </div>
-<div id="outline-container-orgaf201c8" class="outline-2">
-<h2 id="orgaf201c8"><span class="section-number-2">6.</span> 5. 可視性設計（Visibility）</h2>
+
+<div id="outline-container-org0000034" class="outline-2">
+<h2 id="org0000034"><span class="section-number-2">6.</span> 5. 可視性設計（Visibility）</h2>
 <div class="outline-text-2" id="text-6">
 <p>
-本章では、各状態における可視性と、ユーザーが情報に「触れる」ための条件を定義する。
+本章では、各状態における可視性と、
+ユーザーが情報に「触れる」ための条件を定義する。
 </p>
 
 <p>
 本システムにおいて可視性とは、
-**一覧性や把握を目的とした表示ではなく、意図を起点とした限定的な観測可能性**を意味する。
+**一覧性や把握を目的とした表示ではなく、
+意図を起点とした限定的な観測可能性**を意味する。
 </p>
 </div>
-<div id="outline-container-orgf85f331" class="outline-3">
-<h3 id="orgf85f331"><span class="section-number-3">6.1.</span> 5.1 可視性の原則</h3>
+
+<div id="outline-container-org0000031" class="outline-3">
+<h3 id="org0000031"><span class="section-number-3">6.1.</span> 5.1 可視性の原則</h3>
 <div class="outline-text-3" id="text-6-1">
 <ul class="org-ul">
 <li>常時一覧表示を行わない</li>
@@ -1237,11 +1305,13 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org51850f1" class="outline-3">
-<h3 id="org51850f1"><span class="section-number-3">6.2.</span> 5.2 観測窓（Observation Window）</h3>
+
+<div id="outline-container-org0000032" class="outline-3">
+<h3 id="org0000032"><span class="section-number-3">6.2.</span> 5.2 観測窓（Observation Window）</h3>
 <div class="outline-text-3" id="text-6-2">
 <ul class="org-ul">
-<li>観測窓とは、状態 2（意味づけ済み・非行動）に対する非侵入的な可視レイヤである</li>
+<li>観測窓とは、状態 2（意味づけ済み・非行動）に対する
+非侵入的な可視レイヤである</li>
 <li>観測窓は以下のみを表示する
 <ul class="org-ul">
 <li>Topic レベルの存在感（例：「最近○○系がいくつか」）</li>
@@ -1252,26 +1322,33 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org3c2abd6" class="outline-3">
-<h3 id="org3c2abd6"><span class="section-number-3">6.3.</span> 5.3 限定可視（Scoped Reveal）</h3>
+
+<div id="outline-container-org0000033" class="outline-3">
+<h3 id="org0000033"><span class="section-number-3">6.3.</span> 5.3 限定可視（Scoped Reveal）</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
-<li>ユーザーが明示的に「この Topic を片付けたい」「この棚を見たい」と意図した場合にのみ、状態 2 の内容を限定的に可視化する</li>
+<li>ユーザーが明示的に
+「この Topic を片付けたい」
+「この棚を見たい」
+と意図した場合にのみ、
+状態 2 の内容を限定的に可視化する</li>
 <li>限定可視は常設されない</li>
 <li>セッション単位で閉じる</li>
 </ul>
 </div>
 </div>
 </div>
-<div id="outline-container-orgc2fb61f" class="outline-2">
-<h2 id="orgc2fb61f"><span class="section-number-2">7.</span> 6. 想起トリガー（Recall）</h2>
+
+<div id="outline-container-org0000038" class="outline-2">
+<h2 id="org0000038"><span class="section-number-2">7.</span> 6. 想起トリガー（Recall）</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 本章では、情報を「思い出させる」ための仕組みを定義する。
 </p>
 </div>
-<div id="outline-container-org2b73fa4" class="outline-3">
-<h3 id="org2b73fa4"><span class="section-number-3">7.1.</span> 6.1 想起の原則</h3>
+
+<div id="outline-container-org0000035" class="outline-3">
+<h3 id="org0000035"><span class="section-number-3">7.1.</span> 6.1 想起の原則</h3>
 <div class="outline-text-3" id="text-7-1">
 <ul class="org-ul">
 <li>想起は行動要求を伴わない</li>
@@ -1280,8 +1357,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-orge4f31f0" class="outline-3">
-<h3 id="orge4f31f0"><span class="section-number-3">7.2.</span> 6.2 想起トリガーの種類</h3>
+
+<div id="outline-container-org0000036" class="outline-3">
+<h3 id="org0000036"><span class="section-number-3">7.2.</span> 6.2 想起トリガーの種類</h3>
 <div class="outline-text-3" id="text-7-2">
 <ul class="org-ul">
 <li>Topic 再遭遇</li>
@@ -1290,8 +1368,9 @@ THEN:
 </ul>
 </div>
 </div>
-<div id="outline-container-org146f2a8" class="outline-3">
-<h3 id="org146f2a8"><span class="section-number-3">7.3.</span> 6.3 想起頻度</h3>
+
+<div id="outline-container-org0000037" class="outline-3">
+<h3 id="org0000037"><span class="section-number-3">7.3.</span> 6.3 想起頻度</h3>
 <div class="outline-text-3" id="text-7-3">
 <ul class="org-ul">
 <li>デフォルトでは低頻度とする</li>
@@ -1301,16 +1380,18 @@ THEN:
 </div>
 </div>
 </div>
-<div id="outline-container-org1203abd" class="outline-2">
-<h2 id="org1203abd"><span class="section-number-2">8.</span> 7. AI の責務と禁止事項</h2>
+
+<div id="outline-container-org000003c" class="outline-2">
+<h2 id="org000003c"><span class="section-number-2">8.</span> 7. AI の責務と禁止事項</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 本章では、content-stager における
 AI の責務範囲を明示する。
 </p>
 </div>
-<div id="outline-container-orgef7585e" class="outline-3">
-<h3 id="orgef7585e"><span class="section-number-3">8.1.</span> 7.1 AI が行うこと</h3>
+
+<div id="outline-container-org0000039" class="outline-3">
+<h3 id="org0000039"><span class="section-number-3">8.1.</span> 7.1 AI が行うこと</h3>
 <div class="outline-text-3" id="text-8-1">
 <ul class="org-ul">
 <li>Topic 分解（3〜7 個）</li>
@@ -1335,12 +1416,14 @@ AI の責務範囲を明示する。
 </p>
 <ul class="org-ul">
 <li>強シグナル検出はフラグ付与のみであり、状態遷移のトリガーにしない。</li>
-<li>期限以外（依存/不可逆/安全）は、コンテンツ単体では確定しにくく、ユーザー文脈との一致で「成立」する（詳細は `spec/signals-and-issues.org`）。</li>
+<li>期限以外（依存/不可逆/安全）は、コンテンツ単体では確定しにくく、
+ユーザー文脈との一致で「成立」する（詳細は `spec/signals-and-issues.org`）。</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc0993e6" class="outline-3">
-<h3 id="orgc0993e6"><span class="section-number-3">8.2.</span> 7.2 AI が行わないこと（禁止事項）</h3>
+
+<div id="outline-container-org000003a" class="outline-3">
+<h3 id="org000003a"><span class="section-number-3">8.2.</span> 7.2 AI が行わないこと（禁止事項）</h3>
 <div class="outline-text-3" id="text-8-2">
 <ul class="org-ul">
 <li>重要度・価値・優先度の評価</li>
@@ -1351,18 +1434,21 @@ AI の責務範囲を明示する。
 </ul>
 </div>
 </div>
-<div id="outline-container-org8660a83" class="outline-3">
-<h3 id="org8660a83"><span class="section-number-3">8.3.</span> 7.3 テスト条件（設計拘束）</h3>
+
+<div id="outline-container-org000003b" class="outline-3">
+<h3 id="org000003b"><span class="section-number-3">8.3.</span> 7.3 テスト条件（設計拘束）</h3>
 <div class="outline-text-3" id="text-8-3">
 <ul class="org-ul">
-<li>同一入力に対し、AI の判断結果が変動しても状態遷移が発生しないこと</li>
+<li>同一入力に対し、AI の判断結果が変動しても
+状態遷移が発生しないこと</li>
 <li>AI が単独で S3 以上に遷移させないこと</li>
 </ul>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd0d66f9" class="outline-2">
-<h2 id="orgd0d66f9"><span class="section-number-2">9.</span> 8. MVP 運用フロー</h2>
+
+<div id="outline-container-org000003d" class="outline-2">
+<h2 id="org000003d"><span class="section-number-2">9.</span> 8. MVP 運用フロー</h2>
 <div class="outline-text-2" id="text-9">
 <ol class="org-ol">
 <li>迷ったら情報を入力する</li>
@@ -1376,8 +1462,9 @@ AI の責務範囲を明示する。
 </ol>
 </div>
 </div>
-<div id="outline-container-orge94cf39" class="outline-2">
-<h2 id="orge94cf39"><span class="section-number-2">10.</span> 9. 「消化」の定義</h2>
+
+<div id="outline-container-org000003e" class="outline-2">
+<h2 id="org000003e"><span class="section-number-2">10.</span> 9. 「消化」の定義</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 本システムにおいて「消化」とは、
@@ -1385,7 +1472,8 @@ AI の責務範囲を明示する。
 </p>
 
 <p>
-以下のいずれかが起きた時点で、情報は消化されたとみなす。
+以下のいずれかが起きた時点で、
+情報は消化されたとみなす。
 </p>
 
 <ul class="org-ul">
@@ -1396,8 +1484,9 @@ AI の責務範囲を明示する。
 </ul>
 </div>
 </div>
-<div id="outline-container-org17a9356" class="outline-2">
-<h2 id="org17a9356"><span class="section-number-2">11.</span> 10. データ最小要件</h2>
+
+<div id="outline-container-org000003f" class="outline-2">
+<h2 id="org000003f"><span class="section-number-2">11.</span> 10. データ最小要件</h2>
 <div class="outline-text-2" id="text-11">
 <p>
 各情報単位は、以下を最低限保持する。
@@ -1414,8 +1503,9 @@ AI の責務範囲を明示する。
 </ul>
 </div>
 </div>
-<div id="outline-container-org5d6fc1e" class="outline-2">
-<h2 id="org5d6fc1e"><span class="section-number-2">12.</span> 11. ガードレール</h2>
+
+<div id="outline-container-org0000040" class="outline-2">
+<h2 id="org0000040"><span class="section-number-2">12.</span> 11. ガードレール</h2>
 <div class="outline-text-2" id="text-12">
 <ul class="org-ul">
 <li>ユーザーに全件一覧を見せない</li>
@@ -1425,8 +1515,9 @@ AI の責務範囲を明示する。
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb693fa5" class="outline-2">
-<h2 id="orgb693fa5"><span class="section-number-2">13.</span> 12. 将来拡張の差し込み口</h2>
+
+<div id="outline-container-org0000041" class="outline-2">
+<h2 id="org0000041"><span class="section-number-2">13.</span> 12. 将来拡張の差し込み口</h2>
 <div class="outline-text-2" id="text-13">
 <ul class="org-ul">
 <li>評価関数の後付け（デフォルト OFF）</li>
@@ -1436,10 +1527,6 @@ AI の責務範囲を明示する。
 </ul>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:44</p>
 </div>
 </body>
 </html>

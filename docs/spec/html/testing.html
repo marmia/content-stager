@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:45 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,74 +198,79 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0774568">1. Testing（MVP）</a>
+<li><a href="#org000000a">1. Testing（MVP）</a>
 <ul>
-<li><a href="#orgd7dc811">1.1. 対象</a></li>
-<li><a href="#org398a795">1.2. 前提</a></li>
-<li><a href="#org12eb205">1.3. 受け入れ条件（最小）</a></li>
-<li><a href="#org8e9ea65">1.4. テスト観点</a>
+<li><a href="#org0000000">1.1. 対象</a></li>
+<li><a href="#org0000001">1.2. 前提</a></li>
+<li><a href="#org0000002">1.3. 受け入れ条件（最小）</a></li>
+<li><a href="#org0000008">1.4. テスト観点</a>
 <ul>
-<li><a href="#org643a71e">1.4.1. CLI/引数</a></li>
-<li><a href="#org041063e">1.4.2. 依存/環境</a></li>
-<li><a href="#orge065a39">1.4.3. 本文取得</a></li>
-<li><a href="#orgf03641f">1.4.4. Topic抽出</a></li>
-<li><a href="#orgced130d">1.4.5. ガードレール</a></li>
+<li><a href="#org0000003">1.4.1. CLI/引数</a></li>
+<li><a href="#org0000004">1.4.2. 依存/環境</a></li>
+<li><a href="#org0000005">1.4.3. 本文取得</a></li>
+<li><a href="#org0000006">1.4.4. Topic抽出</a></li>
+<li><a href="#org0000007">1.4.5. ガードレール</a></li>
 </ul>
 </li>
-<li><a href="#org319b31a">1.5. スモークテスト手順（手動）</a></li>
+<li><a href="#org0000009">1.5. スモークテスト手順（手動）</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org0774568" class="outline-2">
-<h2 id="org0774568"><span class="section-number-2">1.</span> Testing（MVP）</h2>
+<div id="outline-container-org000000a" class="outline-2">
+<h2 id="org000000a"><span class="section-number-2">1.</span> Testing（MVP）</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-このドキュメントは、MVPにおける `ingest<sub>url</sub>` 周辺のテスト観点と受け入れ条件を定義する。目的は「壊れないこと」と「ガードレール（評価しない/一覧しない）が守られていること」の確認。
+このドキュメントは、MVPにおける `ingest_url` 周辺のテスト観点と受け入れ条件を定義する。
+目的は「壊れないこと」と「ガードレール（評価しない/一覧しない）が守られていること」の確認。
 </p>
 </div>
-<div id="outline-container-orgd7dc811" class="outline-3">
-<h3 id="orgd7dc811"><span class="section-number-3">1.1.</span> 対象</h3>
+
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 対象</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
-<li>`ingest<sub>url</sub>`（CLI契約: `spec/cli.org`）</li>
-<li>`list<sub>shelves</sub>`（CLI契約: `spec/cli.org` / `spec/commands.org`）</li>
+<li>`ingest_url`（CLI契約: `spec/cli.org`）</li>
+<li>`list_shelves`（CLI契約: `spec/cli.org` / `spec/commands.org`）</li>
 <li>本文取得（agent-browser）とトリミング（`skills/ingest-url/scripts/*.sh`）</li>
 <li>SQLite永続化（`spec/data-model.org` のDDL）</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org398a795" class="outline-3">
-<h3 id="org398a795"><span class="section-number-3">1.2.</span> 前提</h3>
+
+<div id="outline-container-org0000001" class="outline-3">
+<h3 id="org0000001"><span class="section-number-3">1.2.</span> 前提</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>入力はURLのみ（ドメイン制限なし）</li>
 <li>同一URLは別Contentとして追加される</li>
-<li>本文（article<sub>text</sub>）は保存される</li>
-<li>Topic抽出はコーディングエージェント（Codex）が実装し、`ingest<sub>url</sub>`内で実行される</li>
+<li>本文（article_text）は保存される</li>
+<li>Topic抽出はコーディングエージェント（Codex）が実装し、`ingest_url`内で実行される</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org12eb205" class="outline-3">
-<h3 id="org12eb205"><span class="section-number-3">1.3.</span> 受け入れ条件（最小）</h3>
+
+<div id="outline-container-org0000002" class="outline-3">
+<h3 id="org0000002"><span class="section-number-3">1.3.</span> 受け入れ条件（最小）</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>stdoutが「1 URL = 1行」を維持する（人間向けテキスト）。</li>
 <li>1つでも `NG` がある場合、終了コードは `1`（部分失敗）になる。</li>
 <li>必須コマンド不足時は `127` で落ちる（例: `agent-browser` / `jq`）。</li>
-<li>`page<sub>title</sub>` が40文字超のとき、表示タイトルは本文先頭側から短縮表示になる。</li>
+<li>`page_title` が40文字超のとき、表示タイトルは本文先頭側から短縮表示になる。</li>
 <li>AI/LLMの出力が揺れても、状態遷移が勝手に上に進まない（S3以上に自動昇格しない）。</li>
-<li>`list<sub>shelves</sub>` が決定的な順序で棚一覧を出す（`updated`降順→`shelf<sub>key</sub>`昇順）。</li>
+<li>`list_shelves` が決定的な順序で棚一覧を出す（`updated`降順→`shelf_key`昇順）。</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org8e9ea65" class="outline-3">
-<h3 id="org8e9ea65"><span class="section-number-3">1.4.</span> テスト観点</h3>
+
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008"><span class="section-number-3">1.4.</span> テスト観点</h3>
 <div class="outline-text-3" id="text-1-4">
 </div>
-<div id="outline-container-org643a71e" class="outline-4">
-<h4 id="org643a71e"><span class="section-number-4">1.4.1.</span> CLI/引数</h4>
+<div id="outline-container-org0000003" class="outline-4">
+<h4 id="org0000003"><span class="section-number-4">1.4.1.</span> CLI/引数</h4>
 <div class="outline-text-4" id="text-1-4-1">
 <ul class="org-ul">
 <li>単一URL引数で動く</li>
@@ -277,8 +280,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org041063e" class="outline-4">
-<h4 id="org041063e"><span class="section-number-4">1.4.2.</span> 依存/環境</h4>
+
+<div id="outline-container-org0000004" class="outline-4">
+<h4 id="org0000004"><span class="section-number-4">1.4.2.</span> 依存/環境</h4>
 <div class="outline-text-4" id="text-1-4-2">
 <ul class="org-ul">
 <li>`agent-browser` が無い → `127`</li>
@@ -287,30 +291,32 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orge065a39" class="outline-4">
-<h4 id="orge065a39"><span class="section-number-4">1.4.3.</span> 本文取得</h4>
+
+<div id="outline-container-org0000005" class="outline-4">
+<h4 id="org0000005"><span class="section-number-4">1.4.3.</span> 本文取得</h4>
 <div class="outline-text-4" id="text-1-4-3">
 <ul class="org-ul">
 <li>取得成功（ok）
 <ul class="org-ul">
-<li>`fetch<sub>runs.page</sub><sub>title</sub>` と `fetch<sub>runs.article</sub><sub>text</sub>` が保存される</li>
+<li>`fetch_runs.page_title` と `fetch_runs.article_text` が保存される</li>
 </ul></li>
 <li>取得失敗（failed）
 <ul class="org-ul">
-<li>`fetch<sub>runs.status</sub>=&rsquo;failed&rsquo;` と `error<sub>summary</sub>` が残る</li>
+<li>`fetch_runs.status='failed'` と `error_summary` が残る</li>
 <li>`contents.state` はS1のまま</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf03641f" class="outline-4">
-<h4 id="orgf03641f"><span class="section-number-4">1.4.4.</span> Topic抽出</h4>
+
+<div id="outline-container-org0000006" class="outline-4">
+<h4 id="org0000006"><span class="section-number-4">1.4.4.</span> Topic抽出</h4>
 <div class="outline-text-4" id="text-1-4-4">
 <ul class="org-ul">
 <li>正常（ok）
 <ul class="org-ul">
 <li>Topicが1件以上作られる</li>
-<li>`contents.state=&rsquo;S2&rsquo;` になる</li>
+<li>`contents.state='S2'` になる</li>
 </ul></li>
 <li>スキップ（skipped）
 <ul class="org-ul">
@@ -319,14 +325,15 @@
 </ul></li>
 <li>失敗（failed）
 <ul class="org-ul">
-<li>実装エラー/外部依存エラー → `topic<sub>runs.error</sub><sub>summary</sub>` が残る</li>
+<li>実装エラー/外部依存エラー → `topic_runs.error_summary` が残る</li>
 <li>`contents.state` はS1のまま（再実行可能）</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgced130d" class="outline-4">
-<h4 id="orgced130d"><span class="section-number-4">1.4.5.</span> ガードレール</h4>
+
+<div id="outline-container-org0000007" class="outline-4">
+<h4 id="org0000007"><span class="section-number-4">1.4.5.</span> ガードレール</h4>
 <div class="outline-text-4" id="text-1-4-5">
 <ul class="org-ul">
 <li>Topicに評価語（重要/必読/おすすめ等）を入れない</li>
@@ -336,8 +343,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org319b31a" class="outline-3">
-<h3 id="org319b31a"><span class="section-number-3">1.5.</span> スモークテスト手順（手動）</h3>
+
+<div id="outline-container-org0000009" class="outline-3">
+<h3 id="org0000009"><span class="section-number-3">1.5.</span> スモークテスト手順（手動）</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 以下は例であり、URLは適宜差し替えてよい。
@@ -349,7 +357,7 @@
 
 <p>
 ```bash
-ingest<sub>url</sub> &rsquo;https://www.sqlite.org/lang.html&rsquo;
+ingest_url 'https://www.sqlite.org/lang.html'
 ```
 </p>
 
@@ -359,11 +367,11 @@ ingest<sub>url</sub> &rsquo;https://www.sqlite.org/lang.html&rsquo;
 
 <p>
 ```bash
-cat &gt; /tmp/urls.txt &lt;&lt;&rsquo;EOF&rsquo;
+cat &gt; /tmp/urls.txt &lt;&lt;'EOF'
 <a href="https://www.sqlite.org/lang.html">https://www.sqlite.org/lang.html</a>
 <a href="https://en.wikipedia.org/wiki/SQLite">https://en.wikipedia.org/wiki/SQLite</a>
 EOF
-ingest<sub>url</sub> &#x2013;file /tmp/urls.txt
+ingest_url &#x2013;file /tmp/urls.txt
 ```
 </p>
 
@@ -377,10 +385,6 @@ ingest<sub>url</sub> &#x2013;file /tmp/urls.txt
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:45</p>
 </div>
 </body>
 </html>

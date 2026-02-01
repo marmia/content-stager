@@ -3,13 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2026-02-01 Sun 17:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="author" content="Masahiro Ishida" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
+<style>
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -200,33 +198,35 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org29c1d04">1. Shelves（棚）仕様（MVP）</a>
+<li><a href="#org0000008">1. Shelves（棚）仕様（MVP）</a>
 <ul>
-<li><a href="#org73c6f38">1.1. 目的</a></li>
-<li><a href="#org7fdc18d">1.2. ガードレール</a></li>
-<li><a href="#org0d1eaee">1.3. MVPのShelf定義（案）</a>
+<li><a href="#org0000000">1.1. 目的</a></li>
+<li><a href="#org0000001">1.2. ガードレール</a></li>
+<li><a href="#org0000003">1.3. MVPのShelf定義（案）</a>
 <ul>
-<li><a href="#org787d9ff">1.3.1. Shelf Type: host（ドメイン棚）</a></li>
+<li><a href="#org0000002">1.3.1. Shelf Type: host（ドメイン棚）</a></li>
 </ul>
 </li>
-<li><a href="#orgd33d0bb">1.4. 必要データ（SQLite）</a></li>
-<li><a href="#org544a506">1.5. Shelf一覧（観測窓）の最小出力（案）</a></li>
-<li><a href="#orge5d08fd">1.6. 実装メモ（クエリ例）</a></li>
-<li><a href="#org0bcd672">1.7. 将来拡張（Topic棚）</a></li>
+<li><a href="#org0000004">1.4. 必要データ（SQLite）</a></li>
+<li><a href="#org0000005">1.5. Shelf一覧（観測窓）の最小出力（案）</a></li>
+<li><a href="#org0000006">1.6. 実装メモ（クエリ例）</a></li>
+<li><a href="#org0000007">1.7. 将来拡張（Topic棚）</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org29c1d04" class="outline-2">
-<h2 id="org29c1d04"><span class="section-number-2">1.</span> Shelves（棚）仕様（MVP）</h2>
+<div id="outline-container-org0000008" class="outline-2">
+<h2 id="org0000008"><span class="section-number-2">1.</span> Shelves（棚）仕様（MVP）</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-このドキュメントは、S2（不可視）層の「存在の匂わせ」を実現するための Shelf を、実装に繋がる形で定義する。
+このドキュメントは、S2（不可視）層の「存在の匂わせ」を実現するための Shelf を、
+実装に繋がる形で定義する。
 </p>
 </div>
-<div id="outline-container-org73c6f38" class="outline-3">
-<h3 id="org73c6f38"><span class="section-number-3">1.1.</span> 目的</h3>
+
+<div id="outline-container-org0000000" class="outline-3">
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> 目的</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>S2のContent本文を一覧表示せずに、「最近こういう系がいくつかある」を観測できるようにする。</li>
@@ -234,48 +234,54 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org7fdc18d" class="outline-3">
-<h3 id="org7fdc18d"><span class="section-number-3">1.2.</span> ガードレール</h3>
+
+<div id="outline-container-org0000001" class="outline-3">
+<h3 id="org0000001"><span class="section-number-3">1.2.</span> ガードレール</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
-<li>Shelf一覧で本文（article<sub>text</sub>）や原文の全件一覧を出さない。</li>
+<li>Shelf一覧で本文（article_text）や原文の全件一覧を出さない。</li>
 <li>Shelfの順序は「重要度」ではなく、決定的な並び（例: 最終更新時刻降順→同率はキー昇順）にする。</li>
 <li>Shelf名に評価語（重要/必読/おすすめ等）を入れない。</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org0d1eaee" class="outline-3">
-<h3 id="org0d1eaee"><span class="section-number-3">1.3.</span> MVPのShelf定義（案）</h3>
+
+<div id="outline-container-org0000003" class="outline-3">
+<h3 id="org0000003"><span class="section-number-3">1.3.</span> MVPのShelf定義（案）</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-MVPでは、棚の動的クラスタリング（Topicベース）は後回しにし、まずは決定的で実装容易な「ホスト（ドメイン）棚」を採用する。これは `concepts.org` の「関連Topicを束ねる」という理想より粗いが、匂わせ層の最小実装として妥当。
+MVPでは、棚の動的クラスタリング（Topicベース）は後回しにし、まずは決定的で実装容易な「ホスト（ドメイン）棚」を採用する。
+これは `concepts.org` の「関連Topicを束ねる」という理想より粗いが、匂わせ層の最小実装として妥当。
 </p>
 </div>
-<div id="outline-container-org787d9ff" class="outline-4">
-<h4 id="org787d9ff"><span class="section-number-4">1.3.1.</span> Shelf Type: host（ドメイン棚）</h4>
+
+<div id="outline-container-org0000002" class="outline-4">
+<h4 id="org0000002"><span class="section-number-4">1.3.1.</span> Shelf Type: host（ドメイン棚）</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <ul class="org-ul">
-<li>Shelfキー: `url<sub>host</sub>`（例: `sqlite.org`, `x.com`）</li>
-<li>含まれるContent: `contents.url<sub>host</sub> <code>= &lt;key&gt;` かつ `contents.state =</code> &rsquo;S2&rsquo;`</li>
+<li>Shelfキー: `url_host`（例: `sqlite.org`, `x.com`）</li>
+<li>含まれるContent: `contents.url_host <code>= &lt;key&gt;` かつ `contents.state =</code> 'S2'`</li>
 <li>表示名: 通常は `key`（必要なら将来、手動エイリアスを追加）</li>
 </ul>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd33d0bb" class="outline-3">
-<h3 id="orgd33d0bb"><span class="section-number-3">1.4.</span> 必要データ（SQLite）</h3>
+
+<div id="outline-container-org0000004" class="outline-3">
+<h3 id="org0000004"><span class="section-number-3">1.4.</span> 必要データ（SQLite）</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
-<li>`contents.url<sub>host</sub>`（URLから抽出したホスト名、小文字）
+<li>`contents.url_host`（URLから抽出したホスト名、小文字）
 <ul class="org-ul">
-<li>`ingest<sub>url</sub>` 実行時に保存する（推奨）</li>
+<li>`ingest_url` 実行時に保存する（推奨）</li>
 <li>保存しない場合は、表示時にURLから毎回抽出してもよい（ただし実装は複雑化する）</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org544a506" class="outline-3">
-<h3 id="org544a506"><span class="section-number-3">1.5.</span> Shelf一覧（観測窓）の最小出力（案）</h3>
+
+<div id="outline-container-org0000005" class="outline-3">
+<h3 id="org0000005"><span class="section-number-3">1.5.</span> Shelf一覧（観測窓）の最小出力（案）</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 Shelf一覧は「棚ごとの集約情報」のみを出す。
@@ -284,9 +290,9 @@ Shelf一覧は「棚ごとの集約情報」のみを出す。
 <ul class="org-ul">
 <li>必須:
 <ul class="org-ul">
-<li>`shelf<sub>key</sub>`（host）</li>
+<li>`shelf_key`（host）</li>
 <li>`count`（S2の件数）</li>
-<li>`last<sub>updated</sub><sub>at</sub>`（その棚に属するS2 Contentの最新 `updated<sub>at</sub>`）</li>
+<li>`last_updated_at`（その棚に属するS2 Contentの最新 `updated_at`）</li>
 </ul></li>
 <li>任意:
 <ul class="org-ul">
@@ -308,24 +314,26 @@ x.com      | count= 3 | updated=2026-01-30T08:01:02Z
 </p>
 </div>
 </div>
-<div id="outline-container-orge5d08fd" class="outline-3">
-<h3 id="orge5d08fd"><span class="section-number-3">1.6.</span> 実装メモ（クエリ例）</h3>
+
+<div id="outline-container-org0000006" class="outline-3">
+<h3 id="org0000006"><span class="section-number-3">1.6.</span> 実装メモ（クエリ例）</h3>
 <div class="outline-text-3" id="text-1-6">
 <div class="org-src-container">
-<pre class="src src-sql"><span style="color: #80A0C2;">SELECT</span>
-  url_host <span style="color: #80A0C2;">AS</span> shelf_key,
-  <span style="color: #8EBCBB;">COUNT</span>(*) <span style="color: #80A0C2;">AS</span> <span style="color: #8EBCBB;">count</span>,
-  <span style="color: #8EBCBB;">MAX</span>(updated_at) <span style="color: #80A0C2;">AS</span> last_updated_at
-<span style="color: #80A0C2;">FROM</span> contents
-<span style="color: #80A0C2;">WHERE</span> <span style="color: #80A0C2;">state</span> = <span style="color: #A2BF8A;">'S2'</span>
-<span style="color: #80A0C2;">GROUP</span> <span style="color: #80A0C2;">BY</span> url_host
-<span style="color: #80A0C2;">ORDER</span> <span style="color: #80A0C2;">BY</span> last_updated_at <span style="color: #80A0C2;">DESC</span>, shelf_key <span style="color: #80A0C2;">ASC</span>;
+<pre class="src src-sql">SELECT
+  url_host AS shelf_key,
+  COUNT(*) AS count,
+  MAX(updated_at) AS last_updated_at
+FROM contents
+WHERE state = 'S2'
+GROUP BY url_host
+ORDER BY last_updated_at DESC, shelf_key ASC;
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org0bcd672" class="outline-3">
-<h3 id="org0bcd672"><span class="section-number-3">1.7.</span> 将来拡張（Topic棚）</h3>
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">1.7.</span> 将来拡張（Topic棚）</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 将来的に `Topic` ベースで棚を形成する場合は、以下を検討する。
@@ -347,10 +355,6 @@ x.com      | count= 3 | updated=2026-01-30T08:01:02Z
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Masahiro Ishida</p>
-<p class="date">Created: 2026-02-01 Sun 17:43</p>
 </div>
 </body>
 </html>

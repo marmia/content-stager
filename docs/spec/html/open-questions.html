@@ -198,100 +198,128 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0000006">1. Scoped Reveal（限定可視）仕様（MVP+）</a>
+<li><a href="#org0000009">1. Open Questions</a>
 <ul>
-<li><a href="#org0000000">1.1. 原則（concepts.org準拠）</a></li>
-<li><a href="#org0000001">1.2. MVP+ で提供したい最小の可視化</a></li>
-<li><a href="#org0000004">1.3. 操作（コマンド案）</a>
-<ul>
-<li><a href="#org0000002">1.3.1. reveal_shelf（案）</a></li>
-<li><a href="#org0000003">1.3.2. reveal_content（案）</a></li>
-</ul>
-</li>
-<li><a href="#org0000005">1.4. 補足</a></li>
+<li><a href="#org0000000">1.1. ストレージ</a></li>
+<li><a href="#org0000001">1.2. 実行モデル</a></li>
+<li><a href="#org0000002">1.3. 失敗時の状態</a></li>
+<li><a href="#org0000003">1.4. 同一URLの扱い（差分/集約）</a></li>
+<li><a href="#org0000004">1.5. Signals / Issues</a></li>
+<li><a href="#org0000005">1.6. 意図ラベル（Topic）</a></li>
+<li><a href="#org0000006">1.7. 表示（タイトル短縮）</a></li>
+<li><a href="#org0000007">1.8. UIの形</a></li>
+<li><a href="#org0000008">1.9. Shelves / Recall（匂わせ）</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org0000006" class="outline-2">
-<h2 id="org0000006"><span class="section-number-2">1.</span> Scoped Reveal（限定可視）仕様（MVP+）</h2>
+<div id="outline-container-org0000009" class="outline-2">
+<h2 id="org0000009"><span class="section-number-2">1.</span> Open Questions</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-このドキュメントは、S2（不可視）層の内容に対して、ユーザーの明示的意図に基づき一時的に可視化する仕組みを定義する。
-MVPでは「棚一覧（匂わせ）」までで止めてもよいが、意図ラベル付与やFocus Topic化の前段として必要になる。
+MVP実装に入る前に、確定が必要な論点。
 </p>
 </div>
 
 <div id="outline-container-org0000000" class="outline-3">
-<h3 id="org0000000"><span class="section-number-3">1.1.</span> 原則（concepts.org準拠）</h3>
+<h3 id="org0000000"><span class="section-number-3">1.1.</span> ストレージ</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
-<li>Scoped Revealはユーザーの明示的意図でのみ起動する（常設ビューにしない）</li>
-<li>S2の“全件一覧”を常時提示しない</li>
-<li>Scoped Reveal自体は状態を変えない（S2→S3等の遷移は別操作）</li>
+<li>SQLite採用は決定済み（decisions.org参照）</li>
+<li>データの暗号化要否（ローカル前提でも）</li>
+<li>バックアップ/移行の方針</li>
+<li>本文（article_text）は永続化する（decisions.org参照）
+<ul class="org-ul">
+<li>サイズ上限/圧縮/保持期間/削除の扱い</li>
+</ul></li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-org0000001" class="outline-3">
-<h3 id="org0000001"><span class="section-number-3">1.2.</span> MVP+ で提供したい最小の可視化</h3>
+<h3 id="org0000001"><span class="section-number-3">1.2.</span> 実行モデル</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
-<li>Shelf（host棚）を指定して、その棚に属するS2 Contentを「候補」として列挙できる</li>
-<li>Contentを指定して、そのContentのTopic一覧を列挙できる</li>
+<li>手動実行は決定済み（decisions.org参照）</li>
+<li>将来、自動実行（cron/queue）を導入するか</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0000002" class="outline-3">
+<h3 id="org0000002"><span class="section-number-3">1.3.</span> 失敗時の状態</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>リトライ回数/間隔、エラーの保持期間</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0000003" class="outline-3">
+<h3 id="org0000003"><span class="section-number-3">1.4.</span> 同一URLの扱い（差分/集約）</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>同一URLの複数Contentをグルーピングするか（canonical URL / 正規化）</li>
+<li>差分（Diff）を取って「差分だけ保存」するか、常に全文スナップショットを保存するか</li>
+<li>差分を取る場合の基準（本文ハッシュ、タイトル、セクション単位など）</li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-org0000004" class="outline-3">
-<h3 id="org0000004"><span class="section-number-3">1.3.</span> 操作（コマンド案）</h3>
-<div class="outline-text-3" id="text-1-3">
-</div>
-<div id="outline-container-org0000002" class="outline-4">
-<h4 id="org0000002"><span class="section-number-4">1.3.1.</span> reveal_shelf（案）</h4>
-<div class="outline-text-4" id="text-1-3-1">
+<h3 id="org0000004"><span class="section-number-3">1.5.</span> Signals / Issues</h3>
+<div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
-<li>目的: 指定棚のS2 Contentを列挙する（本文は出さない）</li>
-<li>入力（案）:
-<ul class="org-ul">
-<li>`&#x2013;host &lt;url_host&gt;`（必須）</li>
-<li>`&#x2013;limit &lt;n&gt;`（任意）</li>
-<li>`&#x2013;db &lt;path&gt;`（任意）</li>
-</ul></li>
-<li>出力（例）:
-<ul class="org-ul">
-<li>`content_id | display_title | updated_at | url`</li>
-</ul></li>
+<li>`has_signal_*` はTopicの候補フラグとして扱うが、「成立」（ユーザー文脈との一致/承認）をどこでどう扱うか</li>
+<li>Issue/Signalの判定根拠（reason）を保存するか（保存するなら形式: TEXT/JSON）</li>
+<li>「空ではないが本文として無効」な取得結果（例: ローディング画面、Cloudflare待機、ログイン誘導のみ）はMVPでは扱わない（再取得で運用）</li>
 </ul>
-</div>
-</div>
-
-<div id="outline-container-org0000003" class="outline-4">
-<h4 id="org0000003"><span class="section-number-4">1.3.2.</span> reveal_content（案）</h4>
-<div class="outline-text-4" id="text-1-3-2">
-<ul class="org-ul">
-<li>目的: 指定ContentのTopicを列挙する（ラベル付与の起点）</li>
-<li>入力（案）:
-<ul class="org-ul">
-<li>`&#x2013;content &lt;content_id&gt;`（必須）</li>
-<li>`&#x2013;db &lt;path&gt;`（任意）</li>
-</ul></li>
-<li>出力（例）:
-<ul class="org-ul">
-<li>`topic_id | ordinal | text | signals(deadline/dependency/irreversible/safety)`</li>
-</ul></li>
-</ul>
-</div>
 </div>
 </div>
 
 <div id="outline-container-org0000005" class="outline-3">
-<h3 id="org0000005"><span class="section-number-3">1.4.</span> 補足</h3>
-<div class="outline-text-3" id="text-1-4">
+<h3 id="org0000005"><span class="section-number-3">1.6.</span> 意図ラベル（Topic）</h3>
+<div class="outline-text-3" id="text-1-6">
 <ul class="org-ul">
-<li>`display_title` のルールは `spec/ingest_url.org` に従う（40文字超は本文先頭から短縮）。</li>
-<li>Topicの強シグナル候補は `topics.has_signal_*` を表示してよい（ただし価値判断語は禁止）。</li>
+<li>MVPのデフォルト（assumed）:
+<ul class="org-ul">
+<li>自由記述</li>
+<li>1 Topicに複数ラベル可（topic-labeling.org参照）</li>
+</ul></li>
+<li>固定語彙（プリセット）を導入するか</li>
+<li>ラベルの入力タイミング（Scoped Reveal中のみ等）と、想起/匂わせへの反映方法</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0000006" class="outline-3">
+<h3 id="org0000006"><span class="section-number-3">1.7.</span> 表示（タイトル短縮）</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>閾値（文字数）は40文字に決定済み（decisions.org参照）</li>
+<li>「30文字」の数え方（Unicode code point / grapheme cluster など）</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0000007" class="outline-3">
+<h3 id="org0000007"><span class="section-number-3">1.8.</span> UIの形</h3>
+<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li>MVPはCLI（`ingest_url`）を前提にする（cli.org参照）</li>
+<li>S2の「匂わせ」の具体表現（棚一覧の最小情報）</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0000008" class="outline-3">
+<h3 id="org0000008"><span class="section-number-3">1.9.</span> Shelves / Recall（匂わせ）</h3>
+<div class="outline-text-3" id="text-1-9">
+<ul class="org-ul">
+<li>MVPではhost棚（url_host）で開始する（shelves.org）。Topic棚を導入するタイミング</li>
+<li>Shelfの表示順（時刻降順のタイブレークなど）をどう統一するか</li>
+<li>Recall（定期提示）を導入するか（週次など）。導入するなら頻度と表現</li>
 </ul>
 </div>
 </div>
