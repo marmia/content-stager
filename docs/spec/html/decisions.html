@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-02-01 Sun 18:17 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Masahiro Ishida" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgbdadd7d">1. Decisions</a>
+<ul>
+<li><a href="#orgca7d33c">1.1. 2026-01-31: MVPの入力はURLのみ</a></li>
+<li><a href="#org16939fe">1.2. 2026-01-31: 本文取得は既存Skillの実装（agent-browser）を流用</a></li>
+<li><a href="#org8dfb072">1.3. 2026-01-31: S1→S2更新は手動実行</a></li>
+<li><a href="#orgb54b8fd">1.4. 2026-01-31: ストレージはSQLite</a></li>
+<li><a href="#org430fcf0">1.5. 2026-01-31: 本文の「不完全さ」はTopic抽出可否で吸収</a></li>
+<li><a href="#orgbb270d4">1.6. 2026-01-31: 同一URLの再取得は「別Content」として追加する</a></li>
+<li><a href="#org474c676">1.7. 2026-01-31: 抽出した本文テキスト（article<sub>text</sub>）を保存する</a></li>
+<li><a href="#org1a63023">1.8. 2026-01-31: Skill名は ingest<sub>url</sub></a></li>
+<li><a href="#orge3762ec">1.9. 2026-01-31: MVPのUIはCLI（ingest<sub>url</sub>）</a></li>
+<li><a href="#orge05f852">1.10. 2026-01-31: MVPで list<sub>shelves</sub> を用意する</a></li>
+<li><a href="#org259fee0">1.11. 2026-01-31: MVPのSkill出力は人間向けテキストのみ</a></li>
+<li><a href="#orgd36e23c">1.12. 2026-01-31: タイトル短縮の閾値は40文字</a></li>
+<li><a href="#orgc639a9f">1.13. 2026-01-31: `contents` に `is<sub>*</sub>` を保持する</a></li>
+<li><a href="#orge09c525">1.14. 2026-01-31: `topics` に `has<sub>signal</sub><sub>*</sub>` を保持する（方針変更）</a></li>
+<li><a href="#org6d66c38">1.15. 2026-01-31: MVPでは強シグナルの「成立」を扱わない</a></li>
+<li><a href="#org2981dd8">1.16. 2026-01-31: 強シグナル検出の語彙リストはMVPで定義しない</a></li>
+<li><a href="#orgdb9a4d1">1.17. 2026-01-31: 複数URLの入力はファイルで渡す</a></li>
+<li><a href="#orgef14ebc">1.18. 2026-01-31: Topic抽出はコーディングエージェントが実施</a></li>
+<li><a href="#org9b49dd8">1.19. 2026-01-31: Agent Skillsは他のAgent Skillsを直接呼び出せない</a></li>
+<li><a href="#org44ce3a5">1.20. 2026-01-31: 意図ラベルはTopicに付与する</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbdadd7d" class="outline-2">
+<h2 id="orgbdadd7d"><span class="section-number-2">1.</span> Decisions</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+決定事項（ADR簡易ログ）。日付はローカル時間基準。
+</p>
+</div>
+<div id="outline-container-orgca7d33c" class="outline-3">
+<h3 id="orgca7d33c"><span class="section-number-3">1.1.</span> 2026-01-31: MVPの入力はURLのみ</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>入力対象: リンク（URL）だけ</li>
+<li>URLのドメイン制限: なし</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org16939fe" class="outline-3">
+<h3 id="org16939fe"><span class="section-number-3">1.2.</span> 2026-01-31: 本文取得は既存Skillの実装（agent-browser）を流用</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>既存Skills:
+<ul class="org-ul">
+<li>agent-browser-article（agent-browser CLI）</li>
+<li>web-reader-article（MCP web-reader）</li>
+</ul></li>
+<li>MVPでは agent-browser（CLI）による取得を採用する</li>
+<li>将来的に、両方を選択可能にする（プロバイダ切替）</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8dfb072" class="outline-3">
+<h3 id="org8dfb072"><span class="section-number-3">1.3.</span> 2026-01-31: S1→S2更新は手動実行</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>本文取得/構造化は、ユーザーが実行したタイミングで随時行う</li>
+<li>自動スケジューリング（cron/queue等）はMVPでは採用しない</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb54b8fd" class="outline-3">
+<h3 id="orgb54b8fd"><span class="section-number-3">1.4.</span> 2026-01-31: ストレージはSQLite</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>MVPの永続化ストレージはSQLiteを採用する</li>
+<li>既定のDBパスは `~/.local/share/content-stager/content-stager.sqlite3` とする（必要に応じて指定可能）</li>
+<li>`~/.local/share/content-stager/` が存在しない場合は自動作成する</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org430fcf0" class="outline-3">
+<h3 id="org430fcf0"><span class="section-number-3">1.5.</span> 2026-01-31: 本文の「不完全さ」はTopic抽出可否で吸収</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>fetch段階で partial のような強い分類を前提にしない</li>
+<li>取得した本文は可能な限りTopic分解を試みる</li>
+<li>本文が不完全で意味をなさない場合はTopicを抽出せず処理を終了し、S1に留めて再実行可能にする</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbb270d4" class="outline-3">
+<h3 id="orgbb270d4"><span class="section-number-3">1.6.</span> 2026-01-31: 同一URLの再取得は「別Content」として追加する</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>運用上、同じURLを再度取り込みたいケース（例: 製品Changelog）があり得る</li>
+<li>そのためURLの一意制約は設けず、同一URLでもCaptureのたびに新しいContentとして保存する</li>
+<li>同一URLのContent同士を「同じもの」とみなすかどうか（グルーピング/差分/集約）は後段の処理として扱う</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org474c676" class="outline-3">
+<h3 id="org474c676"><span class="section-number-3">1.7.</span> 2026-01-31: 抽出した本文テキスト（article<sub>text</sub>）を保存する</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>MVPでは、URLから抽出した本文テキストのスナップショットを永続化する</li>
+<li>目的:
+<ul class="org-ul">
+<li>取得不能/リンク切れになっても再現可能性を確保する</li>
+<li>後段のTopic再生成やデバッグを可能にする</li>
+</ul></li>
+<li>保存形式（圧縮/上限など）は別途検討する（open-questions.org参照）</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1a63023" class="outline-3">
+<h3 id="org1a63023"><span class="section-number-3">1.8.</span> 2026-01-31: Skill名は ingest<sub>url</sub></h3>
+<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li>URL取り込み〜Topic抽出〜保存までを一括で行う手動Skillは `ingest<sub>url</sub>` とする</li>
+<li>実行形態はCLI（対話式プロンプトなし）とする</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge3762ec" class="outline-3">
+<h3 id="orge3762ec"><span class="section-number-3">1.9.</span> 2026-01-31: MVPのUIはCLI（ingest<sub>url</sub>）</h3>
+<div class="outline-text-3" id="text-1-9">
+<ul class="org-ul">
+<li>MVPはまず `ingest<sub>url</sub>` をUI/操作面の中心として整備する</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge05f852" class="outline-3">
+<h3 id="orge05f852"><span class="section-number-3">1.10.</span> 2026-01-31: MVPで list<sub>shelves</sub> を用意する</h3>
+<div class="outline-text-3" id="text-1-10">
+<ul class="org-ul">
+<li>S2の観測窓として `list<sub>shelves</sub>` を用意する（host棚、本文は一覧しない）</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org259fee0" class="outline-3">
+<h3 id="org259fee0"><span class="section-number-3">1.11.</span> 2026-01-31: MVPのSkill出力は人間向けテキストのみ</h3>
+<div class="outline-text-3" id="text-1-11">
+<ul class="org-ul">
+<li>MVP段階では、Skillの標準出力は人間が読む前提のテキストとする</li>
+<li>機械可読なJSON出力は将来の検討事項とする</li>
+<li>将来の一括処理を見据え、1 URL = 1行で結果を出す</li>
+<li>表示項目: タイトル（長すぎる場合は本文先頭から短縮）、取り込み結果（OK/NG）、URL</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd36e23c" class="outline-3">
+<h3 id="orgd36e23c"><span class="section-number-3">1.12.</span> 2026-01-31: タイトル短縮の閾値は40文字</h3>
+<div class="outline-text-3" id="text-1-12">
+<ul class="org-ul">
+<li>`page<sub>title</sub>` が40文字を超える場合は「長すぎる」とみなし短縮表示する</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc639a9f" class="outline-3">
+<h3 id="orgc639a9f"><span class="section-number-3">1.13.</span> 2026-01-31: `contents` に `is<sub>*</sub>` を保持する</h3>
+<div class="outline-text-3" id="text-1-13">
+<ul class="org-ul">
+<li>Issue判定（`is<sub>*</sub>`）は `contents` テーブルに保持する（最新状態として扱う）</li>
+<li><p>
+理由:
+</p>
+<ul class="org-ul">
+<li>Content単位の「扱いづらさ」（重複/文脈欠落/リンク切れ）を入口で把握できると運用が楽なため</li>
+</ul>
+<ul class="org-ul">
+<li>MVPでは `is<sub>context</sub><sub>missing</sub>` は「空のみ」を true とし、「空ではないが無効」は扱わない（signals-and-issues.org参照）</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge09c525" class="outline-3">
+<h3 id="orge09c525"><span class="section-number-3">1.14.</span> 2026-01-31: `topics` に `has<sub>signal</sub><sub>*</sub>` を保持する（方針変更）</h3>
+<div class="outline-text-3" id="text-1-14">
+<ul class="org-ul">
+<li>強シグナル候補（`has<sub>signal</sub><sub>*</sub>`）は `topics` テーブルに保持する</li>
+<li>理由:
+<ul class="org-ul">
+<li>ユーザーの関心単位はContent全体ではなくTopicであることが多いため</li>
+</ul></li>
+<li>備考:
+<ul class="org-ul">
+<li>`contents` 側の「強シグナル候補あり」は `topics` から集計して導出できる</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6d66c38" class="outline-3">
+<h3 id="org6d66c38"><span class="section-number-3">1.15.</span> 2026-01-31: MVPでは強シグナルの「成立」を扱わない</h3>
+<div class="outline-text-3" id="text-1-15">
+<ul class="org-ul">
+<li>MVPでは `has<sub>signal</sub><sub>*</sub>` は候補フラグとして保存するだけに留める</li>
+<li>ユーザー承認/文脈一致による「成立」やTask化はMVPの対象外とする</li>
+</ul>
+
+<p>
+補足:
+</p>
+<ul class="org-ul">
+<li>ここで「扱わない」とは「成立/Task化をしない」という意味であり、候補フラグ（`topics.has<sub>signal</sub><sub>*</sub>`）の検出・保存はMVPから行う。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2981dd8" class="outline-3">
+<h3 id="org2981dd8"><span class="section-number-3">1.16.</span> 2026-01-31: 強シグナル検出の語彙リストはMVPで定義しない</h3>
+<div class="outline-text-3" id="text-1-16">
+<ul class="org-ul">
+<li>MVPでは、強シグナル検出のための固定語彙（seed vocabulary）をドキュメントとして整備しない</li>
+<li>実装はLLMの指示（プロンプト）による候補判定を基本とする（揺れは許容し、状態遷移のトリガーにしない）</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgdb9a4d1" class="outline-3">
+<h3 id="orgdb9a4d1"><span class="section-number-3">1.17.</span> 2026-01-31: 複数URLの入力はファイルで渡す</h3>
+<div class="outline-text-3" id="text-1-17">
+<ul class="org-ul">
+<li>複数URLを一括処理する場合は、1行1URLのファイルを渡す</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgef14ebc" class="outline-3">
+<h3 id="orgef14ebc"><span class="section-number-3">1.18.</span> 2026-01-31: Topic抽出はコーディングエージェントが実施</h3>
+<div class="outline-text-3" id="text-1-18">
+<ul class="org-ul">
+<li>Topic抽出は、MVPではコーディングエージェント（Codex）が実施する想定とする</li>
+<li>実装方式（OpenAI API直叩き等）は別途ドキュメントで確定する（unverified）</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9b49dd8" class="outline-3">
+<h3 id="org9b49dd8"><span class="section-number-3">1.19.</span> 2026-01-31: Agent Skillsは他のAgent Skillsを直接呼び出せない</h3>
+<div class="outline-text-3" id="text-1-19">
+<ul class="org-ul">
+<li>そのため、本文取得は `agent-browser-article` Skill を呼び出すのではなく、同等のスクリプトを `ingest<sub>url</sub>` に内包して実行する</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org44ce3a5" class="outline-3">
+<h3 id="org44ce3a5"><span class="section-number-3">1.20.</span> 2026-01-31: 意図ラベルはTopicに付与する</h3>
+<div class="outline-text-3" id="text-1-20">
+<ul class="org-ul">
+<li>意図ラベルはContent全体ではなく、Topicに対して付与する</li>
+<li>理由:
+<ul class="org-ul">
+<li>ユーザーの関心はContentの一部分（論点）に向きやすい</li>
+</ul></li>
+<li>影響:
+<ul class="org-ul">
+<li>Capture時点での意図ラベル入力は必須としない（Topic抽出後に付与する）</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Masahiro Ishida</p>
+<p class="date">Created: 2026-02-01 Sun 18:17</p>
+</div>
+</body>
+</html>
